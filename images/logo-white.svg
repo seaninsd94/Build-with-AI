@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 60">
+  <!-- Replace this placeholder with your white logo -->
+  <rect width="300" height="60" fill="none"/>
+  <text x="10" y="38" font-family="Georgia, serif" font-size="28" font-weight="600" fill="#ffffff">Your Brand</text>
+  <text x="195" y="38" font-family="Georgia, serif" font-size="28" font-weight="600" font-style="italic" fill="rgba(255,255,255,0.8)">here</text>
+</svg>
