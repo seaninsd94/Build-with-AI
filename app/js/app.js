@@ -230,6 +230,35 @@
     doc.open();
     doc.write(html);
     doc.close();
+    // Intercept link clicks inside the preview to navigate within the app
+    interceptPreviewLinks(doc);
+  }
+
+  function interceptPreviewLinks(doc) {
+    var PAGE_MAP = {
+      'index.html': 'index',
+      'services.html': 'services',
+      'about.html': 'about',
+      'contact.html': 'contact'
+    };
+    doc.addEventListener('click', function (e) {
+      var link = e.target.closest('a');
+      if (!link) return;
+      var href = link.getAttribute('href');
+      if (!href) return;
+      // Extract the filename from the href
+      var filename = href.split('/').pop().split('#')[0].split('?')[0];
+      var page = PAGE_MAP[filename];
+      if (page) {
+        e.preventDefault();
+        currentPage = page;
+        // Update toolbar buttons
+        pageBtns.forEach(function (b) {
+          b.classList.toggle('active', b.getAttribute('data-page') === page);
+        });
+        renderPage();
+      }
+    });
   }
 
   // ===== Page switching =====
