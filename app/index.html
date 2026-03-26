@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Website Builder — Build with AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="app-header-inner">
+      <div class="app-logo">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <span>Website Builder</span>
+      </div>
+      <nav class="app-nav">
+        <a href="#builder" class="app-nav-link active">Builder</a>
+        <a href="#pricing" class="app-nav-link">Pricing</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <!-- BUILDER SECTION -->
+    <section id="builder" class="builder-section">
+      <div class="builder-layout">
+        <!-- SIDEBAR -->
+        <aside class="builder-sidebar">
+          <h2 class="sidebar-title">Customize Your Site</h2>
+
+          <!-- Business Details -->
+          <div class="panel">
+            <h3 class="panel-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Business Details
+            </h3>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label for="businessName">Business Name *</label>
+                <input type="text" id="businessName" placeholder="Acme Corp" required>
+              </div>
+              <div class="form-group full">
+                <label for="tagline">Tagline *</label>
+                <input type="text" id="tagline" placeholder="Building the future">
+              </div>
+              <div class="form-group full">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" placeholder="(555) 123-4567">
+              </div>
+              <div class="form-group full">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="hello@acme.com">
+              </div>
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" placeholder="San Diego">
+              </div>
+              <div class="form-group">
+                <label for="state">State</label>
+                <input type="text" id="state" placeholder="CA">
+              </div>
+              <div class="form-group full">
+                <label for="zip">ZIP</label>
+                <input type="text" id="zip" placeholder="92101">
+              </div>
+            </div>
+          </div>
+
+          <!-- Brand Colors -->
+          <div class="panel">
+            <h3 class="panel-title">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10c0 2-1 3.5-3 3.5h-2c-1.1 0-2 .9-2 2 0 .6.2 1.1.6 1.4.3.3.4.8.4 1.1 0 1.1-.9 2-2 2z"/></svg>
+              Brand Colors
+            </h3>
+            <div class="color-grid">
+              <div class="color-group">
+                <label>Primary Dark</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorPrimaryDark" value="#1a4d3e">
+                  <span class="color-hex" data-for="colorPrimaryDark">#1a4d3e</span>
+                </div>
+              </div>
+              <div class="color-group">
+                <label>Primary Medium</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorPrimaryMedium" value="#2d6a4f">
+                  <span class="color-hex" data-for="colorPrimaryMedium">#2d6a4f</span>
+                </div>
+              </div>
+              <div class="color-group">
+                <label>Primary Light</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorPrimaryLight" value="#40916c">
+                  <span class="color-hex" data-for="colorPrimaryLight">#40916c</span>
+                </div>
+              </div>
+              <div class="color-group">
+                <label>Accent Dark</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorAccentDark" value="#1a2a5e">
+                  <span class="color-hex" data-for="colorAccentDark">#1a2a5e</span>
+                </div>
+              </div>
+              <div class="color-group">
+                <label>Accent Medium</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorAccentMedium" value="#2541b2">
+                  <span class="color-hex" data-for="colorAccentMedium">#2541b2</span>
+                </div>
+              </div>
+              <div class="color-group">
+                <label>Accent Light</label>
+                <div class="color-input-wrap">
+                  <input type="color" id="colorAccentLight" value="#4169e1">
+                  <span class="color-hex" data-for="colorAccentLight">#4169e1</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="panel actions-panel">
+            <button id="previewBtn" class="btn btn-preview">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Preview Site
+            </button>
+            <button id="downloadBtn" class="btn btn-download" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Download ZIP
+            </button>
+          </div>
+        </aside>
+
+        <!-- PREVIEW -->
+        <div class="builder-preview">
+          <div class="preview-toolbar">
+            <div class="preview-dots"><span></span><span></span><span></span></div>
+            <div class="preview-pages">
+              <button class="preview-page-btn active" data-page="index">Home</button>
+              <button class="preview-page-btn" data-page="services">Services</button>
+              <button class="preview-page-btn" data-page="about">About</button>
+              <button class="preview-page-btn" data-page="contact">Contact</button>
+            </div>
+            <div class="preview-device-toggle">
+              <button class="device-btn active" data-device="desktop" title="Desktop">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </button>
+              <button class="device-btn" data-device="mobile" title="Mobile">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              </button>
+            </div>
+          </div>
+          <div class="preview-frame-wrap">
+            <div class="preview-empty" id="previewEmpty">
+              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <p>Fill in your business details and click <strong>Preview Site</strong></p>
+            </div>
+            <iframe id="previewFrame" class="preview-frame" sandbox="allow-same-origin" title="Website preview"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="pricing-section">
+      <div class="pricing-inner">
+        <div class="pricing-header">
+          <p class="pricing-label">PRICING</p>
+          <h2>Choose Your Plan</h2>
+          <p class="pricing-desc">Every plan includes the full website builder. Upgrade for premium support and features.</p>
+        </div>
+        <div class="pricing-grid">
+          <!-- Free -->
+          <div class="price-card">
+            <div class="price-card-header">
+              <h3>Free</h3>
+              <div class="price">$0</div>
+              <p class="price-period">forever</p>
+            </div>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>4-page responsive website</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Custom brand colors</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Download as ZIP</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Deploy anywhere</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Community support</li>
+            </ul>
+            <a href="#builder" class="btn btn-price">Get Started</a>
+          </div>
+          <!-- Pro Support -->
+          <div class="price-card featured">
+            <div class="price-badge">Most Popular</div>
+            <div class="price-card-header">
+              <h3>Pro Support</h3>
+              <div class="price">$29<span>/mo</span></div>
+              <p class="price-period">billed monthly</p>
+            </div>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Everything in Free</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Priority email support</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>1-on-1 setup call</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>SEO optimization guide</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Form integration help</li>
+            </ul>
+            <a href="#builder" class="btn btn-price btn-featured">Get Started</a>
+          </div>
+          <!-- Agency -->
+          <div class="price-card">
+            <div class="price-card-header">
+              <h3>Agency</h3>
+              <div class="price">$99<span>/mo</span></div>
+              <p class="price-period">billed monthly</p>
+            </div>
+            <ul class="price-features">
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Everything in Pro</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Unlimited client sites</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>White-label branding</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Dedicated account manager</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Custom template requests</li>
+              <li><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Phone &amp; Slack support</li>
+            </ul>
+            <a href="#builder" class="btn btn-price">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="app-footer">
+    <p>&copy; 2026 Website Builder. Built with AI.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="js/templates.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
