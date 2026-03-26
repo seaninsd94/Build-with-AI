@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+Show less
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{BUSINESS_NAME}} | {{TAGLINE}}</title>
+  <meta name="description" content="{{BUSINESS_NAME}} - {{TAGLINE}}. Serving {{CITY}}, {{STATE}} and surrounding areas.">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{BUSINESS_NAME}} | {{TAGLINE}}">
+  <meta property="og:description" content="{{BUSINESS_NAME}} - {{TAGLINE}}. Serving {{CITY}}, {{STATE}}.">
+  <meta property="og:url" content="https://www.example.com/">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">
+        <img src="images/logo.svg" alt="{{BUSINESS_NAME}}" style="height: 50px;">
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link active">Home</a></li>
+          <li><a href="pages/services.html" class="nav-link">Services</a></li>
+          <li><a href="pages/about.html" class="nav-link">About</a></li>
+          <li><a href="pages/contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="pages/contact.html" class="btn btn-primary nav-cta">Get Started</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <!-- HERO -->
+    <section class="hero">
+      <!-- Option A: Video background (uncomment and add your video) -->
+      <!-- <video class="hero-video" autoplay muted loop playsinline>
+        <source src="images/hero-video.mp4" type="video/mp4">
+      </video> -->
+      <!-- Option B: Image background -->
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=80" alt="Hero background" class="hero-background" width="1920" height="1080">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-subtitle">{{CITY}} &middot; {{STATE}}</p>
+        <h1 class="hero-title">Welcome to {{BUSINESS_NAME}}</h1>
+        <p class="hero-description">A brief, compelling description of what you do and why visitors should care. Keep it to 1-2 sentences.</p>
+        <div class="hero-buttons">
+          <a href="pages/services.html" class="btn btn-primary">View Services</a>
+          <a href="pages/contact.html" class="btn btn-outline-white">Contact Us</a>
+        </div>
+      </div>
+    </section>
+    <!-- STATS BAR -->
+    <section class="stats-bar">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-number">100+</span>
+            <span class="stat-label">Clients Served</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">5.0</span>
+            <span class="stat-label">Star Rating</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">10+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Satisfaction</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FEATURES -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">WHY CHOOSE US</p>
+          <h2 class="section-title">What Sets Us Apart</h2>
+          <p class="section-description">A short description of your unique value proposition.</p>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <h3>Feature One</h3>
+            <p>Describe your first key differentiator or service benefit.</p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3>Feature Two</h3>
+            <p>Describe your second key differentiator or service benefit.</p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h3>Feature Three</h3>
+            <p>Describe your third key differentiator or service benefit.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- IMAGE CARDS / PORTFOLIO -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">OUR WORK</p>
+          <h2 class="section-title">What We Offer</h2>
+        </div>
+        <div class="categories-grid">
+          <div class="category-card animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600&h=800&fit=crop&q=80" alt="Service category one" width="600" height="800" loading="lazy">
+            <div class="category-overlay">
+              <h3>Category One</h3>
+              <p>Brief description</p>
+            </div>
+          </div>
+          <div class="category-card animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&h=800&fit=crop&q=80" alt="Service category two" width="600" height="800" loading="lazy">
+            <div class="category-overlay">
+              <h3>Category Two</h3>
+              <p>Brief description</p>
+            </div>
+          </div>
+          <div class="category-card animate-on-scroll">
+            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=800&fit=crop&q=80" alt="Service category three" width="600" height="800" loading="lazy">
+            <div class="category-overlay">
+              <h3>Category Three</h3>
+              <p>Brief description</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">TESTIMONIALS</p>
+          <h2 class="section-title">What Our Clients Say</h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testimonial-text">"Add a real client testimonial here. Keep it specific and authentic."</p>
+            <p class="testimonial-author">Client Name</p>
+            <p class="testimonial-event">Service Used</p>
+          </div>
+          <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testimonial-text">"Another client testimonial. Focus on the outcome and experience."</p>
+            <p class="testimonial-author">Client Name</p>
+            <p class="testimonial-event">Service Used</p>
+          </div>
+          <div class="testimonial-card animate-on-scroll">
+            <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+            <p class="testimonial-text">"A third testimonial. Variety in length and detail keeps it authentic."</p>
+            <p class="testimonial-author">Client Name</p>
+            <p class="testimonial-event">Service Used</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Ready to Get Started?</h2>
+        <p>Contact us today for a free consultation.</p>
+        <a href="pages/contact.html" class="btn btn-outline-white">Contact Us</a>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="images/logo-white.svg" alt="{{BUSINESS_NAME}}" style="height: 40px;">
+          <p>A brief description of your business for the footer.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h4>Pages</h4>
+            <a href="index.html">Home</a>
+            <a href="pages/services.html">Services</a>
+            <a href="pages/about.html">About</a>
+            <a href="pages/contact.html">Contact</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <a href="tel:{{PHONE}}">{{PHONE}}</a>
+            <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+            <p>{{CITY}}, {{STATE}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 {{BUSINESS_NAME}}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
