@@ -32,91 +32,323 @@
         <aside class="builder-sidebar">
           <h2 class="sidebar-title">Customize Your Site</h2>
 
-          <!-- Business Details -->
-          <div class="panel">
-            <h3 class="panel-title">
+          <!-- SECTION 1: Business Details & Colors -->
+          <div class="panel collapsible open" data-panel="business">
+            <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Business Details
+              Business Info &amp; Colors
+              <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </h3>
-            <div class="form-grid">
-              <div class="form-group full">
-                <label for="businessName">Business Name *</label>
-                <input type="text" id="businessName" placeholder="Acme Corp" required>
+            <div class="panel-body">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="businessName">Business Name *</label>
+                  <input type="text" id="businessName" placeholder="Acme Corp">
+                </div>
+                <div class="form-group full">
+                  <label for="tagline">Tagline</label>
+                  <input type="text" id="tagline" placeholder="Building the future">
+                </div>
+                <div class="form-group full">
+                  <label for="phone">Phone</label>
+                  <input type="tel" id="phone" placeholder="(555) 123-4567">
+                </div>
+                <div class="form-group full">
+                  <label for="email">Email</label>
+                  <input type="email" id="email" placeholder="hello@acme.com">
+                </div>
+                <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="text" id="city" placeholder="San Diego">
+                </div>
+                <div class="form-group">
+                  <label for="state">State</label>
+                  <input type="text" id="state" placeholder="CA">
+                </div>
+                <div class="form-group full">
+                  <label for="zip">ZIP</label>
+                  <input type="text" id="zip" placeholder="92101">
+                </div>
+                <div class="form-group full">
+                  <label for="footerDescription">Footer Description</label>
+                  <input type="text" id="footerDescription" placeholder="A brief description of your business">
+                </div>
               </div>
-              <div class="form-group full">
-                <label for="tagline">Tagline *</label>
-                <input type="text" id="tagline" placeholder="Building the future">
-              </div>
-              <div class="form-group full">
-                <label for="phone">Phone</label>
-                <input type="tel" id="phone" placeholder="(555) 123-4567">
-              </div>
-              <div class="form-group full">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="hello@acme.com">
-              </div>
-              <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" placeholder="San Diego">
-              </div>
-              <div class="form-group">
-                <label for="state">State</label>
-                <input type="text" id="state" placeholder="CA">
-              </div>
-              <div class="form-group full">
-                <label for="zip">ZIP</label>
-                <input type="text" id="zip" placeholder="92101">
+              <div class="color-section">
+                <h4 class="sub-heading">Brand Colors</h4>
+                <div class="color-grid">
+                  <div class="color-group">
+                    <label>Primary Dark</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorPrimaryDark" value="#1a4d3e">
+                      <span class="color-hex" data-for="colorPrimaryDark">#1a4d3e</span>
+                    </div>
+                  </div>
+                  <div class="color-group">
+                    <label>Primary Medium</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorPrimaryMedium" value="#2d6a4f">
+                      <span class="color-hex" data-for="colorPrimaryMedium">#2d6a4f</span>
+                    </div>
+                  </div>
+                  <div class="color-group">
+                    <label>Primary Light</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorPrimaryLight" value="#40916c">
+                      <span class="color-hex" data-for="colorPrimaryLight">#40916c</span>
+                    </div>
+                  </div>
+                  <div class="color-group">
+                    <label>Accent Dark</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorAccentDark" value="#1a2a5e">
+                      <span class="color-hex" data-for="colorAccentDark">#1a2a5e</span>
+                    </div>
+                  </div>
+                  <div class="color-group">
+                    <label>Accent Medium</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorAccentMedium" value="#2541b2">
+                      <span class="color-hex" data-for="colorAccentMedium">#2541b2</span>
+                    </div>
+                  </div>
+                  <div class="color-group">
+                    <label>Accent Light</label>
+                    <div class="color-input-wrap">
+                      <input type="color" id="colorAccentLight" value="#4169e1">
+                      <span class="color-hex" data-for="colorAccentLight">#4169e1</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Brand Colors -->
-          <div class="panel">
-            <h3 class="panel-title">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 22C6.5 22 2 17.5 2 12S6.5 2 12 2s10 4.5 10 10c0 2-1 3.5-3 3.5h-2c-1.1 0-2 .9-2 2 0 .6.2 1.1.6 1.4.3.3.4.8.4 1.1 0 1.1-.9 2-2 2z"/></svg>
-              Brand Colors
+          <!-- SECTION 2: Home Page -->
+          <div class="panel collapsible" data-panel="home">
+            <h3 class="panel-title panel-toggle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              Home Page
+              <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </h3>
-            <div class="color-grid">
-              <div class="color-group">
-                <label>Primary Dark</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorPrimaryDark" value="#1a4d3e">
-                  <span class="color-hex" data-for="colorPrimaryDark">#1a4d3e</span>
+            <div class="panel-body">
+              <h4 class="sub-heading">Hero</h4>
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="heroDescription">Hero Description</label>
+                  <textarea id="heroDescription" rows="2" placeholder="A brief, compelling description of what you do"></textarea>
+                </div>
+                <div class="form-group full">
+                  <label for="heroImage">Hero Background Image URL</label>
+                  <input type="url" id="heroImage" placeholder="https://images.unsplash.com/...">
+                  <span class="field-hint">Paste any image URL (Unsplash, Pexels, your own)</span>
                 </div>
               </div>
-              <div class="color-group">
-                <label>Primary Medium</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorPrimaryMedium" value="#2d6a4f">
-                  <span class="color-hex" data-for="colorPrimaryMedium">#2d6a4f</span>
+              <h4 class="sub-heading">Features (3)</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="feature1Title">Feature 1 Title</label>
+                  <input type="text" id="feature1Title" placeholder="Feature One">
+                </div>
+                <div class="form-group">
+                  <label for="feature1Desc">Description</label>
+                  <input type="text" id="feature1Desc" placeholder="Describe this feature">
+                </div>
+                <div class="form-group">
+                  <label for="feature2Title">Feature 2 Title</label>
+                  <input type="text" id="feature2Title" placeholder="Feature Two">
+                </div>
+                <div class="form-group">
+                  <label for="feature2Desc">Description</label>
+                  <input type="text" id="feature2Desc" placeholder="Describe this feature">
+                </div>
+                <div class="form-group">
+                  <label for="feature3Title">Feature 3 Title</label>
+                  <input type="text" id="feature3Title" placeholder="Feature Three">
+                </div>
+                <div class="form-group">
+                  <label for="feature3Desc">Description</label>
+                  <input type="text" id="feature3Desc" placeholder="Describe this feature">
                 </div>
               </div>
-              <div class="color-group">
-                <label>Primary Light</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorPrimaryLight" value="#40916c">
-                  <span class="color-hex" data-for="colorPrimaryLight">#40916c</span>
+              <h4 class="sub-heading">Portfolio / Categories (3)</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="cat1Title">Category 1</label>
+                  <input type="text" id="cat1Title" placeholder="Category One">
+                </div>
+                <div class="form-group">
+                  <label for="cat1Image">Image URL</label>
+                  <input type="url" id="cat1Image" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                  <label for="cat2Title">Category 2</label>
+                  <input type="text" id="cat2Title" placeholder="Category Two">
+                </div>
+                <div class="form-group">
+                  <label for="cat2Image">Image URL</label>
+                  <input type="url" id="cat2Image" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                  <label for="cat3Title">Category 3</label>
+                  <input type="text" id="cat3Title" placeholder="Category Three">
+                </div>
+                <div class="form-group">
+                  <label for="cat3Image">Image URL</label>
+                  <input type="url" id="cat3Image" placeholder="https://...">
                 </div>
               </div>
-              <div class="color-group">
-                <label>Accent Dark</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorAccentDark" value="#1a2a5e">
-                  <span class="color-hex" data-for="colorAccentDark">#1a2a5e</span>
+              <h4 class="sub-heading">Testimonials (3)</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="test1Author">Name 1</label>
+                  <input type="text" id="test1Author" placeholder="Client Name">
+                </div>
+                <div class="form-group">
+                  <label for="test1Text">Quote 1</label>
+                  <input type="text" id="test1Text" placeholder="Their testimonial...">
+                </div>
+                <div class="form-group">
+                  <label for="test2Author">Name 2</label>
+                  <input type="text" id="test2Author" placeholder="Client Name">
+                </div>
+                <div class="form-group">
+                  <label for="test2Text">Quote 2</label>
+                  <input type="text" id="test2Text" placeholder="Their testimonial...">
+                </div>
+                <div class="form-group">
+                  <label for="test3Author">Name 3</label>
+                  <input type="text" id="test3Author" placeholder="Client Name">
+                </div>
+                <div class="form-group">
+                  <label for="test3Text">Quote 3</label>
+                  <input type="text" id="test3Text" placeholder="Their testimonial...">
                 </div>
               </div>
-              <div class="color-group">
-                <label>Accent Medium</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorAccentMedium" value="#2541b2">
-                  <span class="color-hex" data-for="colorAccentMedium">#2541b2</span>
+            </div>
+          </div>
+
+          <!-- SECTION 3: Services Page -->
+          <div class="panel collapsible" data-panel="services">
+            <h3 class="panel-title panel-toggle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+              Services Page
+              <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </h3>
+            <div class="panel-body">
+              <h4 class="sub-heading">Package 1</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="pkg1Name">Name</label>
+                  <input type="text" id="pkg1Name" placeholder="Essential Package">
+                </div>
+                <div class="form-group">
+                  <label for="pkg1Desc">Description</label>
+                  <input type="text" id="pkg1Desc" placeholder="Perfect for getting started">
+                </div>
+                <div class="form-group full">
+                  <label for="pkg1Features">Features (one per line)</label>
+                  <textarea id="pkg1Features" rows="3" placeholder="Core feature one&#10;Core feature two&#10;Core feature three"></textarea>
+                </div>
+                <div class="form-group full">
+                  <label for="pkg1Image">Image URL</label>
+                  <input type="url" id="pkg1Image" placeholder="https://...">
                 </div>
               </div>
-              <div class="color-group">
-                <label>Accent Light</label>
-                <div class="color-input-wrap">
-                  <input type="color" id="colorAccentLight" value="#4169e1">
-                  <span class="color-hex" data-for="colorAccentLight">#4169e1</span>
+              <h4 class="sub-heading">Package 2</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="pkg2Name">Name</label>
+                  <input type="text" id="pkg2Name" placeholder="Premium Package">
+                </div>
+                <div class="form-group">
+                  <label for="pkg2Desc">Description</label>
+                  <input type="text" id="pkg2Desc" placeholder="Our most popular option">
+                </div>
+                <div class="form-group full">
+                  <label for="pkg2Features">Features (one per line)</label>
+                  <textarea id="pkg2Features" rows="3" placeholder="Everything in Starter&#10;Premium feature one&#10;Premium feature two"></textarea>
+                </div>
+                <div class="form-group full">
+                  <label for="pkg2Image">Image URL</label>
+                  <input type="url" id="pkg2Image" placeholder="https://...">
+                </div>
+              </div>
+              <h4 class="sub-heading">Package 3</h4>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="pkg3Name">Name</label>
+                  <input type="text" id="pkg3Name" placeholder="Complete Package">
+                </div>
+                <div class="form-group">
+                  <label for="pkg3Desc">Description</label>
+                  <input type="text" id="pkg3Desc" placeholder="The full experience">
+                </div>
+                <div class="form-group full">
+                  <label for="pkg3Features">Features (one per line)</label>
+                  <textarea id="pkg3Features" rows="3" placeholder="Everything in Premium&#10;Custom feature one&#10;Dedicated support"></textarea>
+                </div>
+                <div class="form-group full">
+                  <label for="pkg3Image">Image URL</label>
+                  <input type="url" id="pkg3Image" placeholder="https://...">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 4: About Page -->
+          <div class="panel collapsible" data-panel="about">
+            <h3 class="panel-title panel-toggle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              About Page
+              <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </h3>
+            <div class="panel-body">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="aboutStory">Your Story</label>
+                  <textarea id="aboutStory" rows="4" placeholder="Tell your founding story here. What problem did you set out to solve?"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="value1Title">Value 1</label>
+                  <input type="text" id="value1Title" placeholder="Quality">
+                </div>
+                <div class="form-group">
+                  <label for="value1Desc">Description</label>
+                  <input type="text" id="value1Desc" placeholder="Describe this value">
+                </div>
+                <div class="form-group">
+                  <label for="value2Title">Value 2</label>
+                  <input type="text" id="value2Title" placeholder="Integrity">
+                </div>
+                <div class="form-group">
+                  <label for="value2Desc">Description</label>
+                  <input type="text" id="value2Desc" placeholder="Describe this value">
+                </div>
+                <div class="form-group">
+                  <label for="value3Title">Value 3</label>
+                  <input type="text" id="value3Title" placeholder="Excellence">
+                </div>
+                <div class="form-group">
+                  <label for="value3Desc">Description</label>
+                  <input type="text" id="value3Desc" placeholder="Describe this value">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 5: Contact Page -->
+          <div class="panel collapsible" data-panel="contact">
+            <h3 class="panel-title panel-toggle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              Contact Page
+              <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </h3>
+            <div class="panel-body">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="businessHours">Business Hours</label>
+                  <textarea id="businessHours" rows="3" placeholder="Mon - Fri: 9am - 5pm&#10;Sat: By Appointment&#10;Sun: Closed"></textarea>
                 </div>
               </div>
             </div>
@@ -174,7 +406,6 @@
           <p class="pricing-desc">Every plan includes the full website builder. Upgrade for premium support and features.</p>
         </div>
         <div class="pricing-grid">
-          <!-- Free -->
           <div class="price-card">
             <div class="price-card-header">
               <h3>Free</h3>
@@ -190,7 +421,6 @@
             </ul>
             <a href="#builder" class="btn btn-price">Get Started</a>
           </div>
-          <!-- Pro Support -->
           <div class="price-card featured">
             <div class="price-badge">Most Popular</div>
             <div class="price-card-header">
@@ -207,7 +437,6 @@
             </ul>
             <a href="#builder" class="btn btn-price btn-featured">Get Started</a>
           </div>
-          <!-- Agency -->
           <div class="price-card">
             <div class="price-card-header">
               <h3>Agency</h3>
@@ -229,7 +458,6 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
   <footer class="app-footer">
     <p>&copy; 2026 Website Builder. Built with AI.</p>
   </footer>

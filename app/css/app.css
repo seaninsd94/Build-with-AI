@@ -216,6 +216,41 @@ img { max-width: 100%; display: block; }
 .btn-download:hover:not(:disabled) { background: rgba(52,211,153,.2); }
 .actions-panel { background: transparent; border: none; padding: 0; }
 
+/* Collapsible panels */
+.collapsible .panel-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+.collapsible.open .panel-body { max-height: 3000px; }
+.panel-toggle { cursor: pointer; user-select: none; }
+.panel-toggle .chevron {
+  margin-left: auto; transition: transform .3s ease; flex-shrink: 0;
+}
+.collapsible.open .panel-toggle .chevron { transform: rotate(180deg); }
+.sub-heading {
+  font-size: .75rem; font-weight: 600; color: var(--text-dim);
+  text-transform: uppercase; letter-spacing: .5px;
+  margin: 16px 0 8px; padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.sub-heading:first-child { border-top: none; margin-top: 0; padding-top: 0; }
+.color-section { margin-top: 4px; }
+
+/* Textareas */
+.form-group textarea {
+  background: var(--bg-input); border: 1px solid var(--border);
+  border-radius: 6px; padding: 9px 12px; color: var(--text);
+  font-family: inherit; font-size: .88rem; resize: vertical;
+  transition: border-color var(--transition); width: 100%;
+}
+.form-group textarea:focus {
+  outline: none; border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(108,114,255,.15);
+}
+.form-group textarea::placeholder { color: var(--text-muted); }
+
+/* Field hints */
+.field-hint {
+  font-size: .7rem; color: var(--text-muted); margin-top: 2px;
+}
+
 /* ===== PREVIEW ===== */
 .builder-preview {
   display: flex;
