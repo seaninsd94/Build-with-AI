@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Website Builder — Build with AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,11 +10,10 @@
   <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-  <!-- HEADER -->
   <header class="app-header">
     <div class="app-header-inner">
       <div class="app-logo">
-        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
         <span>Website Builder</span>
       </div>
       <nav class="app-nav">
@@ -25,18 +24,17 @@
   </header>
 
   <main class="app-main">
-    <!-- BUILDER SECTION -->
     <section id="builder" class="builder-section">
       <div class="builder-layout">
         <!-- SIDEBAR -->
         <aside class="builder-sidebar">
           <h2 class="sidebar-title">Customize Your Site</h2>
 
-          <!-- SECTION 1: Business Details & Colors -->
+          <!-- 1. Business Info & Colors -->
           <div class="panel collapsible open" data-panel="business">
             <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-              Business Info &amp; Colors
+              Business Info
               <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </h3>
             <div class="panel-body">
@@ -47,13 +45,19 @@
                 </div>
                 <div class="form-group full">
                   <label for="tagline">Tagline</label>
-                  <input type="text" id="tagline" placeholder="Building the future">
+                  <div class="field-with-ai">
+                    <input type="text" id="tagline" placeholder="Building the future">
+                    <button type="button" class="btn-ai" data-ai-target="tagline" data-ai-prompt="tagline">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="phone">Phone</label>
                   <input type="tel" id="phone" placeholder="(555) 123-4567">
                 </div>
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="email">Email</label>
                   <input type="email" id="email" placeholder="hello@acme.com">
                 </div>
@@ -65,13 +69,19 @@
                   <label for="state">State</label>
                   <input type="text" id="state" placeholder="CA">
                 </div>
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="zip">ZIP</label>
                   <input type="text" id="zip" placeholder="92101">
                 </div>
                 <div class="form-group full">
                   <label for="footerDescription">Footer Description</label>
-                  <input type="text" id="footerDescription" placeholder="A brief description of your business">
+                  <div class="field-with-ai">
+                    <input type="text" id="footerDescription" placeholder="A brief description of your business">
+                    <button type="button" class="btn-ai" data-ai-target="footerDescription" data-ai-prompt="footer">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="color-section">
@@ -124,7 +134,7 @@
             </div>
           </div>
 
-          <!-- SECTION 2: Home Page -->
+          <!-- 2. Home Page -->
           <div class="panel collapsible" data-panel="home">
             <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -132,16 +142,31 @@
               <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </h3>
             <div class="panel-body">
-              <h4 class="sub-heading">Hero</h4>
+              <h4 class="sub-heading">Hero Section</h4>
               <div class="form-grid">
                 <div class="form-group full">
                   <label for="heroDescription">Hero Description</label>
-                  <textarea id="heroDescription" rows="2" placeholder="A brief, compelling description of what you do"></textarea>
+                  <div class="field-with-ai">
+                    <textarea id="heroDescription" rows="2" placeholder="What you do and why visitors should care"></textarea>
+                    <button type="button" class="btn-ai" data-ai-target="heroDescription" data-ai-prompt="hero">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
                 <div class="form-group full">
-                  <label for="heroImage">Hero Background Image URL</label>
-                  <input type="url" id="heroImage" placeholder="https://images.unsplash.com/...">
-                  <span class="field-hint">Paste any image URL (Unsplash, Pexels, your own)</span>
+                  <label>Hero Background Image</label>
+                  <div class="image-input-group" data-image-target="heroImage">
+                    <div class="image-input-row">
+                      <input type="url" id="heroImage" placeholder="Paste image URL...">
+                      <label class="btn-upload">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        Upload
+                        <input type="file" accept="image/*" data-upload-for="heroImage">
+                      </label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="heroImage" alt="Preview">
+                  </div>
                 </div>
               </div>
               <h4 class="sub-heading">Features (3)</h4>
@@ -173,29 +198,47 @@
               </div>
               <h4 class="sub-heading">Portfolio / Categories (3)</h4>
               <div class="form-grid">
-                <div class="form-group">
-                  <label for="cat1Title">Category 1</label>
+                <div class="form-group full">
+                  <label for="cat1Title">Category 1 Name</label>
                   <input type="text" id="cat1Title" placeholder="Category One">
                 </div>
-                <div class="form-group">
-                  <label for="cat1Image">Image URL</label>
-                  <input type="url" id="cat1Image" placeholder="https://...">
+                <div class="form-group full">
+                  <label>Category 1 Image</label>
+                  <div class="image-input-group" data-image-target="cat1Image">
+                    <div class="image-input-row">
+                      <input type="url" id="cat1Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="cat1Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="cat1Image" alt="Preview">
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="cat2Title">Category 2</label>
+                <div class="form-group full">
+                  <label for="cat2Title">Category 2 Name</label>
                   <input type="text" id="cat2Title" placeholder="Category Two">
                 </div>
-                <div class="form-group">
-                  <label for="cat2Image">Image URL</label>
-                  <input type="url" id="cat2Image" placeholder="https://...">
+                <div class="form-group full">
+                  <label>Category 2 Image</label>
+                  <div class="image-input-group" data-image-target="cat2Image">
+                    <div class="image-input-row">
+                      <input type="url" id="cat2Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="cat2Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="cat2Image" alt="Preview">
+                  </div>
                 </div>
-                <div class="form-group">
-                  <label for="cat3Title">Category 3</label>
+                <div class="form-group full">
+                  <label for="cat3Title">Category 3 Name</label>
                   <input type="text" id="cat3Title" placeholder="Category Three">
                 </div>
-                <div class="form-group">
-                  <label for="cat3Image">Image URL</label>
-                  <input type="url" id="cat3Image" placeholder="https://...">
+                <div class="form-group full">
+                  <label>Category 3 Image</label>
+                  <div class="image-input-group" data-image-target="cat3Image">
+                    <div class="image-input-row">
+                      <input type="url" id="cat3Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="cat3Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="cat3Image" alt="Preview">
+                  </div>
                 </div>
               </div>
               <h4 class="sub-heading">Testimonials (3)</h4>
@@ -228,7 +271,7 @@
             </div>
           </div>
 
-          <!-- SECTION 3: Services Page -->
+          <!-- 3. Services Page -->
           <div class="panel collapsible" data-panel="services">
             <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
@@ -248,11 +291,23 @@
                 </div>
                 <div class="form-group full">
                   <label for="pkg1Features">Features (one per line)</label>
-                  <textarea id="pkg1Features" rows="3" placeholder="Core feature one&#10;Core feature two&#10;Core feature three"></textarea>
+                  <div class="field-with-ai">
+                    <textarea id="pkg1Features" rows="3" placeholder="Core feature one&#10;Core feature two&#10;Basic support"></textarea>
+                    <button type="button" class="btn-ai" data-ai-target="pkg1Features" data-ai-prompt="pkg-features">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
                 <div class="form-group full">
-                  <label for="pkg1Image">Image URL</label>
-                  <input type="url" id="pkg1Image" placeholder="https://...">
+                  <label>Package 1 Image</label>
+                  <div class="image-input-group" data-image-target="pkg1Image">
+                    <div class="image-input-row">
+                      <input type="url" id="pkg1Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="pkg1Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="pkg1Image" alt="Preview">
+                  </div>
                 </div>
               </div>
               <h4 class="sub-heading">Package 2</h4>
@@ -267,11 +322,23 @@
                 </div>
                 <div class="form-group full">
                   <label for="pkg2Features">Features (one per line)</label>
-                  <textarea id="pkg2Features" rows="3" placeholder="Everything in Starter&#10;Premium feature one&#10;Premium feature two"></textarea>
+                  <div class="field-with-ai">
+                    <textarea id="pkg2Features" rows="3" placeholder="Everything in Starter&#10;Premium feature one&#10;Priority support"></textarea>
+                    <button type="button" class="btn-ai" data-ai-target="pkg2Features" data-ai-prompt="pkg-features">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
                 <div class="form-group full">
-                  <label for="pkg2Image">Image URL</label>
-                  <input type="url" id="pkg2Image" placeholder="https://...">
+                  <label>Package 2 Image</label>
+                  <div class="image-input-group" data-image-target="pkg2Image">
+                    <div class="image-input-row">
+                      <input type="url" id="pkg2Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="pkg2Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="pkg2Image" alt="Preview">
+                  </div>
                 </div>
               </div>
               <h4 class="sub-heading">Package 3</h4>
@@ -286,17 +353,29 @@
                 </div>
                 <div class="form-group full">
                   <label for="pkg3Features">Features (one per line)</label>
-                  <textarea id="pkg3Features" rows="3" placeholder="Everything in Premium&#10;Custom feature one&#10;Dedicated support"></textarea>
+                  <div class="field-with-ai">
+                    <textarea id="pkg3Features" rows="3" placeholder="Everything in Premium&#10;Custom feature one&#10;Dedicated support"></textarea>
+                    <button type="button" class="btn-ai" data-ai-target="pkg3Features" data-ai-prompt="pkg-features">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
                 <div class="form-group full">
-                  <label for="pkg3Image">Image URL</label>
-                  <input type="url" id="pkg3Image" placeholder="https://...">
+                  <label>Package 3 Image</label>
+                  <div class="image-input-group" data-image-target="pkg3Image">
+                    <div class="image-input-row">
+                      <input type="url" id="pkg3Image" placeholder="Paste URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="pkg3Image"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="pkg3Image" alt="Preview">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- SECTION 4: About Page -->
+          <!-- 4. About Page -->
           <div class="panel collapsible" data-panel="about">
             <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
@@ -307,7 +386,13 @@
               <div class="form-grid">
                 <div class="form-group full">
                   <label for="aboutStory">Your Story</label>
-                  <textarea id="aboutStory" rows="4" placeholder="Tell your founding story here. What problem did you set out to solve?"></textarea>
+                  <div class="field-with-ai">
+                    <textarea id="aboutStory" rows="4" placeholder="Tell your founding story..."></textarea>
+                    <button type="button" class="btn-ai" data-ai-target="aboutStory" data-ai-prompt="about">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                      AI
+                    </button>
+                  </div>
                 </div>
                 <div class="form-group">
                   <label for="value1Title">Value 1</label>
@@ -337,7 +422,7 @@
             </div>
           </div>
 
-          <!-- SECTION 5: Contact Page -->
+          <!-- 5. Contact Page -->
           <div class="panel collapsible" data-panel="contact">
             <h3 class="panel-title panel-toggle">
               <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -388,7 +473,7 @@
           </div>
           <div class="preview-frame-wrap">
             <div class="preview-empty" id="previewEmpty">
-              <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
               <p>Fill in your business details and click <strong>Preview Site</strong></p>
             </div>
             <iframe id="previewFrame" class="preview-frame" sandbox="allow-same-origin" title="Website preview"></iframe>
@@ -397,13 +482,13 @@
       </div>
     </section>
 
-    <!-- PRICING SECTION -->
+    <!-- PRICING -->
     <section id="pricing" class="pricing-section">
       <div class="pricing-inner">
         <div class="pricing-header">
           <p class="pricing-label">PRICING</p>
           <h2>Choose Your Plan</h2>
-          <p class="pricing-desc">Every plan includes the full website builder. Upgrade for premium support and features.</p>
+          <p class="pricing-desc">Every plan includes the full website builder. Upgrade for premium support.</p>
         </div>
         <div class="pricing-grid">
           <div class="price-card">
