@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+Show less
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | {{BUSINESS_NAME}}</title>
+  <meta name="description" content="Learn about {{BUSINESS_NAME}}. Our story, mission, and the team behind the business.">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../images/logo.svg" alt="{{BUSINESS_NAME}}" style="height: 50px;">
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="about.html" class="nav-link active">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary nav-cta">Get Started</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>About Us</h1>
+        <p>The story behind {{BUSINESS_NAME}}.</p>
+      </div>
+    </section>
+    <!-- OUR STORY -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">OUR STORY</p>
+          <h2 class="section-title">How We Got Here</h2>
+        </div>
+        <div style="max-width: 700px; margin: 0 auto; text-align: center;">
+          <p>Tell your founding story here. What problem did you set out to solve? What drives your passion for this work?</p>
+          <p>Keep it authentic and personal. Clients connect with real stories, not corporate speak.</p>
+          <p>You can add a team photo above this section by replacing the page-hero with a full-width image.</p>
+        </div>
+      </div>
+    </section>
+    <!-- VALUES -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">OUR VALUES</p>
+          <h2 class="section-title">What We Believe</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <h3>Value One</h3>
+            <p>Describe a core value that guides your business.</p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            </div>
+            <h3>Value Two</h3>
+            <p>Describe another core value that sets you apart.</p>
+          </div>
+          <div class="feature-card animate-on-scroll">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <h3>Value Three</h3>
+            <p>A third value that resonates with your clients.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="container">
+        <h2>Let's Work Together</h2>
+        <p>We'd love to hear about your project.</p>
+        <a href="contact.html" class="btn btn-outline-white">Contact Us</a>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="../images/logo-white.svg" alt="{{BUSINESS_NAME}}" style="height: 40px;">
+          <p>A brief description of your business for the footer.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h4>Pages</h4>
+            <a href="../index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <a href="tel:{{PHONE}}">{{PHONE}}</a>
+            <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+            <p>{{CITY}}, {{STATE}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 {{BUSINESS_NAME}}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
+Bash
+cat /home/user/Build-with-AI/pages/contact.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
