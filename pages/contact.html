@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+Show less
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | {{BUSINESS_NAME}}</title>
+  <meta name="description" content="Get in touch with {{BUSINESS_NAME}}. Request a quote or ask us a question.">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../images/logo.svg" alt="{{BUSINESS_NAME}}" style="height: 50px;">
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link active">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary nav-cta">Get Started</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you.</p>
+      </div>
+    </section>
+    <!-- CONTACT FORM + INFO -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+          <!-- Contact Info Sidebar -->
+          <div>
+            <h2 style="margin-bottom: var(--space-md);">Get In Touch</h2>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <div>
+                <h4>Phone</h4>
+                <a href="tel:{{PHONE}}">{{PHONE}}</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </div>
+              <div>
+                <h4>Email</h4>
+                <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <h4>Location</h4>
+                <p>{{CITY}}, {{STATE}} {{ZIP}}</p>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <div class="contact-icon">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <div>
+                <h4>Hours</h4>
+                <p>Mon - Fri: 9am - 5pm<br>Sat: By Appointment<br>Sun: Closed</p>
+              </div>
+            </div>
+          </div>
+          <!-- Contact Form -->
+          <div>
+            <h2 style="margin-bottom: var(--space-md);">Send Us a Message</h2>
+            <!-- To receive submissions, add action="https://formspree.io/f/YOUR_ID" method="POST" -->
+            <!-- Or add data-netlify="true" if hosting on Netlify -->
+            <form class="contact-form" name="contact" method="POST">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name" class="form-label">Full Name *</label>
+                  <input type="text" id="name" name="name" class="form-input" required>
+                </div>
+                <div class="form-group">
+                  <label for="email" class="form-label">Email *</label>
+                  <input type="email" id="email" name="email" class="form-input" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" id="phone" name="phone" class="form-input">
+                </div>
+                <div class="form-group">
+                  <label for="service" class="form-label">Interested In</label>
+                  <select id="service" name="service" class="form-select">
+                    <option value="">Select a service...</option>
+                    <option value="essential">Essential Package</option>
+                    <option value="premium">Premium Package</option>
+                    <option value="complete">Complete Package</option>
+                    <option value="custom">Custom / Not Sure</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="message" class="form-label">Message *</label>
+                <textarea id="message" name="message" class="form-textarea" required placeholder="Tell us about your project..."></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- FAQ -->
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-subtitle">FAQ</p>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+          <div class="faq-item">
+            <h4 class="faq-question">
+              How do I get started?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </h4>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>Fill out the contact form above or call us directly. We'll schedule a free consultation to discuss your needs and recommend the best approach.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-question">
+              What are your prices?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </h4>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>Pricing varies based on your specific needs. Contact us for a personalized quote. We offer packages at various price points to fit different budgets.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-question">
+              What is your service area?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </h4>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>We serve {{CITY}} and the surrounding areas. Contact us to confirm we cover your location.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-question">
+              How far in advance should I book?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </h4>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>We recommend booking as early as possible, especially during peak season. However, we can sometimes accommodate last-minute requests.</p>
+              </div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h4 class="faq-question">
+              What is your cancellation policy?
+              <span class="faq-icon"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></span>
+            </h4>
+            <div class="faq-answer">
+              <div class="faq-answer-content">
+                <p>We understand plans change. Please contact us for our full cancellation and rescheduling policy. We strive to be as flexible as possible.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="../images/logo-white.svg" alt="{{BUSINESS_NAME}}" style="height: 40px;">
+          <p>A brief description of your business for the footer.</p>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h4>Pages</h4>
+            <a href="../index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <a href="tel:{{PHONE}}">{{PHONE}}</a>
+            <a href="mailto:{{EMAIL}}">{{EMAIL}}</a>
+            <p>{{CITY}}, {{STATE}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 {{BUSINESS_NAME}}. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../js/main.js"></script>
+</body>
+</html>
