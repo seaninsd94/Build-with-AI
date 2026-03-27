@@ -19,10 +19,45 @@
   var fileInputs   = document.querySelectorAll('input[type="file"]');
   var urlInputs    = document.querySelectorAll('.image-input-row input[type="url"]');
 
+  var scanBtn      = document.getElementById('scanBtn');
+  var scanUrlInput  = document.getElementById('scanUrl');
+  var scanStatus    = document.getElementById('scanStatus');
+  var themeBtns     = document.querySelectorAll('.theme-card');
+  var customPanel   = document.getElementById('customThemePanel');
+  var signupModal   = document.getElementById('signupModal');
+  var signupSubmit  = document.getElementById('signupSubmit');
+  var signupCancel  = document.getElementById('signupCancel');
+
   var currentPage = 'index';
   var generatedFiles = null;
   var templatesLoaded = false;
   var uploadedImages = {}; // id -> data URI
+  var currentTheme = 'classic';
+  var userProfile = JSON.parse(localStorage.getItem('wb_profile') || 'null');
+
+  // ===== Theme definitions =====
+  var THEMES = {
+    classic: {
+      label: 'Classic',
+      displayFont: "'Playfair Display', Georgia, serif",
+      bodyFont: "'Montserrat', 'Segoe UI', sans-serif",
+      colors: { primaryDark: '#1a4d3e', primaryMedium: '#2d6a4f', primaryLight: '#40916c', accentDark: '#1a2a5e', accentMedium: '#2541b2', accentLight: '#4169e1' }
+    },
+    modern: {
+      label: 'Modern',
+      displayFont: "'Inter', 'Segoe UI', sans-serif",
+      bodyFont: "'Poppins', 'Segoe UI', sans-serif",
+      googleFonts: 'Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700',
+      colors: { primaryDark: '#0f172a', primaryMedium: '#1e40af', primaryLight: '#3b82f6', accentDark: '#9a3412', accentMedium: '#f97316', accentLight: '#fb923c' }
+    },
+    elegant: {
+      label: 'Elegant',
+      displayFont: "'Cormorant Garamond', Georgia, serif",
+      bodyFont: "'Raleway', 'Segoe UI', sans-serif",
+      googleFonts: 'Cormorant+Garamond:wght@400;500;600;700&family=Raleway:wght@400;500;600;700',
+      colors: { primaryDark: '#4a1942', primaryMedium: '#6b2fa0', primaryLight: '#9333ea', accentDark: '#92600a', accentMedium: '#d4a843', accentLight: '#f0c95c' }
+    }
+  };
 
   // ===== Example data (roofing company) =====
   var EXAMPLE_DATA = {
@@ -124,7 +159,8 @@
 
   function loadExamplePreview() {
     // Build the example site and show it in the preview immediately
-    generatedFiles = buildSite(EXAMPLE_DATA, EXAMPLE_COLORS);
+    var exampleFonts = { displayFont: THEMES.classic.displayFont, bodyFont: THEMES.classic.bodyFont };
+    generatedFiles = buildSite(EXAMPLE_DATA, EXAMPLE_COLORS, exampleFonts);
     renderPage();
     previewFrame.classList.add('visible');
     previewEmpty.style.display = 'none';
@@ -136,6 +172,143 @@
     toggle.addEventListener('click', function () {
       toggle.closest('.collapsible').classList.toggle('open');
     });
+  });
+
+  // ===== Theme switching =====
+  themeBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      themeBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      currentTheme = btn.getAttribute('data-theme');
+      if (currentTheme === 'custom') {
+        customPanel.style.display = '';
+      } else {
+        customPanel.style.display = 'none';
+        // Apply theme colors to the custom color pickers too (so getColors reads them)
+        var theme = THEMES[currentTheme];
+        if (theme) {
+          var ids = ['primaryDark','primaryMedium','primaryLight','accentDark','accentMedium','accentLight'];
+          ids.forEach(function (key) {
+            var el = document.getElementById('color' + key.charAt(0).toUpperCase() + key.slice(1));
+            if (el) {
+              el.value = theme.colors[key];
+              var hex = document.querySelector('.color-hex[data-for="' + el.id + '"]');
+              if (hex) hex.textContent = theme.colors[key];
+            }
+          });
+        }
+      }
+    });
+  });
+
+  // ===== Website scanner =====
+  scanBtn.addEventListener('click', function () {
+    var url = scanUrlInput.value.trim();
+    if (!url) { scanUrlInput.focus(); return; }
+    if (!url.startsWith('http')) url = 'https://' + url;
+
+    scanStatus.textContent = 'Scanning website...';
+    scanStatus.className = 'scan-status loading';
+    scanBtn.disabled = true;
+    scanBtn.classList.add('loading');
+
+    var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+    fetch(proxyUrl)
+      .then(function (r) {
+        if (!r.ok) throw new Error('Could not reach site');
+        return r.text();
+      })
+      .then(function (html) {
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, 'text/html');
+        var found = 0;
+
+        // Extract business name from title or h1
+        var title = doc.querySelector('title');
+        var h1 = doc.querySelector('h1');
+        var name = '';
+        if (h1 && h1.textContent.trim()) name = h1.textContent.trim();
+        else if (title) name = title.textContent.split('|')[0].split('-')[0].split('–')[0].trim();
+        if (name && name.length < 60) { setField('businessName', name); found++; }
+
+        // Extract meta description as hero text
+        var metaDesc = doc.querySelector('meta[name="description"]');
+        if (metaDesc && metaDesc.content) { setField('heroDescription', metaDesc.content.trim()); found++; }
+
+        // Extract phone numbers
+        var phoneLink = doc.querySelector('a[href^="tel:"]');
+        if (phoneLink) { setField('phone', phoneLink.textContent.trim() || phoneLink.href.replace('tel:', '')); found++; }
+
+        // Extract email
+        var emailLink = doc.querySelector('a[href^="mailto:"]');
+        if (emailLink) { setField('email', emailLink.textContent.trim() || emailLink.href.replace('mailto:', '')); found++; }
+
+        // Extract tagline from meta og:description or subtitle
+        var ogDesc = doc.querySelector('meta[property="og:description"]');
+        if (ogDesc && ogDesc.content && ogDesc.content.length < 80) { setField('tagline', ogDesc.content.trim()); found++; }
+
+        // Try to find address info
+        var bodyText = doc.body ? doc.body.textContent : '';
+        var stateMatch = bodyText.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),\s*([A-Z]{2})\s+(\d{5})/);
+        if (stateMatch) {
+          setField('city', stateMatch[1]); setField('state', stateMatch[2]); setField('zip', stateMatch[3]);
+          found += 3;
+        }
+
+        scanStatus.textContent = 'Found ' + found + ' field' + (found !== 1 ? 's' : '') + '. Review and edit below.';
+        scanStatus.className = 'scan-status success';
+      })
+      .catch(function () {
+        scanStatus.textContent = 'Could not scan site. Try pasting content manually.';
+        scanStatus.className = 'scan-status error';
+      })
+      .finally(function () {
+        scanBtn.disabled = false;
+        scanBtn.classList.remove('loading');
+      });
+  });
+
+  function setField(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.value = value;
+  }
+
+  // ===== Signup modal & profile =====
+  function showSignupModal() {
+    // Pre-fill if we have saved data
+    if (userProfile) {
+      setField('signupName', userProfile.name || '');
+      setField('signupEmail', userProfile.email || '');
+      setField('signupCompany', userProfile.company || '');
+    }
+    signupModal.style.display = '';
+  }
+
+  signupCancel.addEventListener('click', function () { signupModal.style.display = 'none'; });
+  signupModal.addEventListener('click', function (e) { if (e.target === signupModal) signupModal.style.display = 'none'; });
+
+  signupSubmit.addEventListener('click', function () {
+    var name = document.getElementById('signupName').value.trim();
+    var email = document.getElementById('signupEmail').value.trim();
+    if (!name || !email) {
+      if (!name) document.getElementById('signupName').focus();
+      else document.getElementById('signupEmail').focus();
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('signupEmail').focus();
+      return;
+    }
+    userProfile = {
+      name: name,
+      email: email,
+      company: document.getElementById('signupCompany').value.trim(),
+      plan: document.getElementById('signupPlan').value,
+      created: new Date().toISOString()
+    };
+    localStorage.setItem('wb_profile', JSON.stringify(userProfile));
+    signupModal.style.display = 'none';
+    downloadZip();
   });
 
   // ===== Image uploads =====
@@ -321,6 +494,9 @@
   }
 
   function getColors() {
+    if (currentTheme !== 'custom' && THEMES[currentTheme]) {
+      return THEMES[currentTheme].colors;
+    }
     return {
       primaryDark: document.getElementById('colorPrimaryDark').value,
       primaryMedium: document.getElementById('colorPrimaryMedium').value,
@@ -329,6 +505,15 @@
       accentMedium: document.getElementById('colorAccentMedium').value,
       accentLight: document.getElementById('colorAccentLight').value
     };
+  }
+
+  function getThemeFonts() {
+    if (currentTheme === 'custom') {
+      var sel = document.getElementById('customFont');
+      return { displayFont: sel.value, bodyFont: "'Montserrat', 'Segoe UI', sans-serif" };
+    }
+    var theme = THEMES[currentTheme] || THEMES.classic;
+    return { displayFont: theme.displayFont, bodyFont: theme.bodyFont };
   }
 
   // ===== Preview =====
@@ -342,7 +527,7 @@
       document.getElementById('businessName').focus();
       return;
     }
-    generatedFiles = buildSite(data, getColors());
+    generatedFiles = buildSite(data, getColors(), getThemeFonts());
     renderPage();
     previewFrame.classList.add('visible');
     previewEmpty.style.display = 'none';
@@ -418,6 +603,19 @@
     }
   });
 
+  // ===== Pricing plan buttons =====
+  document.querySelectorAll('.btn-price').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var card = btn.closest('.price-card');
+      var planName = card.querySelector('h3').textContent.trim().toLowerCase();
+      var planMap = { 'free': 'free', 'pro support': 'pro', 'agency': 'agency' };
+      var planVal = planMap[planName] || 'free';
+      document.getElementById('signupPlan').value = planVal;
+      showSignupModal();
+    });
+  });
+
   // ===== Nav links =====
   navLinks.forEach(function (link) {
     link.addEventListener('click', function () {
@@ -466,5 +664,11 @@
 
   // ===== Event listeners =====
   previewBtn.addEventListener('click', showPreview);
-  downloadBtn.addEventListener('click', downloadZip);
+  downloadBtn.addEventListener('click', function () {
+    if (!userProfile) {
+      showSignupModal();
+    } else {
+      downloadZip();
+    }
+  });
 })();

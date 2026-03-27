@@ -290,12 +290,31 @@ function escapeAttr(str) {
 }
 
 /* ===== Build full site ===== */
-function buildSite(data, colors) {
+/* ===== Font replacement ===== */
+function replaceFonts(cssContent, fonts) {
+  if (!fonts) return cssContent;
+  if (fonts.displayFont) {
+    cssContent = cssContent.replace(
+      /--font-display:\s*[^;]+/,
+      '--font-display: ' + fonts.displayFont
+    );
+  }
+  if (fonts.bodyFont) {
+    cssContent = cssContent.replace(
+      /--font-body:\s*[^;]+/,
+      '--font-body: ' + fonts.bodyFont
+    );
+  }
+  return cssContent;
+}
+
+function buildSite(data, colors, fonts) {
   var files = {};
   for (var key in templateCache) {
     var content = replacePlaceholders(templateCache[key], data);
     if (key === 'css/styles.css') {
       content = replaceColors(content, colors);
+      content = replaceFonts(content, fonts);
     }
     files[key] = content;
   }
