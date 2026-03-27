@@ -24,10 +24,83 @@
   var templatesLoaded = false;
   var uploadedImages = {}; // id -> data URI
 
+  // ===== Example data (roofing company) =====
+  var EXAMPLE_DATA = {
+    businessName: 'Summit Roofing Co.',
+    tagline: 'Protecting What Matters Most',
+    phone: '(619) 555-0142',
+    email: 'info@summitroofing.com',
+    city: 'San Diego',
+    state: 'CA',
+    zip: '92101',
+    footerDescription: 'Summit Roofing Co. has been San Diego\'s trusted roofing contractor for over 15 years. Licensed, bonded, and insured.',
+    heroDescription: 'From emergency repairs to full roof replacements, our certified team delivers quality craftsmanship backed by a 25-year warranty. Free inspections for all San Diego homeowners.',
+    heroImage: 'https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1920&q=80',
+    feature1Title: 'Licensed & Insured',
+    feature1Desc: 'Fully licensed contractors with comprehensive insurance coverage for your complete peace of mind.',
+    feature2Title: '25-Year Warranty',
+    feature2Desc: 'Industry-leading warranty on all installations, because we stand behind every shingle we lay.',
+    feature3Title: 'Free Inspections',
+    feature3Desc: 'Complimentary roof inspections and detailed estimates with no obligation. Know exactly what you need.',
+    cat1Title: 'Residential Roofing',
+    cat1Image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop&q=80',
+    cat2Title: 'Commercial Roofing',
+    cat2Image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=800&fit=crop&q=80',
+    cat3Title: 'Emergency Repairs',
+    cat3Image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=800&fit=crop&q=80',
+    test1Author: 'Maria Gonzalez',
+    test1Text: 'Summit replaced our entire roof after storm damage. They handled the insurance claim and finished in two days. Couldn\'t be happier.',
+    test2Author: 'James Chen',
+    test2Text: 'Professional from start to finish. The crew was respectful, cleaned up every day, and the new roof looks amazing.',
+    test3Author: 'Patricia Williams',
+    test3Text: 'We got quotes from five companies. Summit wasn\'t the cheapest, but their warranty and reputation made them the clear choice. Worth every penny.',
+    aboutStory: 'Summit Roofing Co. was founded in 2009 by Mike and Sarah Torres, two San Diego natives who saw too many homeowners getting overcharged for subpar roofing work.\n\nWhat started as a two-person crew working out of a pickup truck has grown into a team of 30+ certified roofing professionals. We\'ve completed over 3,000 projects across San Diego County.\n\nOur promise is simple: honest assessments, fair pricing, and craftsmanship that lasts. We treat every home like it\'s our own.',
+    value1Title: 'Integrity',
+    value1Desc: 'We\'ll never recommend work you don\'t need. Honest assessments, always.',
+    value2Title: 'Craftsmanship',
+    value2Desc: 'Every roof is installed to exceed manufacturer specifications and local building codes.',
+    value3Title: 'Community',
+    value3Desc: 'Proudly serving our San Diego neighbors with free roof inspections after every major storm.',
+    businessHours: 'Mon - Fri: 7am - 6pm\nSat: 8am - 2pm\nSun: Emergency Only',
+    pkg1Name: 'Roof Repair',
+    pkg1Desc: 'Fix leaks, replace damaged shingles, and restore your roof\'s integrity.',
+    pkg1Features: ['Leak detection & repair', 'Shingle replacement', 'Flashing repair', 'Gutter maintenance', '1-year repair warranty'],
+    pkg1Image: 'https://images.unsplash.com/photo-1635424710928-0544e8603cf4?w=800&h=500&fit=crop&q=80',
+    pkg2Name: 'Full Replacement',
+    pkg2Desc: 'Complete tear-off and replacement with premium materials and our best warranty.',
+    pkg2Features: ['Full tear-off & disposal', 'Premium material options', 'Ice & water shield underlayment', 'Ridge vent installation', '25-year workmanship warranty'],
+    pkg2Image: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&h=500&fit=crop&q=80',
+    pkg3Name: 'Commercial',
+    pkg3Desc: 'Flat roof, TPO, EPDM, and metal roofing solutions for businesses of all sizes.',
+    pkg3Features: ['Free commercial assessment', 'TPO & EPDM systems', 'Metal roofing', 'Preventive maintenance plans', 'Minimal business disruption', '30-year warranty available'],
+    pkg3Image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=500&fit=crop&q=80'
+  };
+
+  var EXAMPLE_COLORS = {
+    primaryDark: '#1a3a5c',
+    primaryMedium: '#2a5a8c',
+    primaryLight: '#3a7abd',
+    accentDark: '#7a3b1e',
+    accentMedium: '#c25a2a',
+    accentLight: '#e07840'
+  };
+
   // ===== Init =====
   loadTemplates()
-    .then(function () { templatesLoaded = true; })
+    .then(function () {
+      templatesLoaded = true;
+      loadExamplePreview();
+    })
     .catch(function (err) { console.error('Template load failed:', err); });
+
+  function loadExamplePreview() {
+    // Build the example site and show it in the preview immediately
+    generatedFiles = buildSite(EXAMPLE_DATA, EXAMPLE_COLORS);
+    renderPage();
+    previewFrame.classList.add('visible');
+    previewEmpty.style.display = 'none';
+    // Don't enable download — user needs to enter their own info first
+  }
 
   // ===== Collapsible panels =====
   panelToggles.forEach(function (toggle) {
