@@ -356,6 +356,12 @@ img { max-width: 100%; display: block; }
 .scan-status { font-size: .75rem; margin-top: 6px; min-height: 18px; }
 .scan-status.success { color: var(--green); }
 .scan-status.error { color: #ef4444; }
+.btn-paste-link {
+  background: none; border: none; color: var(--accent); font-family: inherit;
+  font-size: .75rem; font-weight: 600; cursor: pointer; text-decoration: underline;
+  padding: 0;
+}
+.btn-paste-link:hover { color: var(--accent-hover); }
 .scan-status.loading { color: var(--accent); }
 
 /* ===== THEME SELECTOR ===== */

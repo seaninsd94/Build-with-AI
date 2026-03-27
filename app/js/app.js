@@ -202,6 +202,29 @@
   });
 
   // ===== Website scanner =====
+  var CORS_PROXIES = [
+    function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
+    function (u) { return 'https://corsproxy.io/?' + encodeURIComponent(u); },
+    function (u) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); }
+  ];
+
+  function fetchWithProxies(url, proxyIndex) {
+    if (proxyIndex >= CORS_PROXIES.length) return Promise.reject(new Error('All proxies failed'));
+    var proxyUrl = CORS_PROXIES[proxyIndex](url);
+    return fetch(proxyUrl, { signal: AbortSignal.timeout(8000) })
+      .then(function (r) {
+        if (!r.ok) throw new Error('Proxy ' + proxyIndex + ' failed');
+        return r.text();
+      })
+      .then(function (text) {
+        if (text.length < 100) throw new Error('Empty response');
+        return text;
+      })
+      .catch(function () {
+        return fetchWithProxies(url, proxyIndex + 1);
+      });
+  }
+
   scanBtn.addEventListener('click', function () {
     var url = scanUrlInput.value.trim();
     if (!url) { scanUrlInput.focus(); return; }
@@ -212,61 +235,117 @@
     scanBtn.disabled = true;
     scanBtn.classList.add('loading');
 
-    var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
-    fetch(proxyUrl)
-      .then(function (r) {
-        if (!r.ok) throw new Error('Could not reach site');
-        return r.text();
-      })
+    fetchWithProxies(url, 0)
       .then(function (html) {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(html, 'text/html');
-        var found = 0;
-
-        // Extract business name from title or h1
-        var title = doc.querySelector('title');
-        var h1 = doc.querySelector('h1');
-        var name = '';
-        if (h1 && h1.textContent.trim()) name = h1.textContent.trim();
-        else if (title) name = title.textContent.split('|')[0].split('-')[0].split('–')[0].trim();
-        if (name && name.length < 60) { setField('businessName', name); found++; }
-
-        // Extract meta description as hero text
-        var metaDesc = doc.querySelector('meta[name="description"]');
-        if (metaDesc && metaDesc.content) { setField('heroDescription', metaDesc.content.trim()); found++; }
-
-        // Extract phone numbers
-        var phoneLink = doc.querySelector('a[href^="tel:"]');
-        if (phoneLink) { setField('phone', phoneLink.textContent.trim() || phoneLink.href.replace('tel:', '')); found++; }
-
-        // Extract email
-        var emailLink = doc.querySelector('a[href^="mailto:"]');
-        if (emailLink) { setField('email', emailLink.textContent.trim() || emailLink.href.replace('mailto:', '')); found++; }
-
-        // Extract tagline from meta og:description or subtitle
-        var ogDesc = doc.querySelector('meta[property="og:description"]');
-        if (ogDesc && ogDesc.content && ogDesc.content.length < 80) { setField('tagline', ogDesc.content.trim()); found++; }
-
-        // Try to find address info
-        var bodyText = doc.body ? doc.body.textContent : '';
-        var stateMatch = bodyText.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)?),\s*([A-Z]{2})\s+(\d{5})/);
-        if (stateMatch) {
-          setField('city', stateMatch[1]); setField('state', stateMatch[2]); setField('zip', stateMatch[3]);
-          found += 3;
-        }
-
+        var found = parseAndFillFromHtml(html);
         scanStatus.textContent = 'Found ' + found + ' field' + (found !== 1 ? 's' : '') + '. Review and edit below.';
         scanStatus.className = 'scan-status success';
       })
       .catch(function () {
-        scanStatus.textContent = 'Could not scan site. Try pasting content manually.';
+        scanStatus.innerHTML = 'Could not reach site automatically. <button type="button" id="showPasteBtn" class="btn-paste-link">Paste HTML manually</button>';
         scanStatus.className = 'scan-status error';
+        document.getElementById('showPasteBtn').addEventListener('click', showManualPaste);
       })
       .finally(function () {
         scanBtn.disabled = false;
         scanBtn.classList.remove('loading');
       });
   });
+
+  function showManualPaste() {
+    var existing = document.getElementById('manualPasteWrap');
+    if (existing) { existing.style.display = ''; return; }
+    var wrap = document.createElement('div');
+    wrap.id = 'manualPasteWrap';
+    wrap.style.marginTop = '8px';
+    wrap.innerHTML = '<label style="font-size:.75rem;color:var(--text-dim);display:block;margin-bottom:4px">Paste your website\'s HTML source below:</label>' +
+      '<textarea id="manualPasteArea" rows="4" placeholder="Right-click your site → View Page Source → Copy all → Paste here" style="width:100%;background:var(--bg-input);border:1px solid var(--border);border-radius:6px;padding:9px 12px;color:var(--text);font-family:inherit;font-size:14px;resize:vertical"></textarea>' +
+      '<button type="button" id="parseManualBtn" style="margin-top:6px;padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:6px;font-family:inherit;font-size:.78rem;font-weight:600;cursor:pointer;width:100%">Extract Info</button>';
+    scanStatus.parentNode.appendChild(wrap);
+    document.getElementById('parseManualBtn').addEventListener('click', function () {
+      var html = document.getElementById('manualPasteArea').value;
+      if (!html.trim()) return;
+      var found = parseAndFillFromHtml(html);
+      scanStatus.textContent = 'Found ' + found + ' field' + (found !== 1 ? 's' : '') + ' from pasted HTML.';
+      scanStatus.className = 'scan-status success';
+      wrap.style.display = 'none';
+    });
+  }
+
+  function parseAndFillFromHtml(html) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(html, 'text/html');
+    var found = 0;
+
+    // Business name from h1 or title
+    var h1 = doc.querySelector('h1');
+    var title = doc.querySelector('title');
+    var name = '';
+    if (h1 && h1.textContent.trim()) name = h1.textContent.trim();
+    else if (title) name = title.textContent.split('|')[0].split('-')[0].split('–')[0].trim();
+    if (name && name.length < 60) { setField('businessName', name); found++; }
+
+    // Meta description as hero text
+    var metaDesc = doc.querySelector('meta[name="description"]');
+    if (metaDesc && metaDesc.content) { setField('heroDescription', metaDesc.content.trim()); found++; }
+
+    // OG description as tagline
+    var ogDesc = doc.querySelector('meta[property="og:description"]');
+    if (ogDesc && ogDesc.content && ogDesc.content.length < 100) { setField('tagline', ogDesc.content.trim()); found++; }
+    else if (metaDesc && metaDesc.content && metaDesc.content.length < 100) { setField('tagline', metaDesc.content.split('.')[0].trim()); found++; }
+
+    // Phone
+    var phoneLink = doc.querySelector('a[href^="tel:"]');
+    if (phoneLink) {
+      var phoneText = phoneLink.textContent.trim() || phoneLink.href.replace('tel:', '');
+      setField('phone', phoneText); found++;
+    } else {
+      var bodyText = doc.body ? doc.body.textContent : '';
+      var phoneMatch = bodyText.match(/\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/);
+      if (phoneMatch) { setField('phone', phoneMatch[0]); found++; }
+    }
+
+    // Email
+    var emailLink = doc.querySelector('a[href^="mailto:"]');
+    if (emailLink) {
+      setField('email', emailLink.textContent.trim() || emailLink.href.replace('mailto:', ''));
+      found++;
+    } else {
+      var emailMatch = (doc.body ? doc.body.textContent : '').match(/[\w.-]+@[\w.-]+\.\w{2,}/);
+      if (emailMatch) { setField('email', emailMatch[0]); found++; }
+    }
+
+    // Address (City, ST ZIP)
+    var bodyAll = doc.body ? doc.body.textContent : '';
+    var addrMatch = bodyAll.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)*),\s*([A-Z]{2})\s+(\d{5})/);
+    if (addrMatch) {
+      setField('city', addrMatch[1]); setField('state', addrMatch[2]); setField('zip', addrMatch[3]);
+      found += 3;
+    }
+
+    // Footer description - look for short paragraphs in footer
+    var footer = doc.querySelector('footer');
+    if (footer) {
+      var footerP = footer.querySelectorAll('p');
+      footerP.forEach(function (p) {
+        var t = p.textContent.trim();
+        if (t.length > 20 && t.length < 200 && !t.includes('©') && !t.includes('copyright')) {
+          setField('footerDescription', t); found++;
+        }
+      });
+    }
+
+    // Try to extract testimonials
+    var reviews = doc.querySelectorAll('[class*="testimonial"], [class*="review"], blockquote');
+    reviews.forEach(function (el, i) {
+      if (i < 3) {
+        var text = el.textContent.trim().substring(0, 200);
+        if (text.length > 20) { setField('test' + (i + 1) + 'Text', text); found++; }
+      }
+    });
+
+    return found;
+  }
 
   function setField(id, value) {
     var el = document.getElementById(id);
