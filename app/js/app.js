@@ -203,6 +203,7 @@
 
   // ===== Website scanner =====
   var CORS_PROXIES = [
+    function (u) { return 'https://api.allorigins.win/get?url=' + encodeURIComponent(u); },
     function (u) { return 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u); },
     function (u) { return 'https://corsproxy.io/?' + encodeURIComponent(u); },
     function (u) { return 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u); }
@@ -211,13 +212,17 @@
   function fetchWithProxies(url, proxyIndex) {
     if (proxyIndex >= CORS_PROXIES.length) return Promise.reject(new Error('All proxies failed'));
     var proxyUrl = CORS_PROXIES[proxyIndex](url);
-    return fetch(proxyUrl, { signal: AbortSignal.timeout(8000) })
+    return fetch(proxyUrl, { signal: AbortSignal.timeout(10000) })
       .then(function (r) {
         if (!r.ok) throw new Error('Proxy ' + proxyIndex + ' failed');
         return r.text();
       })
       .then(function (text) {
         if (text.length < 100) throw new Error('Empty response');
+        // allorigins /get endpoint wraps content in JSON
+        if (proxyIndex === 0) {
+          try { var json = JSON.parse(text); if (json.contents) return json.contents; } catch (e) {}
+        }
         return text;
       })
       .catch(function () {
@@ -276,73 +281,174 @@
     var parser = new DOMParser();
     var doc = parser.parseFromString(html, 'text/html');
     var found = 0;
+    var bodyText = doc.body ? doc.body.textContent : '';
+    var allText = doc.documentElement ? doc.documentElement.textContent : bodyText;
 
-    // Business name from h1 or title
+    function fill(id, val) {
+      if (val && val.trim()) { setField(id, val.trim()); found++; return true; }
+      return false;
+    }
+
+    // ===== Business name: try OG title, then title tag, then h1 =====
+    var ogTitle = doc.querySelector('meta[property="og:title"]');
+    var titleEl = doc.querySelector('title');
     var h1 = doc.querySelector('h1');
-    var title = doc.querySelector('title');
-    var name = '';
-    if (h1 && h1.textContent.trim()) name = h1.textContent.trim();
-    else if (title) name = title.textContent.split('|')[0].split('-')[0].split('–')[0].trim();
-    if (name && name.length < 60) { setField('businessName', name); found++; }
+    var siteName = doc.querySelector('meta[property="og:site_name"]');
+    var bName = '';
+    if (siteName && siteName.content) bName = siteName.content.trim();
+    else if (ogTitle && ogTitle.content) bName = ogTitle.content.split('|')[0].split('-')[0].split('–')[0].split('—')[0].trim();
+    else if (titleEl) bName = titleEl.textContent.split('|')[0].split('-')[0].split('–')[0].split('—')[0].trim();
+    else if (h1) bName = h1.textContent.trim();
+    if (bName && bName.length > 1 && bName.length < 80) fill('businessName', bName);
 
-    // Meta description as hero text
-    var metaDesc = doc.querySelector('meta[name="description"]');
-    if (metaDesc && metaDesc.content) { setField('heroDescription', metaDesc.content.trim()); found++; }
-
-    // OG description as tagline
+    // ===== Tagline: subtitle, h2, or short OG desc =====
     var ogDesc = doc.querySelector('meta[property="og:description"]');
-    if (ogDesc && ogDesc.content && ogDesc.content.length < 100) { setField('tagline', ogDesc.content.trim()); found++; }
-    else if (metaDesc && metaDesc.content && metaDesc.content.length < 100) { setField('tagline', metaDesc.content.split('.')[0].trim()); found++; }
-
-    // Phone
-    var phoneLink = doc.querySelector('a[href^="tel:"]');
-    if (phoneLink) {
-      var phoneText = phoneLink.textContent.trim() || phoneLink.href.replace('tel:', '');
-      setField('phone', phoneText); found++;
+    var metaDesc = doc.querySelector('meta[name="description"]');
+    var descText = (ogDesc && ogDesc.content) ? ogDesc.content : (metaDesc && metaDesc.content) ? metaDesc.content : '';
+    // Look for a short tagline-like element
+    var subtitle = doc.querySelector('.tagline, .subtitle, .slogan, [class*="tagline"], [class*="subtitle"], [class*="slogan"], .hero-text, [class*="hero"] p, [class*="banner"] p');
+    if (subtitle && subtitle.textContent.trim().length < 120) {
+      fill('tagline', subtitle.textContent.trim());
+    } else if (descText && descText.length < 100) {
+      fill('tagline', descText.split('.')[0]);
     } else {
-      var bodyText = doc.body ? doc.body.textContent : '';
-      var phoneMatch = bodyText.match(/\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/);
-      if (phoneMatch) { setField('phone', phoneMatch[0]); found++; }
+      // Try the first h2 if it's short
+      var firstH2 = doc.querySelector('h2');
+      if (firstH2 && firstH2.textContent.trim().length < 80) fill('tagline', firstH2.textContent.trim());
     }
 
-    // Email
-    var emailLink = doc.querySelector('a[href^="mailto:"]');
-    if (emailLink) {
-      setField('email', emailLink.textContent.trim() || emailLink.href.replace('mailto:', ''));
-      found++;
+    // ===== Hero description: meta description =====
+    if (descText) fill('heroDescription', descText);
+
+    // ===== Phone: tel links, then regex =====
+    var phoneLinks = doc.querySelectorAll('a[href^="tel:"]');
+    if (phoneLinks.length > 0) {
+      var ph = phoneLinks[0].href.replace('tel:', '').replace(/\s+/g, '');
+      fill('phone', phoneLinks[0].textContent.trim() || ph);
     } else {
-      var emailMatch = (doc.body ? doc.body.textContent : '').match(/[\w.-]+@[\w.-]+\.\w{2,}/);
-      if (emailMatch) { setField('email', emailMatch[0]); found++; }
+      var phMatch = allText.match(/(?:\+1[\s.-]?)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}/);
+      if (phMatch) fill('phone', phMatch[0]);
     }
 
-    // Address (City, ST ZIP)
-    var bodyAll = doc.body ? doc.body.textContent : '';
-    var addrMatch = bodyAll.match(/([A-Z][a-z]+(?:\s[A-Z][a-z]+)*),\s*([A-Z]{2})\s+(\d{5})/);
-    if (addrMatch) {
-      setField('city', addrMatch[1]); setField('state', addrMatch[2]); setField('zip', addrMatch[3]);
-      found += 3;
+    // ===== Email: mailto links, then regex =====
+    var emailLinks = doc.querySelectorAll('a[href^="mailto:"]');
+    if (emailLinks.length > 0) {
+      fill('email', emailLinks[0].href.replace('mailto:', '').split('?')[0]);
+    } else {
+      var emMatch = allText.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+      if (emMatch) fill('email', emMatch[0]);
     }
 
-    // Footer description - look for short paragraphs in footer
-    var footer = doc.querySelector('footer');
+    // ===== Address: multiple patterns =====
+    var addrPatterns = [
+      /(\d+\s+[\w\s.]+(?:St|Street|Ave|Avenue|Blvd|Boulevard|Dr|Drive|Rd|Road|Ln|Lane|Way|Ct|Court|Pkwy|Hwy)[.,]?\s+(?:(?:Ste|Suite|Apt|Unit|#)\s*\w+[.,]?\s+)?)([\w\s]+),\s*([A-Z]{2})\s+(\d{5})/i,
+      /([\w\s]+),\s*([A-Z]{2})\s+(\d{5})/,
+      /([\w\s]+),\s*([A-Z]{2})\b/
+    ];
+    for (var ai = 0; ai < addrPatterns.length; ai++) {
+      var am = allText.match(addrPatterns[ai]);
+      if (am) {
+        if (am.length >= 5) { // Full address with street
+          fill('city', am[2]); fill('state', am[3]); fill('zip', am[4]);
+        } else if (am.length >= 4 && am[3]) { // City, ST ZIP
+          fill('city', am[1]); fill('state', am[2]); fill('zip', am[3]);
+        } else if (am.length >= 3) { // City, ST
+          fill('city', am[1]); fill('state', am[2]);
+        }
+        break;
+      }
+    }
+
+    // ===== Footer description =====
+    var footer = doc.querySelector('footer, [class*="footer"], [role="contentinfo"]');
     if (footer) {
-      var footerP = footer.querySelectorAll('p');
-      footerP.forEach(function (p) {
+      var fps = footer.querySelectorAll('p, [class*="description"], [class*="about"]');
+      fps.forEach(function (p) {
         var t = p.textContent.trim();
-        if (t.length > 20 && t.length < 200 && !t.includes('©') && !t.includes('copyright')) {
-          setField('footerDescription', t); found++;
+        if (t.length > 15 && t.length < 250 && !/©|copyright|rights reserved|privacy|terms/i.test(t)) {
+          fill('footerDescription', t);
         }
       });
     }
 
-    // Try to extract testimonials
-    var reviews = doc.querySelectorAll('[class*="testimonial"], [class*="review"], blockquote');
-    reviews.forEach(function (el, i) {
-      if (i < 3) {
-        var text = el.textContent.trim().substring(0, 200);
-        if (text.length > 20) { setField('test' + (i + 1) + 'Text', text); found++; }
+    // ===== Services / categories from nav, headings, cards =====
+    var serviceEls = doc.querySelectorAll('[class*="service"] h3, [class*="service"] h2, [class*="card"] h3, [class*="category"] h3, [class*="product"] h3, [class*="package"] h3, [class*="offering"] h3');
+    var serviceNames = [];
+    serviceEls.forEach(function (el) {
+      var t = el.textContent.trim();
+      if (t.length > 2 && t.length < 60 && serviceNames.indexOf(t) === -1) serviceNames.push(t);
+    });
+    // Also check nav links for service pages
+    if (serviceNames.length < 3) {
+      doc.querySelectorAll('nav a, [class*="nav"] a').forEach(function (a) {
+        var t = a.textContent.trim();
+        if (t.length > 2 && t.length < 40 && !/home|about|contact|blog|faq|login|cart|menu/i.test(t) && serviceNames.indexOf(t) === -1) {
+          serviceNames.push(t);
+        }
+      });
+    }
+    for (var ci = 0; ci < Math.min(serviceNames.length, 3); ci++) {
+      fill('cat' + (ci + 1) + 'Title', serviceNames[ci]);
+    }
+
+    // ===== Features / selling points =====
+    var featureEls = doc.querySelectorAll('[class*="feature"] h3, [class*="benefit"] h3, [class*="value"] h3, [class*="why"] h3, [class*="feature"] h4, [class*="benefit"] h4');
+    var features = [];
+    featureEls.forEach(function (el) {
+      var t = el.textContent.trim();
+      if (t.length > 2 && t.length < 60 && features.length < 3) {
+        features.push({ title: t, desc: '' });
+        var next = el.nextElementSibling;
+        if (next && (next.tagName === 'P' || next.tagName === 'SPAN' || next.tagName === 'DIV')) {
+          features[features.length - 1].desc = next.textContent.trim().substring(0, 120);
+        }
       }
     });
+    for (var fi = 0; fi < features.length; fi++) {
+      fill('feature' + (fi + 1) + 'Title', features[fi].title);
+      if (features[fi].desc) fill('feature' + (fi + 1) + 'Desc', features[fi].desc);
+    }
+
+    // ===== Testimonials / reviews =====
+    var testSels = '[class*="testimonial"], [class*="review"], [class*="quote"], blockquote, [class*="feedback"]';
+    var testEls = doc.querySelectorAll(testSels);
+    var testIdx = 0;
+    testEls.forEach(function (el) {
+      if (testIdx >= 3) return;
+      var quote = '';
+      var author = '';
+      // Look for quote text
+      var qEl = el.querySelector('p, [class*="text"], [class*="quote"], [class*="content"]');
+      if (qEl) quote = qEl.textContent.trim();
+      else quote = el.textContent.trim();
+      // Look for author
+      var aEl = el.querySelector('[class*="author"], [class*="name"], cite, [class*="client"], strong');
+      if (aEl) author = aEl.textContent.trim();
+      // Clean up
+      if (author && quote.includes(author)) quote = quote.replace(author, '').trim();
+      quote = quote.replace(/^[""\u201C]+|[""\u201D]+$/g, '').trim();
+      if (quote.length > 15 && quote.length < 500) {
+        testIdx++;
+        fill('test' + testIdx + 'Text', quote.substring(0, 200));
+        if (author && author.length < 60) fill('test' + testIdx + 'Author', author);
+      }
+    });
+
+    // ===== Business hours =====
+    var hoursEl = doc.querySelector('[class*="hours"], [class*="schedule"], [class*="opening"]');
+    if (hoursEl) {
+      var hoursText = hoursEl.textContent.trim().substring(0, 200);
+      if (/\d/.test(hoursText) && /(mon|tue|wed|thu|fri|sat|sun|am|pm)/i.test(hoursText)) {
+        fill('businessHours', hoursText);
+      }
+    }
+
+    // ===== About text from about section or page =====
+    var aboutSection = doc.querySelector('[class*="about"] p, [id*="about"] p, section[class*="about"], [class*="story"] p');
+    if (aboutSection) {
+      var aboutText = aboutSection.textContent.trim();
+      if (aboutText.length > 30 && aboutText.length < 600) fill('aboutStory', aboutText);
+    }
 
     return found;
   }
