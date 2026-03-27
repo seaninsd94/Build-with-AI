@@ -68,6 +68,16 @@ function buildLogoSvg(businessName, fill, fillAccent) {
 
 /* ===== Home page content replacement ===== */
 function replaceHomeContent(html, data) {
+  // Stats bar
+  var statDefaults = [['100+','Clients Served'],['5.0','Star Rating'],['10+','Years Experience'],['100%','Satisfaction']];
+  for (var si = 0; si < 4; si++) {
+    var sn = si + 1;
+    if (data['stat' + sn + 'Num']) html = html.replace('>' + statDefaults[si][0] + '<', '>' + escapeHtml(data['stat' + sn + 'Num']) + '<');
+    if (data['stat' + sn + 'Label']) html = html.replace('>' + statDefaults[si][1] + '<', '>' + escapeHtml(data['stat' + sn + 'Label']) + '<');
+  }
+  // Feature section title and description
+  if (data.featureSectionTitle) html = html.replace('What Sets Us Apart', escapeHtml(data.featureSectionTitle));
+  if (data.featureSectionDesc) html = html.replace('A short description of your unique value proposition.', escapeHtml(data.featureSectionDesc));
   // Hero description
   if (data.heroDescription) {
     html = html.replace(
@@ -105,7 +115,9 @@ function replaceHomeContent(html, data) {
     var cn = j + 1;
     var catTitle = data['cat' + cn + 'Title'];
     var catImage = data['cat' + cn + 'Image'];
+    var catDesc = data['cat' + cn + 'Desc'];
     if (catTitle) html = html.replace(catDefaults[j][0], escapeHtml(catTitle));
+    if (catDesc) html = html.replace('>Brief description<', '>' + escapeHtml(catDesc) + '<');
     if (catImage) {
       html = html.replace(
         new RegExp('https://images\\.unsplash\\.com/' + catDefaults[j][1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[^"\']*'),
@@ -124,11 +136,17 @@ function replaceHomeContent(html, data) {
     var tText = data['test' + tn + 'Text'];
     var tAuthor = data['test' + tn + 'Author'];
     if (tText) html = html.replace(testTexts[k], escapeHtml(tText));
+    var tService = data['test' + tn + 'Service'];
     if (tAuthor) {
-      // Replace only the first remaining "Client Name"
       html = html.replace('Client Name', escapeHtml(tAuthor));
     }
+    if (tService) {
+      html = html.replace('Service Used', escapeHtml(tService));
+    }
   }
+  // CTA
+  if (data.ctaHeading) html = html.replace('Ready to Get Started?', escapeHtml(data.ctaHeading));
+  if (data.ctaText) html = html.replace('Contact us today for a free consultation.', escapeHtml(data.ctaText));
   // Footer description
   if (data.footerDescription) {
     html = html.replace(
@@ -141,6 +159,11 @@ function replaceHomeContent(html, data) {
 
 /* ===== Services page content replacement ===== */
 function replaceServicesContent(html, data) {
+  // Page subtitle
+  if (data.servicesSubtitle) html = html.replace('Explore our packages designed for your needs.', escapeHtml(data.servicesSubtitle));
+  // CTA
+  if (data.servicesCtaHeading) html = html.replace('Not Sure Which Package?', escapeHtml(data.servicesCtaHeading));
+  if (data.servicesCtaText) html = html.replace("Contact us and we'll recommend the perfect fit for you.", escapeHtml(data.servicesCtaText));
   var pkgDefaults = [
     { name: 'Essential Package', desc: 'Perfect for getting started. Includes the core features you need.',
       features: ['Core feature one', 'Core feature two', 'Core feature three', 'Basic support'],
@@ -185,6 +208,9 @@ function replaceServicesContent(html, data) {
 
 /* ===== About page content replacement ===== */
 function replaceAboutContent(html, data) {
+  // CTA
+  if (data.aboutCtaHeading) html = html.replace("Let's Work Together", escapeHtml(data.aboutCtaHeading));
+  if (data.aboutCtaText) html = html.replace("We'd love to hear about your project.", escapeHtml(data.aboutCtaText));
   // Story
   if (data.aboutStory) {
     var storyParagraphs = data.aboutStory.split('\n').filter(function (l) { return l.trim(); });
@@ -219,6 +245,24 @@ function replaceAboutContent(html, data) {
 
 /* ===== Contact page content replacement ===== */
 function replaceContactContent(html, data) {
+  // FAQ replacements
+  var faqDefaults = [
+    ['How do I get started?', 'Fill out the contact form above or call us directly. We\'ll schedule a free consultation to discuss your needs and recommend the best approach.'],
+    ['What are your prices?', 'Pricing varies based on your specific needs. Contact us for a personalized quote. We offer packages at various price points to fit different budgets.'],
+    ['What is your service area?', 'We serve {{CITY}} and the surrounding areas. Contact us to confirm we cover your location.'],
+    ['How far in advance should I book?', 'We recommend booking as early as possible, especially during peak season. However, we can sometimes accommodate last-minute requests.'],
+    ['What is your cancellation policy?', 'We understand plans change. Please contact us for our full cancellation and rescheduling policy. We strive to be as flexible as possible.']
+  ];
+  for (var fi = 0; fi < 5; fi++) {
+    var fn = fi + 1;
+    var fq = data['faq' + fn + 'Q'];
+    var fa = data['faq' + fn + 'A'];
+    if (fq) html = html.replace(faqDefaults[fi][0], escapeHtml(fq));
+    if (fa) {
+      var defaultA = faqDefaults[fi][1].replace('{{CITY}}', data.city || 'Your City');
+      html = html.replace(defaultA, escapeHtml(fa));
+    }
+  }
   // Business hours
   if (data.businessHours) {
     var hoursHtml = data.businessHours.split('\n').filter(function (l) { return l.trim(); }).join('<br>');

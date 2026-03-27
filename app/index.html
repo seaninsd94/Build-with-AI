@@ -169,7 +169,31 @@
                   </div>
                 </div>
               </div>
+              <h4 class="sub-heading">Stats Bar (4)</h4>
+              <div class="form-grid">
+                <div class="form-group"><label for="stat1Num">Stat 1 Number</label><input type="text" id="stat1Num" placeholder="100+"></div>
+                <div class="form-group"><label for="stat1Label">Label</label><input type="text" id="stat1Label" placeholder="Clients Served"></div>
+                <div class="form-group"><label for="stat2Num">Stat 2 Number</label><input type="text" id="stat2Num" placeholder="5.0"></div>
+                <div class="form-group"><label for="stat2Label">Label</label><input type="text" id="stat2Label" placeholder="Star Rating"></div>
+                <div class="form-group"><label for="stat3Num">Stat 3 Number</label><input type="text" id="stat3Num" placeholder="10+"></div>
+                <div class="form-group"><label for="stat3Label">Label</label><input type="text" id="stat3Label" placeholder="Years Experience"></div>
+                <div class="form-group"><label for="stat4Num">Stat 4 Number</label><input type="text" id="stat4Num" placeholder="100%"></div>
+                <div class="form-group"><label for="stat4Label">Label</label><input type="text" id="stat4Label" placeholder="Satisfaction"></div>
+              </div>
               <h4 class="sub-heading">Features (3)</h4>
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="featureSectionTitle">Section Title</label>
+                  <input type="text" id="featureSectionTitle" placeholder="What Sets Us Apart">
+                </div>
+                <div class="form-group full">
+                  <label for="featureSectionDesc">Section Description</label>
+                  <div class="field-with-ai">
+                    <input type="text" id="featureSectionDesc" placeholder="A short description of your unique value">
+                    <button type="button" class="btn-ai" data-ai-target="featureSectionDesc" data-ai-prompt="section-desc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button>
+                  </div>
+                </div>
+              </div>
               <div class="form-grid">
                 <div class="form-group">
                   <label for="feature1Title">Feature 1 Title</label>
@@ -198,9 +222,13 @@
               </div>
               <h4 class="sub-heading">Portfolio / Categories (3)</h4>
               <div class="form-grid">
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="cat1Title">Category 1 Name</label>
                   <input type="text" id="cat1Title" placeholder="Category One">
+                </div>
+                <div class="form-group">
+                  <label for="cat1Desc">Description</label>
+                  <input type="text" id="cat1Desc" placeholder="Brief description">
                 </div>
                 <div class="form-group full">
                   <label>Category 1 Image</label>
@@ -212,9 +240,13 @@
                     <img class="image-preview-thumb" data-thumb-for="cat1Image" alt="Preview">
                   </div>
                 </div>
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="cat2Title">Category 2 Name</label>
                   <input type="text" id="cat2Title" placeholder="Category Two">
+                </div>
+                <div class="form-group">
+                  <label for="cat2Desc">Description</label>
+                  <input type="text" id="cat2Desc" placeholder="Brief description">
                 </div>
                 <div class="form-group full">
                   <label>Category 2 Image</label>
@@ -226,9 +258,13 @@
                     <img class="image-preview-thumb" data-thumb-for="cat2Image" alt="Preview">
                   </div>
                 </div>
-                <div class="form-group full">
+                <div class="form-group">
                   <label for="cat3Title">Category 3 Name</label>
                   <input type="text" id="cat3Title" placeholder="Category Three">
+                </div>
+                <div class="form-group">
+                  <label for="cat3Desc">Description</label>
+                  <input type="text" id="cat3Desc" placeholder="Brief description">
                 </div>
                 <div class="form-group full">
                   <label>Category 3 Image</label>
@@ -251,6 +287,10 @@
                   <label for="test1Text">Quote 1</label>
                   <input type="text" id="test1Text" placeholder="Their testimonial...">
                 </div>
+                <div class="form-group full">
+                  <label for="test1Service">Service Used</label>
+                  <input type="text" id="test1Service" placeholder="Service Used">
+                </div>
                 <div class="form-group">
                   <label for="test2Author">Name 2</label>
                   <input type="text" id="test2Author" placeholder="Client Name">
@@ -259,6 +299,10 @@
                   <label for="test2Text">Quote 2</label>
                   <input type="text" id="test2Text" placeholder="Their testimonial...">
                 </div>
+                <div class="form-group full">
+                  <label for="test2Service">Service Used</label>
+                  <input type="text" id="test2Service" placeholder="Service Used">
+                </div>
                 <div class="form-group">
                   <label for="test3Author">Name 3</label>
                   <input type="text" id="test3Author" placeholder="Client Name">
@@ -266,6 +310,24 @@
                 <div class="form-group">
                   <label for="test3Text">Quote 3</label>
                   <input type="text" id="test3Text" placeholder="Their testimonial...">
+                </div>
+                <div class="form-group full">
+                  <label for="test3Service">Service Used</label>
+                  <input type="text" id="test3Service" placeholder="Service Used">
+                </div>
+              </div>
+              <h4 class="sub-heading">Call to Action</h4>
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="ctaHeading">CTA Heading</label>
+                  <input type="text" id="ctaHeading" placeholder="Ready to Get Started?">
+                </div>
+                <div class="form-group full">
+                  <label for="ctaText">CTA Text</label>
+                  <div class="field-with-ai">
+                    <input type="text" id="ctaText" placeholder="Contact us today for a free consultation.">
+                    <button type="button" class="btn-ai" data-ai-target="ctaText" data-ai-prompt="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -279,6 +341,15 @@
               <svg class="chevron" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
             </h3>
             <div class="panel-body">
+              <div class="form-grid">
+                <div class="form-group full">
+                  <label for="servicesSubtitle">Page Subtitle</label>
+                  <div class="field-with-ai">
+                    <input type="text" id="servicesSubtitle" placeholder="Explore our packages designed for your needs.">
+                    <button type="button" class="btn-ai" data-ai-target="servicesSubtitle" data-ai-prompt="section-desc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button>
+                  </div>
+                </div>
+              </div>
               <h4 class="sub-heading">Package 1</h4>
               <div class="form-grid">
                 <div class="form-group">
@@ -372,6 +443,17 @@
                   </div>
                 </div>
               </div>
+              <h4 class="sub-heading">Call to Action</h4>
+              <div class="form-grid">
+                <div class="form-group full"><label for="servicesCtaHeading">CTA Heading</label><input type="text" id="servicesCtaHeading" placeholder="Not Sure Which Package?"></div>
+                <div class="form-group full">
+                  <label for="servicesCtaText">CTA Text</label>
+                  <div class="field-with-ai">
+                    <input type="text" id="servicesCtaText" placeholder="Contact us for the perfect fit.">
+                    <button type="button" class="btn-ai" data-ai-target="servicesCtaText" data-ai-prompt="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -419,6 +501,17 @@
                   <input type="text" id="value3Desc" placeholder="Describe this value">
                 </div>
               </div>
+              <h4 class="sub-heading">Call to Action</h4>
+              <div class="form-grid">
+                <div class="form-group full"><label for="aboutCtaHeading">CTA Heading</label><input type="text" id="aboutCtaHeading" placeholder="Let's Work Together"></div>
+                <div class="form-group full">
+                  <label for="aboutCtaText">CTA Text</label>
+                  <div class="field-with-ai">
+                    <input type="text" id="aboutCtaText" placeholder="We'd love to hear about your project.">
+                    <button type="button" class="btn-ai" data-ai-target="aboutCtaText" data-ai-prompt="cta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -435,6 +528,19 @@
                   <label for="businessHours">Business Hours</label>
                   <textarea id="businessHours" rows="3" placeholder="Mon - Fri: 9am - 5pm&#10;Sat: By Appointment&#10;Sun: Closed"></textarea>
                 </div>
+              </div>
+              <h4 class="sub-heading">FAQ (5 Questions)</h4>
+              <div class="form-grid">
+                <div class="form-group full"><label for="faq1Q">Question 1</label><input type="text" id="faq1Q" placeholder="How do I get started?"></div>
+                <div class="form-group full"><label for="faq1A">Answer 1</label><div class="field-with-ai"><textarea id="faq1A" rows="2" placeholder="Answer..."></textarea><button type="button" class="btn-ai" data-ai-target="faq1A" data-ai-prompt="faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button></div></div>
+                <div class="form-group full"><label for="faq2Q">Question 2</label><input type="text" id="faq2Q" placeholder="What are your prices?"></div>
+                <div class="form-group full"><label for="faq2A">Answer 2</label><div class="field-with-ai"><textarea id="faq2A" rows="2" placeholder="Answer..."></textarea><button type="button" class="btn-ai" data-ai-target="faq2A" data-ai-prompt="faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button></div></div>
+                <div class="form-group full"><label for="faq3Q">Question 3</label><input type="text" id="faq3Q" placeholder="What is your service area?"></div>
+                <div class="form-group full"><label for="faq3A">Answer 3</label><div class="field-with-ai"><textarea id="faq3A" rows="2" placeholder="Answer..."></textarea><button type="button" class="btn-ai" data-ai-target="faq3A" data-ai-prompt="faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button></div></div>
+                <div class="form-group full"><label for="faq4Q">Question 4</label><input type="text" id="faq4Q" placeholder="How far in advance should I book?"></div>
+                <div class="form-group full"><label for="faq4A">Answer 4</label><div class="field-with-ai"><textarea id="faq4A" rows="2" placeholder="Answer..."></textarea><button type="button" class="btn-ai" data-ai-target="faq4A" data-ai-prompt="faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button></div></div>
+                <div class="form-group full"><label for="faq5Q">Question 5</label><input type="text" id="faq5Q" placeholder="What is your cancellation policy?"></div>
+                <div class="form-group full"><label for="faq5A">Answer 5</label><div class="field-with-ai"><textarea id="faq5A" rows="2" placeholder="Answer..."></textarea><button type="button" class="btn-ai" data-ai-target="faq5A" data-ai-prompt="faq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>AI</button></div></div>
               </div>
             </div>
           </div>

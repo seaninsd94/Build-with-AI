@@ -34,6 +34,12 @@
     state: 'CA',
     zip: '92101',
     footerDescription: 'Summit Roofing Co. has been San Diego\'s trusted roofing contractor for over 15 years. Licensed, bonded, and insured.',
+    stat1Num: '3,000+', stat1Label: 'Roofs Completed',
+    stat2Num: '4.9', stat2Label: 'Star Rating',
+    stat3Num: '15+', stat3Label: 'Years Experience',
+    stat4Num: '100%', stat4Label: 'Licensed & Insured',
+    featureSectionTitle: 'Why San Diego Trusts Summit',
+    featureSectionDesc: 'Professional-grade roofing services with honest pricing and guaranteed results.',
     heroDescription: 'From emergency repairs to full roof replacements, our certified team delivers quality craftsmanship backed by a 25-year warranty. Free inspections for all San Diego homeowners.',
     heroImage: 'https://images.unsplash.com/photo-1632759145351-1d592919f522?w=1920&q=80',
     feature1Title: 'Licensed & Insured',
@@ -43,17 +49,25 @@
     feature3Title: 'Free Inspections',
     feature3Desc: 'Complimentary roof inspections and detailed estimates with no obligation. Know exactly what you need.',
     cat1Title: 'Residential Roofing',
+    cat1Desc: 'Shingle, tile, and flat roof solutions for homes of all sizes',
     cat1Image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=800&fit=crop&q=80',
     cat2Title: 'Commercial Roofing',
+    cat2Desc: 'TPO, EPDM, and metal systems for businesses and warehouses',
     cat2Image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=800&fit=crop&q=80',
     cat3Title: 'Emergency Repairs',
+    cat3Desc: '24/7 response for storm damage, leaks, and urgent repairs',
     cat3Image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=800&fit=crop&q=80',
     test1Author: 'Maria Gonzalez',
     test1Text: 'Summit replaced our entire roof after storm damage. They handled the insurance claim and finished in two days. Couldn\'t be happier.',
+    test1Service: 'Full Roof Replacement',
     test2Author: 'James Chen',
     test2Text: 'Professional from start to finish. The crew was respectful, cleaned up every day, and the new roof looks amazing.',
+    test2Service: 'Roof Repair',
     test3Author: 'Patricia Williams',
     test3Text: 'We got quotes from five companies. Summit wasn\'t the cheapest, but their warranty and reputation made them the clear choice. Worth every penny.',
+    test3Service: 'Full Roof Replacement',
+    ctaHeading: 'Protect Your Home Today',
+    ctaText: 'Schedule your free roof inspection — no obligation, no pressure, just honest answers.',
     aboutStory: 'Summit Roofing Co. was founded in 2009 by Mike and Sarah Torres, two San Diego natives who saw too many homeowners getting overcharged for subpar roofing work.\n\nWhat started as a two-person crew working out of a pickup truck has grown into a team of 30+ certified roofing professionals. We\'ve completed over 3,000 projects across San Diego County.\n\nOur promise is simple: honest assessments, fair pricing, and craftsmanship that lasts. We treat every home like it\'s our own.',
     value1Title: 'Integrity',
     value1Desc: 'We\'ll never recommend work you don\'t need. Honest assessments, always.',
@@ -61,7 +75,22 @@
     value2Desc: 'Every roof is installed to exceed manufacturer specifications and local building codes.',
     value3Title: 'Community',
     value3Desc: 'Proudly serving our San Diego neighbors with free roof inspections after every major storm.',
+    servicesSubtitle: 'Professional roofing services for every budget and building type.',
+    servicesCtaHeading: 'Not Sure What You Need?',
+    servicesCtaText: 'Call us for a free inspection and we\'ll recommend the right solution for your roof.',
+    aboutCtaHeading: 'Ready for a New Roof?',
+    aboutCtaText: 'Get a free quote from San Diego\'s most trusted roofing team.',
     businessHours: 'Mon - Fri: 7am - 6pm\nSat: 8am - 2pm\nSun: Emergency Only',
+    faq1Q: 'How much does a new roof cost?',
+    faq1A: 'Roof costs depend on size, materials, and complexity. Most residential roofs in San Diego range from $8,000-$25,000. We provide free, detailed estimates.',
+    faq2Q: 'How long does a roof replacement take?',
+    faq2A: 'Most residential roofs take 1-3 days. Commercial projects vary. We\'ll give you a clear timeline before starting work.',
+    faq3Q: 'Do you handle insurance claims?',
+    faq3A: 'Yes! We work directly with your insurance company and handle the entire claims process so you don\'t have to.',
+    faq4Q: 'What roofing materials do you recommend?',
+    faq4A: 'For San Diego\'s climate, we typically recommend architectural shingles or concrete tile for homes, and TPO for flat commercial roofs. We\'ll help you choose the best option.',
+    faq5Q: 'Are you licensed and insured?',
+    faq5A: 'Absolutely. We\'re fully licensed (CA License #987654), bonded, and carry comprehensive general liability and workers\' compensation insurance.',
     pkg1Name: 'Roof Repair',
     pkg1Desc: 'Fix leaks, replace damaged shingles, and restore your roof\'s integrity.',
     pkg1Features: ['Leak detection & repair', 'Shingle replacement', 'Flashing repair', 'Gutter maintenance', '1-year repair warranty'],
@@ -156,7 +185,10 @@
     footer: function (d) { return 'A one-sentence footer description for "' + d.businessName + '"'; },
     hero: function (d) { return 'A 1-2 sentence hero description for "' + d.businessName + '" (' + (d.tagline || 'a business') + '). Keep it compelling.'; },
     about: function (d) { return 'A 2-3 paragraph founding story for "' + d.businessName + '". Make it authentic and warm.'; },
-    'pkg-features': function (d) { return 'A list of 4-5 service package features for "' + d.businessName + '". One feature per line, no bullets or numbers.'; }
+    'pkg-features': function (d) { return 'A list of 4-5 service package features for "' + d.businessName + '". One feature per line, no bullets or numbers.'; },
+    'section-desc': function (d) { return 'A short section description for "' + d.businessName + '"'; },
+    cta: function (d) { return 'A call-to-action sentence for "' + d.businessName + '"'; },
+    faq: function (d) { return 'An FAQ answer for "' + d.businessName + '"'; }
   };
 
   aiBtns.forEach(function (btn) {
@@ -213,6 +245,12 @@
         return name + ' was founded with a simple mission: to deliver outstanding results for every client.\n\nOur team brings years of experience and a passion for what we do. We believe in building lasting relationships based on trust, quality, and results.\n\nWe look forward to working with you.';
       case 'pkg-features':
         return 'Professional consultation\nCustomized solutions\nDedicated support\nFast turnaround\nSatisfaction guaranteed';
+      case 'section-desc':
+        return 'Discover why clients across the area trust ' + name + ' for quality and reliability.';
+      case 'cta':
+        return 'Get in touch with ' + name + ' today for a free, no-obligation consultation.';
+      case 'faq':
+        return 'Please contact us directly and we\'ll be happy to answer any questions you have about our services.';
       default:
         return '';
     }
@@ -240,22 +278,37 @@
       state: val('state'),
       zip: val('zip'),
       footerDescription: val('footerDescription'),
+      stat1Num: val('stat1Num'), stat1Label: val('stat1Label'),
+      stat2Num: val('stat2Num'), stat2Label: val('stat2Label'),
+      stat3Num: val('stat3Num'), stat3Label: val('stat3Label'),
+      stat4Num: val('stat4Num'), stat4Label: val('stat4Label'),
+      featureSectionTitle: val('featureSectionTitle'),
+      featureSectionDesc: val('featureSectionDesc'),
       heroDescription: val('heroDescription'),
       heroImage: getImageValue('heroImage'),
       feature1Title: val('feature1Title'), feature1Desc: val('feature1Desc'),
       feature2Title: val('feature2Title'), feature2Desc: val('feature2Desc'),
       feature3Title: val('feature3Title'), feature3Desc: val('feature3Desc'),
-      cat1Title: val('cat1Title'), cat1Image: getImageValue('cat1Image'),
-      cat2Title: val('cat2Title'), cat2Image: getImageValue('cat2Image'),
-      cat3Title: val('cat3Title'), cat3Image: getImageValue('cat3Image'),
-      test1Author: val('test1Author'), test1Text: val('test1Text'),
-      test2Author: val('test2Author'), test2Text: val('test2Text'),
-      test3Author: val('test3Author'), test3Text: val('test3Text'),
+      cat1Title: val('cat1Title'), cat1Desc: val('cat1Desc'), cat1Image: getImageValue('cat1Image'),
+      cat2Title: val('cat2Title'), cat2Desc: val('cat2Desc'), cat2Image: getImageValue('cat2Image'),
+      cat3Title: val('cat3Title'), cat3Desc: val('cat3Desc'), cat3Image: getImageValue('cat3Image'),
+      test1Author: val('test1Author'), test1Text: val('test1Text'), test1Service: val('test1Service'),
+      test2Author: val('test2Author'), test2Text: val('test2Text'), test2Service: val('test2Service'),
+      test3Author: val('test3Author'), test3Text: val('test3Text'), test3Service: val('test3Service'),
+      ctaHeading: val('ctaHeading'), ctaText: val('ctaText'),
       aboutStory: val('aboutStory'),
       value1Title: val('value1Title'), value1Desc: val('value1Desc'),
       value2Title: val('value2Title'), value2Desc: val('value2Desc'),
       value3Title: val('value3Title'), value3Desc: val('value3Desc'),
-      businessHours: val('businessHours')
+      servicesSubtitle: val('servicesSubtitle'),
+      servicesCtaHeading: val('servicesCtaHeading'), servicesCtaText: val('servicesCtaText'),
+      aboutCtaHeading: val('aboutCtaHeading'), aboutCtaText: val('aboutCtaText'),
+      businessHours: val('businessHours'),
+      faq1Q: val('faq1Q'), faq1A: val('faq1A'),
+      faq2Q: val('faq2Q'), faq2A: val('faq2A'),
+      faq3Q: val('faq3Q'), faq3A: val('faq3A'),
+      faq4Q: val('faq4Q'), faq4A: val('faq4A'),
+      faq5Q: val('faq5Q'), faq5A: val('faq5A')
     };
     for (var i = 1; i <= 3; i++) {
       data['pkg' + i + 'Name'] = val('pkg' + i + 'Name');
