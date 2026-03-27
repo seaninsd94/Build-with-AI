@@ -110,6 +110,17 @@
                   <input type="text" id="businessName" placeholder="Acme Corp">
                 </div>
                 <div class="form-group full">
+                  <label>Company Logo</label>
+                  <div class="image-input-group" data-image-target="logoImage">
+                    <div class="image-input-row">
+                      <input type="url" id="logoImage" placeholder="Paste logo URL or upload">
+                      <label class="btn-upload"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Upload<input type="file" accept="image/*" data-upload-for="logoImage"></label>
+                    </div>
+                    <img class="image-preview-thumb" data-thumb-for="logoImage" alt="Logo preview">
+                  </div>
+                  <span class="field-hint">PNG or SVG with transparent background works best</span>
+                </div>
+                <div class="form-group full">
                   <label for="tagline">Tagline</label>
                   <div class="field-with-ai">
                     <input type="text" id="tagline" placeholder="Building the future">

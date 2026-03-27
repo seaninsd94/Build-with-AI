@@ -318,9 +318,17 @@ function buildSite(data, colors, fonts) {
     }
     files[key] = content;
   }
-  // Replace logo SVGs with business name
-  files['images/logo.svg'] = buildLogoSvg(data.businessName, colors.primaryDark, colors.accentMedium);
-  files['images/logo-white.svg'] = buildLogoSvg(data.businessName, '#ffffff', 'rgba(255,255,255,0.8)');
+  // Replace logos: use uploaded image or generate SVG from business name
+  if (data.logoImage) {
+    // Store the logo URL/data URI — will be swapped into img src by renderPreviewHTML
+    files['_logoUrl'] = data.logoImage;
+    // Still create SVG fallbacks for the ZIP
+    files['images/logo.svg'] = buildLogoSvg(data.businessName, colors.primaryDark, colors.accentMedium);
+    files['images/logo-white.svg'] = buildLogoSvg(data.businessName, '#ffffff', 'rgba(255,255,255,0.8)');
+  } else {
+    files['images/logo.svg'] = buildLogoSvg(data.businessName, colors.primaryDark, colors.accentMedium);
+    files['images/logo-white.svg'] = buildLogoSvg(data.businessName, '#ffffff', 'rgba(255,255,255,0.8)');
+  }
 
   // Apply page-specific content replacements
   files['index.html'] = replaceHomeContent(files['index.html'], data);
@@ -353,9 +361,17 @@ function renderPreviewHTML(files, page) {
     '<script>' + js + '<\/script>'
   );
 
-  // Replace SVG image sources with inline data URIs
-  var logoDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(files['images/logo.svg'])));
-  var logoWhiteDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(files['images/logo-white.svg'])));
+  // Replace logo images
+  var customLogo = files['_logoUrl'];
+  var logoDataUri, logoWhiteDataUri;
+  if (customLogo) {
+    // Use the uploaded/pasted logo for both (user's logo works on any background)
+    logoDataUri = customLogo;
+    logoWhiteDataUri = customLogo;
+  } else {
+    logoDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(files['images/logo.svg'])));
+    logoWhiteDataUri = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(files['images/logo-white.svg'])));
+  }
   html = html.replace(/(?:\.\.\/)?images\/logo\.svg/g, logoDataUri);
   html = html.replace(/(?:\.\.\/)?images\/logo-white\.svg/g, logoWhiteDataUri);
 

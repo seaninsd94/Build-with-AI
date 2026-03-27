@@ -635,6 +635,7 @@
       city: val('city'),
       state: val('state'),
       zip: val('zip'),
+      logoImage: getImageValue('logoImage'),
       footerDescription: val('footerDescription'),
       stat1Num: val('stat1Num'), stat1Label: val('stat1Label'),
       stat2Num: val('stat2Num'), stat2Label: val('stat2Label'),
@@ -726,6 +727,8 @@
     doc.open();
     doc.write(html);
     doc.close();
+    // Scroll to top of the iframe
+    try { previewFrame.contentWindow.scrollTo(0, 0); } catch (e) {}
     // Intercept link clicks inside the preview to navigate within the app
     interceptPreviewLinks(doc);
   }
