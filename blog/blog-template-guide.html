@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog Post Template Guide | Tasteful Event Rentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary-dark: #1a4d3e;
+      --color-primary-medium: #2d6a4f;
+      --color-primary-light: #40916c;
+      --color-accent-dark: #1a2a5e;
+      --color-accent-medium: #2541b2;
+      --color-accent-light: #4169e1;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Montserrat', 'Segoe UI', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); color: #333; line-height: 1.7; background: #f8f9fa; }
+    .guide-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+    .guide-header { background: var(--color-primary-dark); color: white; padding: 3rem 2rem; text-align: center; margin: -2rem -2rem 3rem -2rem; }
+    .guide-header h1 { font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .guide-header p { font-size: 1.1rem; opacity: 0.9; }
+    h2 { font-family: var(--font-display); color: var(--color-primary-dark); font-size: 1.8rem; margin: 2.5rem 0 1rem; border-bottom: 3px solid var(--color-primary-light); padding-bottom: 0.5rem; }
+    h3 { font-family: var(--font-display); color: var(--color-accent-dark); font-size: 1.3rem; margin: 1.5rem 0 0.75rem; }
+    p, li { font-size: 1rem; margin-bottom: 0.75rem; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 1.25rem; }
+    .section-box { background: white; border-radius: 12px; padding: 2rem; margin: 1.5rem 0; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .template-block { background: #f0f4f0; border-left: 4px solid var(--color-primary-medium); padding: 1.5rem; margin: 1rem 0; border-radius: 0 8px 8px 0; font-family: monospace; font-size: 0.9rem; white-space: pre-wrap; line-height: 1.6; }
+    .highlight { background: #fff3cd; padding: 1rem 1.5rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #ffc107; }
+    .cta-example { background: var(--color-primary-dark); color: white; text-align: center; padding: 2rem; border-radius: 12px; margin: 1.5rem 0; }
+    .cta-example h3 { color: white; }
+    .cta-example .btn { display: inline-block; background: white; color: var(--color-primary-dark); padding: 12px 32px; border-radius: 6px; text-decoration: none; font-weight: 600; margin: 0.5rem; }
+    .checklist { list-style: none; margin-left: 0; }
+    .checklist li { padding: 0.5rem 0 0.5rem 2rem; position: relative; }
+    .checklist li::before { content: "[ ]"; position: absolute; left: 0; font-family: monospace; color: var(--color-primary-medium); }
+    table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    th { background: var(--color-primary-dark); color: white; padding: 10px 14px; text-align: left; font-size: 0.9rem; }
+    td { padding: 10px 14px; border-bottom: 1px solid #e0e0e0; font-size: 0.9rem; }
+    tr:nth-child(even) { background: #f8f9fa; }
+    .pillar-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .pillar-1 { background: #d4edda; color: #155724; }
+    .pillar-2 { background: #cce5ff; color: #004085; }
+    .pillar-3 { background: #fff3cd; color: #856404; }
+    .pillar-4 { background: #f8d7da; color: #721c24; }
+    .faq-schema { background: #e8f4fd; padding: 1.5rem; border-radius: 8px; margin: 1rem 0; border: 1px dashed var(--color-accent-medium); }
+    @media print { .guide-container { max-width: 100%; } .section-box { box-shadow: none; border: 1px solid #ddd; } }
+  </style>
+</head>
+<body>
+<div class="guide-container">
+
+  <div class="guide-header">
+    <h1>Blog Post Template Guide</h1>
+    <p>Tasteful Event Rentals | Content Marketing Playbook</p>
+    <p style="margin-top:0.5rem; font-size:0.9rem; opacity:0.7;">Print or save this guide for reference when writing each blog post</p>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>1. Blog Post Structure (Every Post Follows This)</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <p>Every blog post on your site should follow this 10-part structure to maximize both SEO rankings and conversions. This structure is designed for Square/Weebly's blog editor but works on any platform.</p>
+
+    <h3>Part 1: SEO Title Tag</h3>
+    <p>This is what appears in Google search results and browser tabs.</p>
+    <ul>
+      <li><strong>Max 60 characters</strong> (Google truncates longer titles)</li>
+      <li><strong>Primary keyword first</strong>, then brand or location</li>
+      <li>Include "San Diego" when relevant for local SEO</li>
+      <li>Include a number, year, or price when possible (increases CTR)</li>
+    </ul>
+    <div class="template-block">GOOD: "Tent Rental Sizes Guide | San Diego Events | Tasteful Event Rentals"
+GOOD: "Event Rental Prices San Diego (2026) | Tables from $9.50"
+BAD:  "Blog Post About Tents - Tasteful Event Rentals Website"
+BAD:  "Everything You Need to Know About Renting Tents for Events"</div>
+
+    <h3>Part 2: Meta Description</h3>
+    <p>The 1-2 sentence preview that appears below your title in Google results.</p>
+    <ul>
+      <li><strong>Max 155 characters</strong></li>
+      <li>Include primary keyword naturally</li>
+      <li>Include a <strong>call-to-action</strong> ("Book online," "Get a free quote")</li>
+      <li>Include a <strong>trust signal</strong> (price, rating, or differentiator)</li>
+    </ul>
+    <div class="template-block">TEMPLATE: "[Answer to search query in 1 sentence]. [Trust signal]. [CTA]. Tasteful Event Rentals, San Diego."
+
+EXAMPLE: "Choose from pop-up, marquee & frame tents for any San Diego event. Starting at $95 with free setup. Book online or call (858) 255-1130."</div>
+
+    <h3>Part 3: Hero Image</h3>
+    <ul>
+      <li>Use YOUR OWN event photos whenever possible (not stock)</li>
+      <li>Recommended size: 1200x630px (also works for social sharing)</li>
+      <li>Compress to under 200KB using TinyPNG or Squoosh</li>
+      <li><strong>Alt text:</strong> Describe what's in the image + include keyword
+        <br><em>Example: "20x20 pop-up tent setup for backyard wedding in San Diego"</em></li>
+    </ul>
+
+    <h3>Part 4: Introduction (2-3 sentences)</h3>
+    <p>Hook the reader immediately. Address their problem or question directly.</p>
+    <div class="template-block">FORMULA: [Acknowledge the reader's situation] + [Preview the answer] + [Why trust us]
+
+EXAMPLE: "Planning an outdoor event in San Diego and not sure what size tent you need? This guide breaks down tent sizes by guest count, event type, and layout style. As a 5-star rated rental company that's set up hundreds of San Diego events, we'll help you pick the perfect fit."</div>
+
+    <h3>Part 5: Body Content</h3>
+    <ul>
+      <li><strong>800-1,500 words</strong> (sweet spot for SEO and readability)</li>
+      <li>Use <strong>H2 headings</strong> for major sections (3-5 per post)</li>
+      <li>Use <strong>H3 headings</strong> for sub-sections</li>
+      <li>Keep paragraphs short (2-4 sentences max)</li>
+      <li>Use <strong>bullet points</strong> for lists and features</li>
+      <li>Include <strong>comparison tables</strong> when comparing options</li>
+      <li>Bold key takeaways and important numbers</li>
+    </ul>
+
+    <h3>Part 6: Internal Product Links</h3>
+    <div class="highlight">
+      <strong>CRITICAL:</strong> Every blog post MUST link to at least 1-2 of your product/category pages on Booqable. This drives readers from the blog to your actual rental catalog where they can book.
+    </div>
+    <div class="template-block">EXAMPLE LINKS TO INCLUDE:
+- "Browse our full selection of [tent rentals](/tent-rentals-event-rentals-san-diego)"
+- "View our [chair options starting at $1.95](/chairs-rentals-event-rentals-san-diego)"
+- "Check out our [table rentals](/table-rentals-event-rentals-san-diego) for your event"
+- "See our complete [rental catalogue](/rental-catalogue)"</div>
+
+    <h3>Part 7: Visual Content (Mid-Article)</h3>
+    <ul>
+      <li>Include 2-4 images throughout the post</li>
+      <li>Use comparison tables for "vs." posts</li>
+      <li>Use numbered lists for checklists</li>
+      <li>Charts or calculators for sizing/quantity posts</li>
+      <li>Every image needs descriptive alt text with keywords</li>
+    </ul>
+
+    <h3>Part 8: CTA Block</h3>
+    <p>Place a prominent call-to-action after the main content. This is what converts readers into customers.</p>
+    <div class="cta-example">
+      <h3>Ready to Book Your Event Rentals?</h3>
+      <p>Chairs from $1.95 | Tables from $9.50 | Tents from $95</p>
+      <p>Free white-glove delivery & setup in San Diego County</p>
+      <a href="#" class="btn">Browse Rentals</a>
+      <a href="#" class="btn" style="background:transparent; border:2px solid white; color:white;">Call (858) 255-1130</a>
+    </div>
+
+    <h3>Part 9: Related Posts</h3>
+    <p>Link to 2-3 related blog posts at the bottom. This keeps readers on your site longer (reduces bounce rate) and builds internal link authority.</p>
+    <div class="template-block">EXAMPLE:
+"You might also enjoy:"
+- How Many Tables and Chairs Do I Need? (Guest Count Calculator)
+- The Complete Event Rental Checklist
+- How Much Do Event Rentals Cost in San Diego?</div>
+
+    <h3>Part 10: FAQ Section (with Schema Markup)</h3>
+    <p>End every post with 2-3 frequently asked questions. These can appear as expandable answers directly in Google search results.</p>
+    <div class="faq-schema">
+      <strong>FAQ Schema Markup (add via Weebly "Embed Code" block):</strong>
+      <div class="template-block">&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Your question here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your answer here. Include your phone number (858) 255-1130 and a link to your site."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Second question here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Second answer here."
+      }
+    }
+  ]
+}
+&lt;/script&gt;</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>2. Content Pillar Overview</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <p>Your 26 blog posts are organized into 4 pillars. Each pillar targets a different stage of the customer journey:</p>
+
+    <table>
+      <tr>
+        <th>Pillar</th>
+        <th>Stage</th>
+        <th>Posts</th>
+        <th>Goal</th>
+      </tr>
+      <tr>
+        <td><span class="pillar-badge pillar-1">Pillar 1</span></td>
+        <td>What Do I Need?</td>
+        <td>6</td>
+        <td>Educate &amp; guide rental selection</td>
+      </tr>
+      <tr>
+        <td><span class="pillar-badge pillar-2">Pillar 2</span></td>
+        <td>How Do I Plan This?</td>
+        <td>8</td>
+        <td>Capture event-type searches</td>
+      </tr>
+      <tr>
+        <td><span class="pillar-badge pillar-3">Pillar 3</span></td>
+        <td>Where and When?</td>
+        <td>6</td>
+        <td>Build local authority</td>
+      </tr>
+      <tr>
+        <td><span class="pillar-badge pillar-4">Pillar 4</span></td>
+        <td>Is It Worth It?</td>
+        <td>6</td>
+        <td>Convert browsers to buyers</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>3. SEO Checklist (Use Before Publishing Each Post)</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <h3>On-Page SEO</h3>
+    <ul class="checklist">
+      <li>Title tag is under 60 characters and includes primary keyword</li>
+      <li>Meta description is under 155 characters with CTA</li>
+      <li>URL slug is short, descriptive, includes keyword (e.g., /blog/tent-size-guide-san-diego)</li>
+      <li>H1 heading matches or closely matches the title tag</li>
+      <li>Primary keyword appears in first 100 words</li>
+      <li>H2/H3 subheadings include secondary keywords naturally</li>
+      <li>"San Diego" appears 3-5 times throughout the post</li>
+      <li>Post is 800-1,500 words</li>
+    </ul>
+
+    <h3>Internal Linking</h3>
+    <ul class="checklist">
+      <li>Links to at least 1 product/category page (tents, chairs, tables)</li>
+      <li>Links to 2-3 related blog posts</li>
+      <li>Links to contact/booking page</li>
+      <li>Phone number (858) 255-1130 appears at least once</li>
+    </ul>
+
+    <h3>Images</h3>
+    <ul class="checklist">
+      <li>Hero image is 1200x630px and under 200KB</li>
+      <li>All images have descriptive alt text with keywords</li>
+      <li>2-4 images throughout the post</li>
+      <li>Images are your own event photos when possible</li>
+    </ul>
+
+    <h3>Conversion Elements</h3>
+    <ul class="checklist">
+      <li>CTA block appears after main content</li>
+      <li>Pricing anchor mentioned (chairs $1.95, tables $9.50, tents $95)</li>
+      <li>Phone number and/or "Book Online" link included</li>
+      <li>FAQ section at the bottom (2-3 questions)</li>
+      <li>FAQ schema markup added via embed code</li>
+    </ul>
+
+    <h3>Before Publishing</h3>
+    <ul class="checklist">
+      <li>Proofread for typos and grammar</li>
+      <li>All links work correctly</li>
+      <li>Preview on mobile - does it look good?</li>
+      <li>Share preview image looks correct (use Facebook's Sharing Debugger)</li>
+      <li>Post is assigned to the correct blog category/pillar</li>
+    </ul>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>4. Writing Style Guide</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <h3>Voice & Tone</h3>
+    <ul>
+      <li><strong>Friendly but professional</strong> - like talking to a trusted vendor, not a corporate brochure</li>
+      <li><strong>Confident and helpful</strong> - you've done hundreds of events, share that expertise</li>
+      <li><strong>Local and personal</strong> - mention San Diego neighborhoods, weather, venues by name</li>
+      <li><strong>Action-oriented</strong> - always tell the reader what to do next</li>
+    </ul>
+
+    <h3>Dos</h3>
+    <ul>
+      <li>Use "you" and "your" (talk to the reader directly)</li>
+      <li>Use specific numbers ($1.95, 50 guests, 20x20 tent)</li>
+      <li>Reference real San Diego locations and conditions</li>
+      <li>Include your competitive advantages (5-day rental, white-glove service, pricing)</li>
+      <li>End with a clear next step</li>
+    </ul>
+
+    <h3>Don'ts</h3>
+    <ul>
+      <li>Don't use jargon without explaining it</li>
+      <li>Don't write walls of text - use short paragraphs, bullets, and tables</li>
+      <li>Don't be pushy or salesy - educate first, sell second</li>
+      <li>Don't use stock photos when you have real event photos</li>
+      <li>Don't forget to link to your rental pages</li>
+    </ul>
+
+    <h3>Brand Terms to Use Consistently</h3>
+    <table>
+      <tr><th>Always Use</th><th>Instead Of</th></tr>
+      <tr><td>Tasteful Event Rentals</td><td>TER, the company, we</td></tr>
+      <tr><td>White-glove delivery & setup</td><td>delivery service</td></tr>
+      <tr><td>5-day rental period</td><td>rental period</td></tr>
+      <tr><td>San Diego County, LA County & Palm Springs</td><td>our service area</td></tr>
+      <tr><td>(858) 255-1130</td><td>call us, our number</td></tr>
+    </table>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>5. Keyword Quick-Reference by Pillar</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <h3><span class="pillar-badge pillar-1">Pillar 1</span> Rental Selection Keywords</h3>
+    <p><em>tent size for event, how big of a tent do I need, round vs rectangular tables wedding, types of event chairs rental, event rental checklist, party rental list, how many tables for 50 guests, chairs per table, types of event tents, pop-up tent vs marquee</em></p>
+
+    <h3><span class="pillar-badge pillar-2">Pillar 2</span> Event Type Keywords</h3>
+    <p><em>backyard wedding rentals San Diego, graduation party rentals San Diego, quincea&ntilde;era party rentals San Diego, corporate event rentals San Diego, baby shower tent rental San Diego, birthday party rentals San Diego, block party rentals, outdoor movie night party rentals</em></p>
+
+    <h3><span class="pillar-badge pillar-3">Pillar 3</span> Local Content Keywords</h3>
+    <p><em>outdoor venues San Diego, San Diego weather events, outdoor event planning San Diego, when to book party rentals, San Diego park event permit, La Mesa party, East County events, event rental delivery San Diego</em></p>
+
+    <h3><span class="pillar-badge pillar-4">Pillar 4</span> Trust & Decision Keywords</h3>
+    <p><em>event rental prices San Diego, how much to rent tables and chairs, buy vs rent party supplies, event rental delivery setup, event rental period, tasteful event rentals reviews, how to rent party equipment, first time renting tents</em></p>
+  </div>
+
+  <!-- ============================================================ -->
+  <h2>6. Publishing Schedule (First 6 Months)</h2>
+  <!-- ============================================================ -->
+
+  <div class="section-box">
+    <table>
+      <tr><th>Month</th><th>Week</th><th>Post Title</th><th>Pillar</th></tr>
+      <tr><td rowspan="2">1</td><td>1</td><td>How Much Do Event Rentals Cost in San Diego? (2026 Price Guide)</td><td><span class="pillar-badge pillar-4">P4</span></td></tr>
+      <tr><td>3</td><td>The Complete Event Rental Checklist</td><td><span class="pillar-badge pillar-1">P1</span></td></tr>
+      <tr><td rowspan="2">2</td><td>1</td><td>The Ultimate San Diego Backyard Wedding Rental Guide</td><td><span class="pillar-badge pillar-2">P2</span></td></tr>
+      <tr><td>3</td><td>How to Choose the Right Tent Size for Your Event</td><td><span class="pillar-badge pillar-1">P1</span></td></tr>
+      <tr><td rowspan="2">3</td><td>1</td><td>Planning a Graduation Party in San Diego?</td><td><span class="pillar-badge pillar-2">P2</span></td></tr>
+      <tr><td>3</td><td>How Many Tables and Chairs Do I Need? (Calculator)</td><td><span class="pillar-badge pillar-1">P1</span></td></tr>
+      <tr><td rowspan="2">4</td><td>1</td><td>San Diego Quincea&ntilde;era Rental Guide</td><td><span class="pillar-badge pillar-2">P2</span></td></tr>
+      <tr><td>3</td><td>Best Outdoor Event Venues in San Diego</td><td><span class="pillar-badge pillar-3">P3</span></td></tr>
+      <tr><td rowspan="2">5</td><td>1</td><td>Real Events We've Helped Create: Client Stories</td><td><span class="pillar-badge pillar-4">P4</span></td></tr>
+      <tr><td>3</td><td>Pop-Up Tent vs. Marquee vs. Frame Tent Guide</td><td><span class="pillar-badge pillar-1">P1</span></td></tr>
+      <tr><td rowspan="2">6</td><td>1</td><td>DIY vs. Renting: Why Renting Saves Money</td><td><span class="pillar-badge pillar-4">P4</span></td></tr>
+      <tr><td>3</td><td>Corporate Event Rentals in San Diego</td><td><span class="pillar-badge pillar-2">P2</span></td></tr>
+    </table>
+  </div>
+
+  <div style="text-align:center; padding:3rem 0; color:#666; font-size:0.9rem;">
+    <p>&copy; 2026 Tasteful Event Rentals | Blog Template Guide v1.0</p>
+    <p>For questions: (858) 255-1130 | tastefuleventrentals.com</p>
+  </div>
+
+</div>
+</body>
+</html>
