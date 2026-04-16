@@ -25,7 +25,7 @@
       url: 'https://tasteful-event-rentals.booqableshop.com/collections/backyard-lawn-games',
       name: 'Backyard Lawn Games Bundle',
       blurb: 'Cornhole, Connect Four & giant Jenga. Keep guests entertained.',
-      price: 'from $75',
+      price: 'from $30',
       image: 'https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80'
     },
     {
@@ -42,6 +42,28 @@
       blurb: 'Tablecloths, runners & napkins in a range of colors to match your theme.',
       price: 'from $12',
       image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop&q=80'
+    },
+    // --- Pickup equipment: make loading/unloading easier and safer ---
+    {
+      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      name: 'Moving Dolly',
+      blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
+      price: 'from $15',
+      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop&q=80'
+    },
+    {
+      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      name: 'Ratchet Straps (Set of 4)',
+      blurb: 'Secure your load safely in the truck or trailer.',
+      price: 'from $10',
+      image: 'https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=600&h=400&fit=crop&q=80'
+    },
+    {
+      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      name: 'Moving Blanket',
+      blurb: 'Quilted padding to protect rentals during transport.',
+      price: 'from $8',
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80'
     }
   ];
 
