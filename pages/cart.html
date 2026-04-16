@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart | {{BUSINESS_NAME}}</title>
+  <meta name="description" content="Review your rental and add last-minute extras before checkout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="header">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../images/logo.svg" alt="{{BUSINESS_NAME}}" style="height: 50px;">
+      </a>
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="services.html" class="nav-link">Services</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+          <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <a href="contact.html" class="btn btn-primary nav-cta">Get Started</a>
+        <button class="mobile-menu-toggle" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="page-hero">
+      <div class="container">
+        <h1>Your Cart</h1>
+        <p>Review your rental and add any last-minute extras.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cart-layout">
+          <!-- CART ITEMS -->
+          <div class="cart-items">
+            <h2 class="cart-heading">Items in your cart</h2>
+            <div class="cart-line">
+              <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=200&h=150&fit=crop&q=80" alt="20x20 white tent">
+              <div class="cart-line-info">
+                <h3>20×20 White Wedding Tent</h3>
+                <p class="cart-line-meta">Sat, May 9 — Sun, May 10 · Qty 1</p>
+              </div>
+              <div class="cart-line-price">$450.00</div>
+            </div>
+            <div class="cart-line">
+              <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=200&h=150&fit=crop&q=80" alt="Round tables">
+              <div class="cart-line-info">
+                <h3>60" Round Tables</h3>
+                <p class="cart-line-meta">Sat, May 9 — Sun, May 10 · Qty 6</p>
+              </div>
+              <div class="cart-line-price">$90.00</div>
+            </div>
+            <div class="cart-line">
+              <img src="https://images.unsplash.com/photo-1530023367847-a683933f4172?w=200&h=150&fit=crop&q=80" alt="Folding chairs">
+              <div class="cart-line-info">
+                <h3>White Folding Chairs</h3>
+                <p class="cart-line-meta">Sat, May 9 — Sun, May 10 · Qty 60</p>
+              </div>
+              <div class="cart-line-price">$120.00</div>
+            </div>
+          </div>
+
+          <!-- ORDER SUMMARY -->
+          <aside class="cart-summary">
+            <h2 class="cart-heading">Order summary</h2>
+            <div class="cart-summary-row"><span>Subtotal</span><span>$660.00</span></div>
+            <div class="cart-summary-row"><span>Delivery</span><span>$75.00</span></div>
+            <div class="cart-summary-row"><span>Tax</span><span>$58.80</span></div>
+            <div class="cart-summary-row cart-summary-total"><span>Total</span><span>$793.80</span></div>
+            <a href="#" class="btn btn-primary cart-checkout-btn">Continue to checkout</a>
+            <p class="cart-summary-note">Secure checkout — no charge until your booking is confirmed.</p>
+          </aside>
+        </div>
+
+        <!-- UPSELL SECTION (mirrors what the Booqable script injects) -->
+        <section class="upsells">
+          <div class="upsells-header">
+            <p class="section-subtitle">ADD TO YOUR ORDER</p>
+            <h2>Last-minute extras</h2>
+            <p>Popular add-ons our customers love. Add them to your cart before checkout.</p>
+          </div>
+          <div class="upsells-grid">
+            <article class="upsell-card">
+              <div class="upsell-card-image">
+                <img src="https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80" alt="Backyard lawn games" loading="lazy">
+              </div>
+              <div class="upsell-card-body">
+                <h3>Backyard Lawn Games Bundle</h3>
+                <p>Cornhole, ladder toss & giant Jenga. Keep guests entertained between courses.</p>
+                <div class="upsell-card-footer">
+                  <span class="upsell-card-price">from $75</span>
+                  <a href="#" class="btn btn-outline">Add to cart</a>
+                </div>
+              </div>
+            </article>
+            <article class="upsell-card">
+              <div class="upsell-card-image">
+                <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=400&fit=crop&q=80" alt="Chiavari chair upgrade" loading="lazy">
+              </div>
+              <div class="upsell-card-body">
+                <h3>Chiavari Chair Upgrade</h3>
+                <p>Swap standard folding chairs for elegant gold or silver chiavari chairs.</p>
+                <div class="upsell-card-footer">
+                  <span class="upsell-card-price">+$3 / chair</span>
+                  <a href="#" class="btn btn-outline">Add to cart</a>
+                </div>
+              </div>
+            </article>
+            <article class="upsell-card">
+              <div class="upsell-card-image">
+                <img src="https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=600&h=400&fit=crop&q=80" alt="String lights" loading="lazy">
+              </div>
+              <div class="upsell-card-body">
+                <h3>String Light Package</h3>
+                <p>100ft of warm bistro lights for a magical evening atmosphere.</p>
+                <div class="upsell-card-footer">
+                  <span class="upsell-card-price">from $50</span>
+                  <a href="#" class="btn btn-outline">Add to cart</a>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
