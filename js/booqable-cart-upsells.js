@@ -17,29 +17,31 @@
 
 (function () {
   // ----- CONFIGURE YOUR UPSELLS HERE -----
-  // `slug` must match the product slug in your Booqable shop
-  // (the part of the URL after /products/).
+  // `url`  - full URL (or path) the "Add to cart" button links to
+  // `slug` - (optional) product slug for dedupe detection so the upsell
+  //          hides once the item is in the cart. Omit for collection links.
   var UPSELLS = [
     {
-      slug: 'backyard-lawn-games',
+      url: 'https://tasteful-event-rentals.booqableshop.com/collections/backyard-lawn-games',
       name: 'Backyard Lawn Games Bundle',
-      blurb: 'Cornhole, ladder toss & giant Jenga. Keep guests entertained.',
+      blurb: 'Cornhole, Connect Four & giant Jenga. Keep guests entertained.',
       price: 'from $75',
       image: 'https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80'
     },
     {
-      slug: 'chiavari-chair-upgrade',
-      name: 'Chiavari Chair Upgrade',
-      blurb: 'Swap standard folding chairs for elegant chiavari chairs.',
-      price: '+$3 / chair',
+      slug: 'white-padded-resin-folding-chair-rental-event-rentals-san-diego',
+      url: 'https://tasteful-event-rentals.booqableshop.com/products/white-padded-resin-folding-chair-rental-event-rentals-san-diego',
+      name: 'White Padded Chair Upgrade',
+      blurb: 'Upgrade from standard folding chairs to white padded resin chairs.',
+      price: '+$2 / chair',
       image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=400&fit=crop&q=80'
     },
     {
-      slug: 'string-light-package',
-      name: 'String Light Package',
-      blurb: '100ft of warm bistro lights for a magical evening setting.',
-      price: 'from $50',
-      image: 'https://images.unsplash.com/photo-1467810563316-b5476525c0f9?w=600&h=400&fit=crop&q=80'
+      url: 'https://tasteful-event-rentals.booqableshop.com/collections/linens',
+      name: 'Linen Package',
+      blurb: 'Tablecloths, runners & napkins in a range of colors to match your theme.',
+      price: 'from $12',
+      image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop&q=80'
     }
   ];
 
@@ -62,7 +64,7 @@
   function buildSection() {
     var inCart = itemsInCart();
     var available = UPSELLS.filter(function (u) {
-      return inCart.indexOf(u.slug) === -1;
+      return !u.slug || inCart.indexOf(u.slug) === -1;
     });
     if (available.length === 0) return null;
 
@@ -89,7 +91,7 @@
           '<p>' + u.blurb + '</p>' +
           '<div class="bq-upsell-card__footer">' +
             '<span class="bq-upsell-card__price">' + u.price + '</span>' +
-            '<a href="/products/' + u.slug + '" class="bq-upsell-card__btn">Add to cart</a>' +
+            '<a href="' + u.url + '" class="bq-upsell-card__btn">Add to cart</a>' +
           '</div>' +
         '</div>';
       grid.appendChild(card);
