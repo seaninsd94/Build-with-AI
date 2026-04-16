@@ -45,21 +45,24 @@
     },
     // --- Pickup equipment: make loading/unloading easier and safer ---
     {
-      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      slug: 'equipment-dolly-rental-event-rentals-san-diego',
+      url: 'https://tasteful-event-rentals.booqableshop.com/products/equipment-dolly-rental-event-rentals-san-diego',
       name: 'Moving Dolly',
       blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
       price: 'from $15',
       image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop&q=80'
     },
     {
-      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      slug: 'ratchet-strap-rental-event-rentals-san-diego',
+      url: 'https://tasteful-event-rentals.booqableshop.com/products/ratchet-strap-rental-event-rentals-san-diego',
       name: 'Ratchet Straps (Set of 4)',
       blurb: 'Secure your load safely in the truck or trailer.',
       price: 'from $10',
       image: 'https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=600&h=400&fit=crop&q=80'
     },
     {
-      url: 'https://tasteful-event-rentals.booqableshop.com/',
+      slug: 'moving-blanket-rental-event-rentals-san-diego',
+      url: 'https://tasteful-event-rentals.booqableshop.com/products/moving-blanket-rental-event-rentals-san-diego',
       name: 'Moving Blanket',
       blurb: 'Quilted padding to protect rentals during transport.',
       price: 'from $8',
