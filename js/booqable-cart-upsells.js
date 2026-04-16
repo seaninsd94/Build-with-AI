@@ -6,72 +6,86 @@
  *
  * What it does:
  *   - Detects when the customer is on the cart page
- *   - Injects an "Add these to your order" upsell section
- *   - Each upsell links to its Booqable product page so the customer
- *     can pick dates / quantity and add it to the same cart
- *   - When they return to the cart, the upsell section hides items
- *     already in their cart (read from Booqable.cartData.items)
+ *   - Injects two upsell sections (event extras, pickup equipment)
+ *   - Each upsell links to its Booqable product/collection page so the
+ *     customer can pick dates / quantity and add it to the same cart
+ *   - When they return to the cart, upsells they already added hide
+ *     (read from Booqable.cartData.items)
  *
- * To customize: edit the UPSELLS array below.
+ * To customize: edit the SECTIONS array below.
  */
 
 (function () {
   // ----- CONFIGURE YOUR UPSELLS HERE -----
-  // `url`  - full URL (or path) the "Add to cart" button links to
-  // `slug` - (optional) product slug for dedupe detection so the upsell
-  //          hides once the item is in the cart. Omit for collection links.
-  var UPSELLS = [
+  // Each section is rendered as its own card grid with its own heading.
+  // `url`  - full URL the "Add to cart" button links to
+  // `slug` - (optional) product slug for dedupe so the upsell hides
+  //          once the item is in the cart. Omit for collection links.
+  var SECTIONS = [
     {
-      url: 'https://tasteful-event-rentals.booqableshop.com/collections/backyard-lawn-games',
-      name: 'Backyard Lawn Games Bundle',
-      blurb: 'Cornhole, Connect Four & giant Jenga. Keep guests entertained.',
-      price: 'from $30',
-      image: 'https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80'
+      id: 'event-extras',
+      heading: 'Add these to your order',
+      subheading: 'Last-minute extras our customers love.',
+      items: [
+        {
+          url: 'https://tasteful-event-rentals.booqableshop.com/collections/backyard-lawn-games',
+          name: 'Backyard Lawn Games Bundle',
+          blurb: 'Cornhole, Connect Four & giant Jenga. Keep guests entertained.',
+          price: 'from $30',
+          image: 'https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80'
+        },
+        {
+          slug: 'white-padded-resin-folding-chair-rental-event-rentals-san-diego',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/white-padded-resin-folding-chair-rental-event-rentals-san-diego',
+          name: 'White Padded Chair Upgrade',
+          blurb: 'Upgrade from standard folding chairs to white padded resin chairs.',
+          price: '+$2 / chair',
+          image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&h=400&fit=crop&q=80'
+        },
+        {
+          url: 'https://tasteful-event-rentals.booqableshop.com/collections/linens',
+          name: 'Linen Package',
+          blurb: 'Tablecloths, runners & napkins in a range of colors to match your theme.',
+          price: 'from $12',
+          image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop&q=80'
+        }
+      ]
     },
     {
-      slug: 'white-padded-resin-folding-chair-rental-event-rentals-san-diego',
-      url: 'https://tasteful-event-rentals.booqableshop.com/products/white-padded-resin-folding-chair-rental-event-rentals-san-diego',
-      name: 'White Padded Chair Upgrade',
-      blurb: 'Upgrade from standard folding chairs to white padded resin chairs.',
-      price: '+$2 / chair',
-      image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&h=400&fit=crop&q=80'
-    },
-    {
-      url: 'https://tasteful-event-rentals.booqableshop.com/collections/linens',
-      name: 'Linen Package',
-      blurb: 'Tablecloths, runners & napkins in a range of colors to match your theme.',
-      price: 'from $12',
-      image: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=600&h=400&fit=crop&q=80'
-    },
-    // --- Pickup equipment: make loading/unloading easier and safer ---
-    {
-      slug: 'equipment-dolly-rental-event-rentals-san-diego',
-      url: 'https://tasteful-event-rentals.booqableshop.com/products/equipment-dolly-rental-event-rentals-san-diego',
-      name: 'Moving Dolly',
-      blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
-      price: 'from $15',
-      image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop&q=80'
-    },
-    {
-      slug: 'ratchet-strap-rental-event-rentals-san-diego',
-      url: 'https://tasteful-event-rentals.booqableshop.com/products/ratchet-strap-rental-event-rentals-san-diego',
-      name: 'Ratchet Straps (Set of 4)',
-      blurb: 'Secure your load safely in the truck or trailer.',
-      price: 'from $10',
-      image: 'https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=600&h=400&fit=crop&q=80'
-    },
-    {
-      slug: 'moving-blanket-rental-event-rentals-san-diego',
-      url: 'https://tasteful-event-rentals.booqableshop.com/products/moving-blanket-rental-event-rentals-san-diego',
-      name: 'Moving Blanket',
-      blurb: 'Quilted padding to protect rentals during transport.',
-      price: 'from $8',
-      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80'
+      id: 'pickup-equipment',
+      heading: 'Make loading easier & safer',
+      subheading: 'Handy equipment to help you transport your rentals.',
+      items: [
+        {
+          slug: 'equipment-dolly-rental-event-rentals-san-diego',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/equipment-dolly-rental-event-rentals-san-diego',
+          name: 'Moving Dolly',
+          blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
+          price: 'from $15',
+          image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop&q=80'
+        },
+        {
+          slug: 'ratchet-strap-rental-event-rentals-san-diego',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/ratchet-strap-rental-event-rentals-san-diego',
+          name: 'Ratchet Strap',
+          blurb: 'Secure your load safely in the truck or trailer.',
+          price: 'from $10',
+          image: 'https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=600&h=400&fit=crop&q=80'
+        },
+        {
+          slug: 'moving-blanket-rental-event-rentals-san-diego',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/moving-blanket-rental-event-rentals-san-diego',
+          name: 'Moving Blanket',
+          blurb: 'Quilted padding to protect rentals during transport.',
+          price: 'from $8',
+          image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80'
+        }
+      ]
     }
   ];
 
   var CART_PATH = '/cart';
-  var SECTION_ID = 'upsell-section';
+  var WRAPPER_ID = 'bq-upsells-wrapper';
 
   function isCartPage() {
     var loc = (Booqable && Booqable.location) || window.location.pathname;
@@ -86,48 +100,50 @@
     });
   }
 
-  function buildSection() {
-    var inCart = itemsInCart();
-    var available = UPSELLS.filter(function (u) {
+  function buildCard(u) {
+    var card = document.createElement('article');
+    card.className = 'bq-upsell-card';
+    card.innerHTML =
+      '<div class="bq-upsell-card__image">' +
+        '<img src="' + u.image + '" alt="' + u.name + '" loading="lazy">' +
+      '</div>' +
+      '<div class="bq-upsell-card__body">' +
+        '<h3>' + u.name + '</h3>' +
+        '<p>' + u.blurb + '</p>' +
+        '<div class="bq-upsell-card__footer">' +
+          '<span class="bq-upsell-card__price">' + u.price + '</span>' +
+          '<a href="' + u.url + '" class="bq-upsell-card__btn">Add to cart</a>' +
+        '</div>' +
+      '</div>';
+    return card;
+  }
+
+  function buildSection(section, inCart) {
+    var available = section.items.filter(function (u) {
       return !u.slug || inCart.indexOf(u.slug) === -1;
     });
     if (available.length === 0) return null;
 
-    var section = document.createElement('section');
-    section.id = SECTION_ID;
-    section.className = 'bq-upsells';
-    section.innerHTML =
+    var el = document.createElement('section');
+    el.className = 'bq-upsells';
+    el.setAttribute('data-section', section.id);
+    el.innerHTML =
       '<div class="bq-upsells__header">' +
-        '<h2>Add these to your order</h2>' +
-        '<p>Last-minute extras our customers love.</p>' +
+        '<h2>' + section.heading + '</h2>' +
+        '<p>' + section.subheading + '</p>' +
       '</div>' +
       '<div class="bq-upsells__grid"></div>';
 
-    var grid = section.querySelector('.bq-upsells__grid');
-    available.forEach(function (u) {
-      var card = document.createElement('article');
-      card.className = 'bq-upsell-card';
-      card.innerHTML =
-        '<div class="bq-upsell-card__image">' +
-          '<img src="' + u.image + '" alt="' + u.name + '" loading="lazy">' +
-        '</div>' +
-        '<div class="bq-upsell-card__body">' +
-          '<h3>' + u.name + '</h3>' +
-          '<p>' + u.blurb + '</p>' +
-          '<div class="bq-upsell-card__footer">' +
-            '<span class="bq-upsell-card__price">' + u.price + '</span>' +
-            '<a href="' + u.url + '" class="bq-upsell-card__btn">Add to cart</a>' +
-          '</div>' +
-        '</div>';
-      grid.appendChild(card);
-    });
-    return section;
+    var grid = el.querySelector('.bq-upsells__grid');
+    available.forEach(function (u) { grid.appendChild(buildCard(u)); });
+    return el;
   }
 
   function injectStyles() {
     if (document.getElementById('bq-upsells-styles')) return;
     var css =
-      '.bq-upsells{margin:32px 0;padding:32px;background:#f8f9fa;border-radius:8px;font-family:inherit}' +
+      '#bq-upsells-wrapper{display:flex;flex-direction:column;gap:24px;margin:32px 0}' +
+      '.bq-upsells{padding:32px;background:#f8f9fa;border-radius:8px;font-family:inherit}' +
       '.bq-upsells__header{text-align:center;margin-bottom:24px}' +
       '.bq-upsells__header h2{font-size:1.5rem;margin:0 0 8px}' +
       '.bq-upsells__header p{color:#6c757d;margin:0}' +
@@ -157,17 +173,24 @@
 
   function render() {
     if (!isCartPage()) return;
-    var existing = document.getElementById(SECTION_ID);
+    var existing = document.getElementById(WRAPPER_ID);
     if (existing) existing.remove();
-    var section = buildSection();
-    if (!section) return;
+
+    var inCart = itemsInCart();
+    var wrapper = document.createElement('div');
+    wrapper.id = WRAPPER_ID;
+
+    SECTIONS.forEach(function (section) {
+      var el = buildSection(section, inCart);
+      if (el) wrapper.appendChild(el);
+    });
+
+    if (!wrapper.children.length) return;
     injectStyles();
-    var container = findCartContainer();
-    container.appendChild(section);
+    findCartContainer().appendChild(wrapper);
   }
 
   Booqable.on('page-change', render);
-  // Also run once on initial load in case page-change already fired
   if (document.readyState !== 'loading') render();
   else document.addEventListener('DOMContentLoaded', render);
 })();
