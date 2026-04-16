@@ -34,7 +34,7 @@
       name: 'White Padded Chair Upgrade',
       blurb: 'Upgrade from standard folding chairs to white padded resin chairs.',
       price: '+$2 / chair',
-      image: 'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&h=400&fit=crop&q=80'
+      image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=600&h=400&fit=crop&q=80'
     },
     {
       url: 'https://tasteful-event-rentals.booqableshop.com/collections/linens',
