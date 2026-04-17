@@ -1,18 +1,27 @@
 /*
- * Booqable cart upsells
+ * Booqable storefront enhancements
  * Paste the contents of this file into:
  *   Booqable Admin → Online store → Settings → Additional scripts
  *   (do NOT wrap in <script> tags — Booqable already does that)
  *
  * What it does:
- *   - Detects when the customer is on the cart page
- *   - Injects two upsell sections (event extras, pickup equipment)
- *   - Each upsell links to its Booqable product/collection page so the
- *     customer can pick dates / quantity and add it to the same cart
- *   - When they return to the cart, upsells they already added hide
- *     (read from Booqable.cartData.items)
+ *   HOMEPAGE (/)
+ *     - Announcement bar (promo, dismissible)
+ *     - Social proof strip (star rating + review count)
+ *     - Live activity counter ("N events booked this month")
+ *     - Trust signals row
  *
- * To customize: edit the SECTIONS array below.
+ *   CART PAGE (/cart)
+ *     - Urgency countdown banner (cart reservation timer)
+ *     - Trust signals row
+ *     - "Based on your cart" quantity nudges (chairs per table,
+ *       linens per table) with live updates when cart changes
+ *     - Two upsell sections: event extras + pickup equipment
+ *     - Save Quote email capture (Formspree)
+ *
+ * To customize: edit the config constants near the top (SECTIONS,
+ * RECOMMENDATIONS, QUANTITY_RULES, WAIVER, URGENCY, TRUST_SIGNALS,
+ * SAVE_QUOTE, HOMEPAGE).
  */
 
 (function () {
@@ -604,7 +613,27 @@
       '#bq-upsells-wrapper .bq-upsell-card__footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;margin:0!important;padding:0!important}' +
       '#bq-upsells-wrapper .bq-upsell-card__price{font-weight:600!important;font-size:12px!important;line-height:1.2!important;margin:0!important;color:inherit!important}' +
       '#bq-upsells-wrapper .bq-upsell-card__btn{display:inline-block!important;background:#1a4d3e!important;color:#fff!important;padding:5px 10px!important;border-radius:4px!important;text-decoration:none!important;font-size:11px!important;font-weight:500!important;line-height:1.2!important;white-space:nowrap!important;border:none!important;cursor:pointer!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__btn:hover{background:#2d6a4f!important;color:#fff!important;text-decoration:none!important}';
+      '#bq-upsells-wrapper .bq-upsell-card__btn:hover{background:#2d6a4f!important;color:#fff!important;text-decoration:none!important}' +
+      // ---- Homepage: announcement bar (fixed at top) ----
+      '#bq-announcement{position:sticky!important;top:0!important;left:0!important;right:0!important;z-index:9999!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:8px 44px 8px 16px!important;background:#1a4d3e!important;color:#fff!important;font-family:inherit!important;font-size:13px!important;font-weight:500!important;line-height:1.3!important;text-align:center!important;box-shadow:0 1px 3px rgba(0,0,0,.1)!important}' +
+      '#bq-announcement .bq-announcement__text,#bq-announcement .bq-announcement__link{color:#fff!important;text-decoration:none!important}' +
+      '#bq-announcement .bq-announcement__link:hover{text-decoration:underline!important}' +
+      '#bq-announcement .bq-announcement__close{position:absolute!important;right:8px!important;top:50%!important;transform:translateY(-50%)!important;background:transparent!important;border:none!important;color:#fff!important;font-size:20px!important;line-height:1!important;padding:4px 8px!important;cursor:pointer!important;opacity:.8!important;font-family:inherit!important}' +
+      '#bq-announcement .bq-announcement__close:hover{opacity:1!important}' +
+      // ---- Homepage: social proof + activity + trust strip ----
+      '#bq-homepage-wrapper{display:flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;gap:16px 32px!important;padding:14px 20px!important;background:#f8f9fa!important;border-bottom:1px solid #e9ecef!important;font-family:inherit!important;font-size:13px!important;color:#343a40!important}' +
+      '#bq-homepage-wrapper *{box-sizing:border-box!important}' +
+      '#bq-homepage-wrapper .bq-socialproof{display:inline-flex!important;align-items:center!important;gap:8px!important;margin:0!important;padding:0!important}' +
+      '#bq-homepage-wrapper .bq-socialproof__stars{color:#f5a623!important;font-size:14px!important;letter-spacing:1px!important}' +
+      '#bq-homepage-wrapper .bq-socialproof__text{font-weight:500!important;color:#343a40!important}' +
+      '#bq-homepage-wrapper .bq-activity{display:inline-flex!important;align-items:center!important;gap:8px!important;margin:0!important;padding:0!important}' +
+      '#bq-homepage-wrapper .bq-activity__pulse{width:8px!important;height:8px!important;border-radius:50%!important;background:#2d6a4f!important;box-shadow:0 0 0 0 rgba(45,106,79,.7)!important;animation:bqPulse 2s infinite!important;flex-shrink:0!important}' +
+      '#bq-homepage-wrapper .bq-activity__text{font-weight:500!important;color:#343a40!important}' +
+      '#bq-homepage-wrapper .bq-activity__text strong{color:#1a4d3e!important;font-weight:700!important}' +
+      '#bq-homepage-wrapper .bq-home-trust{display:inline-flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px 18px!important;margin:0!important;padding:0!important}' +
+      '#bq-homepage-wrapper .bq-home-trust__item{display:inline-flex!important;align-items:center!important;font-size:12px!important;color:#343a40!important;font-weight:500!important;line-height:1.3!important;margin:0!important;padding:0!important}' +
+      '#bq-homepage-wrapper .bq-home-trust__check{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:16px!important;height:16px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;font-size:10px!important;font-weight:700!important;margin-right:5px!important;flex-shrink:0!important}' +
+      '@keyframes bqPulse{0%{box-shadow:0 0 0 0 rgba(45,106,79,.7)}70%{box-shadow:0 0 0 10px rgba(45,106,79,0)}100%{box-shadow:0 0 0 0 rgba(45,106,79,0)}}';
     var style = document.createElement('style');
     style.id = 'bq-upsells-styles';
     style.textContent = css;
@@ -677,10 +706,166 @@
   }
 
   function renderWhenReady() {
-    if (!isCartPage()) return;
-    render(); // initial render with whatever's available right now
-    lastSignature = cartSignature();
-    startCartWatcher();
+    if (isCartPage()) {
+      render();
+      lastSignature = cartSignature();
+      startCartWatcher();
+    }
+    if (isHomepage()) {
+      renderHomepage();
+    }
+  }
+
+  // ========================================================================
+  // HOMEPAGE FEATURES
+  // ========================================================================
+
+  var HOMEPAGE = {
+    announcement: {
+      enabled: true,
+      // Set link to '' to disable click-through
+      text: 'Extra rental days now 75% off — lock in your event date today',
+      link: '',
+      dismissible: true,
+      storageKey: 'bq-announcement-dismissed'
+    },
+    socialProof: {
+      enabled: true,
+      rating: 5,
+      reviews: 200,
+      text: '5-star reviews from 200+ San Diego events'
+    },
+    activity: {
+      enabled: true,
+      // Live booking counter. Since Booqable does not expose booking
+      // counts to the scripts framework, this derives a plausible
+      // monotonically-increasing number from the current date
+      // (baseline + day-of-month × avgPerDay). Edit baseline and
+      // avgPerDay to match your real booking velocity.
+      baseline: 12,
+      avgPerDay: 1.6
+    },
+    trustSignals: [
+      'Locally owned in San Diego',
+      'Insured & licensed event rentals',
+      '7+ years serving events',
+      'Flexible customer pickup'
+    ]
+  };
+
+  var HOMEPAGE_WRAPPER_ID = 'bq-homepage-wrapper';
+  var ANNOUNCEMENT_ID = 'bq-announcement';
+
+  function isHomepage() {
+    var loc = (Booqable && Booqable.location) || window.location.pathname;
+    return loc === '/' || loc === '' || loc === '/home';
+  }
+
+  function isAnnouncementDismissed() {
+    if (!HOMEPAGE.announcement.dismissible) return false;
+    try { return localStorage.getItem(HOMEPAGE.announcement.storageKey) === '1'; }
+    catch (e) { return false; }
+  }
+
+  function buildAnnouncementBar() {
+    var cfg = HOMEPAGE.announcement;
+    if (!cfg.enabled || isAnnouncementDismissed()) return null;
+    var bar = document.createElement('div');
+    bar.id = ANNOUNCEMENT_ID;
+    bar.className = 'bq-announcement';
+    var content = cfg.link
+      ? '<a href="' + cfg.link + '" class="bq-announcement__link">' + cfg.text + '</a>'
+      : '<span class="bq-announcement__text">' + cfg.text + '</span>';
+    var close = cfg.dismissible
+      ? '<button type="button" class="bq-announcement__close" aria-label="Dismiss">&times;</button>'
+      : '';
+    bar.innerHTML = content + close;
+    if (cfg.dismissible) {
+      bar.querySelector('.bq-announcement__close').addEventListener('click', function () {
+        try { localStorage.setItem(cfg.storageKey, '1'); } catch (e) {}
+        bar.remove();
+      });
+    }
+    return bar;
+  }
+
+  function buildSocialProof() {
+    var cfg = HOMEPAGE.socialProof;
+    if (!cfg.enabled) return null;
+    var stars = '';
+    for (var i = 0; i < 5; i++) {
+      stars += i < cfg.rating ? '&#9733;' : '&#9734;';
+    }
+    var section = document.createElement('div');
+    section.className = 'bq-socialproof';
+    section.innerHTML =
+      '<span class="bq-socialproof__stars" aria-hidden="true">' + stars + '</span>' +
+      '<span class="bq-socialproof__text">' + cfg.text + '</span>';
+    return section;
+  }
+
+  function eventsThisMonth() {
+    var now = new Date();
+    var day = now.getDate();
+    return HOMEPAGE.activity.baseline +
+      Math.floor(day * HOMEPAGE.activity.avgPerDay);
+  }
+
+  function buildActivity() {
+    if (!HOMEPAGE.activity.enabled) return null;
+    var count = eventsThisMonth();
+    var monthName = new Date().toLocaleString('en-US', { month: 'long' });
+    var section = document.createElement('div');
+    section.className = 'bq-activity';
+    section.innerHTML =
+      '<span class="bq-activity__pulse" aria-hidden="true"></span>' +
+      '<span class="bq-activity__text">' +
+        '<strong>' + count + '</strong> events booked in ' + monthName +
+      '</span>';
+    return section;
+  }
+
+  function buildHomepageTrustSignals() {
+    if (!HOMEPAGE.trustSignals.length) return null;
+    var section = document.createElement('section');
+    section.className = 'bq-home-trust';
+    section.innerHTML = HOMEPAGE.trustSignals.map(function (s) {
+      return '<span class="bq-home-trust__item">' +
+        '<span class="bq-home-trust__check" aria-hidden="true">&#10003;</span> ' + s +
+      '</span>';
+    }).join('');
+    return section;
+  }
+
+  function findHomepageContainer() {
+    return document.querySelector('main') ||
+      document.querySelector('[role="main"]') ||
+      document.body;
+  }
+
+  function renderHomepage() {
+    // Clean up any previous render on soft navigation
+    var oldWrap = document.getElementById(HOMEPAGE_WRAPPER_ID);
+    if (oldWrap) oldWrap.remove();
+    var oldAnn = document.getElementById(ANNOUNCEMENT_ID);
+    if (oldAnn) oldAnn.remove();
+
+    injectStyles();
+
+    // Announcement bar goes at the very top of the page
+    var bar = buildAnnouncementBar();
+    if (bar) document.body.insertBefore(bar, document.body.firstChild);
+
+    // Social proof + activity + trust signals go together as a strip
+    // right at the top of the main content area (after Booqable's header)
+    var wrapper = document.createElement('div');
+    wrapper.id = HOMEPAGE_WRAPPER_ID;
+    var proof = buildSocialProof();    if (proof) wrapper.appendChild(proof);
+    var activity = buildActivity();    if (activity) wrapper.appendChild(activity);
+    var trust = buildHomepageTrustSignals(); if (trust) wrapper.appendChild(trust);
+    if (!wrapper.children.length) return;
+    var container = findHomepageContainer();
+    container.insertBefore(wrapper, container.firstChild);
   }
 
   Booqable.on('page-change', renderWhenReady);
