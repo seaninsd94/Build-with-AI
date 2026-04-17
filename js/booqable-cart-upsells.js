@@ -117,26 +117,15 @@
     }
   ];
 
-  function cartItemsDetailed() {
-    var data = Booqable && Booqable.cartData;
-    if (!data || !Array.isArray(data.items)) return [];
-    return data.items.map(function (i) {
-      return {
-        slug: (i.product_slug || i.slug || i.product_id || '').toString(),
-        qty: parseInt(i.quantity || i.qty || 1, 10) || 1
-      };
-    });
-  }
-
   function buildQuantityNudges() {
     var items = cartItemsDetailed();
     if (!items.length) return null;
 
     var suggestions = [];
     QUANTITY_RULES.forEach(function (rule) {
-      var trigger = items.filter(function (i) { return i.slug === rule.triggerSlug; })[0];
+      var trigger = findCartItem(items, rule.triggerSlug);
       if (!trigger) return;
-      var existing = items.filter(function (i) { return i.slug === rule.recommendSlug; })[0];
+      var existing = findCartItem(items, rule.recommendSlug);
       var existingQty = existing ? existing.qty : 0;
       var targetQty = trigger.qty * rule.perTrigger;
       var shortfall = targetQty - existingQty;
@@ -189,14 +178,15 @@
     disclaimer: 'Not insurance. Does not cover tires, intentional misuse, or theft.'
   };
 
-  function waiverInCart(inCart) {
-    return inCart.indexOf(WAIVER.slug) !== -1;
+  function waiverInCart() {
+    var items = cartItemsDetailed();
+    return !!findCartItem(items, WAIVER.slug);
   }
 
-  function buildWaiverCard(inCart) {
+  function buildWaiverCard() {
     var card = document.createElement('section');
     card.className = 'bq-waiver';
-    if (waiverInCart(inCart)) {
+    if (waiverInCart()) {
       card.classList.add('bq-waiver--added');
       card.innerHTML =
         '<div class="bq-waiver__check" aria-hidden="true">&#10003;</div>' +
@@ -286,8 +276,69 @@
     var data = Booqable && Booqable.cartData;
     if (!data || !Array.isArray(data.items)) return [];
     return data.items.map(function (i) {
-      return (i.product_slug || i.slug || i.product_id || '').toString();
+      return (i.product_slug || i.slug || i.product_id || i.id || '').toString();
     });
+  }
+
+  function normalize(s) {
+    return (s || '').toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
+  function itemMatches(item, slug) {
+    if (!item || !slug) return false;
+    var target = slug.toLowerCase();
+    var candidates = [
+      item.product_slug, item.slug, item.handle,
+      item.product_id, item.id,
+      item.product_name, item.name, item.title,
+      item.product && item.product.slug,
+      item.product && item.product.name
+    ];
+    for (var i = 0; i < candidates.length; i++) {
+      var v = candidates[i];
+      if (!v) continue;
+      var s = v.toString().toLowerCase();
+      if (s === target) return true;
+      // Loose match: normalized name contains the slug or vice versa
+      var ns = normalize(s);
+      if (ns === target || ns.indexOf(target) !== -1 || target.indexOf(ns) !== -1) return true;
+    }
+    return false;
+  }
+
+  function cartItemsDetailed() {
+    var data = Booqable && Booqable.cartData;
+    if (!data || !Array.isArray(data.items)) return [];
+    return data.items.map(function (i) {
+      return {
+        raw: i,
+        qty: parseInt(i.quantity || i.qty || i.amount || 1, 10) || 1
+      };
+    });
+  }
+
+  function findCartItem(items, slug) {
+    for (var i = 0; i < items.length; i++) {
+      if (itemMatches(items[i].raw, slug)) return items[i];
+    }
+    return null;
+  }
+
+  // Debug: log cart structure once per page so you can see actual keys.
+  // Open DevTools console on the cart page to inspect.
+  function debugLogCart() {
+    try {
+      var d = Booqable && Booqable.cartData;
+      if (d && Array.isArray(d.items) && d.items.length) {
+        // eslint-disable-next-line no-console
+        console.log('[bq-upsells] cartData.items[0] keys:', Object.keys(d.items[0]));
+        // eslint-disable-next-line no-console
+        console.log('[bq-upsells] cartData.items:', d.items);
+      } else {
+        // eslint-disable-next-line no-console
+        console.log('[bq-upsells] cartData:', d);
+      }
+    } catch (e) {}
   }
 
   function buildCard(u) {
@@ -400,8 +451,10 @@
     var wrapper = document.createElement('div');
     wrapper.id = WRAPPER_ID;
 
+    debugLogCart();
+
     wrapper.appendChild(buildUrgencyBanner());
-    wrapper.appendChild(buildWaiverCard(inCart));
+    wrapper.appendChild(buildWaiverCard());
 
     var nudges = buildQuantityNudges();
     if (nudges) wrapper.appendChild(nudges);
