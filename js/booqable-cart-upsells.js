@@ -87,6 +87,59 @@
   var CART_PATH = '/cart';
   var WRAPPER_ID = 'bq-upsells-wrapper';
 
+  // ----- DAMAGE WAIVER CONFIG -----
+  // Create a "Damage Protection" product in Booqable priced at ~10% of
+  // typical rental subtotals (or a flat fee like $25). Then fill in the
+  // slug + url below. If the slug matches an item already in the cart,
+  // the card switches to a confirmation state.
+  var WAIVER = {
+    slug: 'damage-protection-waiver', // replace with your real Booqable product slug
+    url: 'https://tasteful-event-rentals.booqableshop.com/products/damage-protection-waiver',
+    title: 'Add Damage Protection',
+    percentLabel: '10% of your rental',
+    benefits: [
+      'Covers accidental damage to your rentals',
+      'Caps your liability at $500 — peace of mind',
+      'One click to add, no paperwork'
+    ],
+    disclaimer: 'Not insurance. Does not cover tires, intentional misuse, or theft.'
+  };
+
+  function waiverInCart(inCart) {
+    return inCart.indexOf(WAIVER.slug) !== -1;
+  }
+
+  function buildWaiverCard(inCart) {
+    var card = document.createElement('section');
+    card.className = 'bq-waiver';
+    if (waiverInCart(inCart)) {
+      card.classList.add('bq-waiver--added');
+      card.innerHTML =
+        '<div class="bq-waiver__check" aria-hidden="true">&#10003;</div>' +
+        '<div class="bq-waiver__body">' +
+          '<h3>Damage Protection Added</h3>' +
+          '<p>Your rental is covered. Thank you!</p>' +
+        '</div>';
+      return card;
+    }
+    var benefitsHtml = WAIVER.benefits.map(function (b) {
+      return '<li>' + b + '</li>';
+    }).join('');
+    card.innerHTML =
+      '<div class="bq-waiver__body">' +
+        '<div class="bq-waiver__head">' +
+          '<h3>' + WAIVER.title + '</h3>' +
+          '<span class="bq-waiver__price">' + WAIVER.percentLabel + '</span>' +
+        '</div>' +
+        '<ul class="bq-waiver__benefits">' + benefitsHtml + '</ul>' +
+        '<div class="bq-waiver__actions">' +
+          '<a href="' + WAIVER.url + '" class="bq-waiver__btn">Add Protection</a>' +
+          '<span class="bq-waiver__disclaimer">' + WAIVER.disclaimer + '</span>' +
+        '</div>' +
+      '</div>';
+    return card;
+  }
+
   // ----- URGENCY COUNTDOWN CONFIG -----
   var URGENCY = {
     holdMinutes: 15,
@@ -201,6 +254,21 @@
       '#bq-upsells-wrapper .bq-urgency__icon{font-size:16px!important;line-height:1!important}' +
       '#bq-upsells-wrapper .bq-urgency__time{font-variant-numeric:tabular-nums!important;font-weight:700!important}' +
       '#bq-upsells-wrapper .bq-urgency--expired{background:#fdecea!important;border-color:#f5c2c0!important;color:#8a1f1f!important}' +
+      '#bq-upsells-wrapper .bq-waiver{display:flex!important;gap:12px!important;padding:14px!important;background:#fff!important;border:1px solid #e9ecef!important;border-left:4px solid #1a4d3e!important;border-radius:4px!important}' +
+      '#bq-upsells-wrapper .bq-waiver__body{flex:1!important}' +
+      '#bq-upsells-wrapper .bq-waiver__head{display:flex!important;align-items:baseline!important;justify-content:space-between!important;gap:8px!important;margin-bottom:6px!important}' +
+      '#bq-upsells-wrapper .bq-waiver h3{font-size:14px!important;font-weight:700!important;margin:0!important;padding:0!important;color:inherit!important;line-height:1.3!important}' +
+      '#bq-upsells-wrapper .bq-waiver__price{font-size:12px!important;font-weight:600!important;color:#1a4d3e!important;white-space:nowrap!important}' +
+      '#bq-upsells-wrapper .bq-waiver__benefits{list-style:none!important;margin:0 0 10px!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:3px!important}' +
+      '#bq-upsells-wrapper .bq-waiver__benefits li{position:relative!important;padding-left:16px!important;font-size:12px!important;color:#343a40!important;line-height:1.4!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-waiver__benefits li:before{content:"\\2713"!important;position:absolute!important;left:0!important;top:0!important;color:#1a4d3e!important;font-weight:700!important}' +
+      '#bq-upsells-wrapper .bq-waiver__actions{display:flex!important;align-items:center!important;gap:10px!important;flex-wrap:wrap!important}' +
+      '#bq-upsells-wrapper .bq-waiver__btn{display:inline-block!important;background:#1a4d3e!important;color:#fff!important;padding:6px 14px!important;border-radius:4px!important;text-decoration:none!important;font-size:12px!important;font-weight:600!important;white-space:nowrap!important}' +
+      '#bq-upsells-wrapper .bq-waiver__btn:hover{background:#2d6a4f!important;color:#fff!important;text-decoration:none!important}' +
+      '#bq-upsells-wrapper .bq-waiver__disclaimer{font-size:10px!important;color:#6c757d!important;line-height:1.3!important}' +
+      '#bq-upsells-wrapper .bq-waiver--added{background:#e8f5ee!important;border-color:#b7dcc4!important;border-left-color:#1a4d3e!important;align-items:center!important}' +
+      '#bq-upsells-wrapper .bq-waiver__check{width:28px!important;height:28px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:700!important;font-size:14px!important;flex-shrink:0!important}' +
+      '#bq-upsells-wrapper .bq-waiver--added p{margin:0!important;font-size:12px!important;color:#2d6a4f!important}' +
       '#bq-upsells-wrapper .bq-upsells{padding:16px 12px!important;background:#f8f9fa!important;border-radius:4px!important;margin:0!important}' +
       '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
       '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 12px!important;padding:0!important}' +
@@ -240,6 +308,7 @@
     wrapper.id = WRAPPER_ID;
 
     wrapper.appendChild(buildUrgencyBanner());
+    wrapper.appendChild(buildWaiverCard(inCart));
 
     SECTIONS.forEach(function (section) {
       var el = buildSection(section, inCart);
