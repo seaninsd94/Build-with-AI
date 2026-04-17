@@ -93,21 +93,21 @@
   // Replace the placeholder slugs with your real Booqable product slugs.
   var QUANTITY_RULES = [
     {
-      triggerSlug: '60-inch-round-table',
-      recommendSlug: 'white-folding-chair',
-      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair',
+      triggerSlug: '60in-round-wood-table-rental-event-rentals-san-diego',
+      recommendSlug: 'white-folding-chair-rental-event-rentals-san-diego',
+      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
       recommendName: 'white folding chairs',
-      // 8 chairs per round table is standard for dinner seating
+      // 8 chairs per 60" round table is standard for dinner seating
       perTrigger: 8,
       messageFn: function (triggerQty, shortfall) {
-        return 'Most ' + triggerQty + '-table events seat 8 per table. You look ' +
+        return 'Most ' + triggerQty + '-table events seat 8 per round table. You look ' +
           shortfall + ' chair' + (shortfall === 1 ? '' : 's') + ' short.';
       }
     },
     {
-      triggerSlug: '6ft-rectangular-table',
-      recommendSlug: 'white-folding-chair',
-      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair',
+      triggerSlug: '6-foot-folding-rectangular-table-rental-event-rentals-san-diego',
+      recommendSlug: 'white-folding-chair-rental-event-rentals-san-diego',
+      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
       recommendName: 'white folding chairs',
       perTrigger: 6,
       messageFn: function (triggerQty, shortfall) {
@@ -177,9 +177,9 @@
   // slug + url below. If the slug matches an item already in the cart,
   // the card switches to a confirmation state.
   var WAIVER = {
-    slug: 'damage-protection-waiver', // replace with your real Booqable product slug
-    url: 'https://tasteful-event-rentals.booqableshop.com/products/damage-protection-waiver',
-    title: 'Add Damage Protection',
+    slug: 'rental-protection-plan',
+    url: 'https://tasteful-event-rentals.booqableshop.com/products/rental-protection-plan',
+    title: 'Add Rental Protection Plan',
     percentLabel: '10% of your rental',
     benefits: [
       'Covers accidental damage to your rentals',
