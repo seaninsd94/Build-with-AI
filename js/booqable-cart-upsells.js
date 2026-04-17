@@ -243,13 +243,14 @@
   }
 
   // ----- TRUST SIGNALS CONFIG -----
-  // Short, scannable trust statements shown near the Continue to Checkout
-  // button. Edit/reorder freely. Set to [] to hide.
+  // Short, scannable trust statements shown on browse pages and on the
+  // cart page near the Continue to Checkout button. Edit/reorder freely.
+  // Set to [] to hide entirely.
   var TRUST_SIGNALS = [
     'Locally owned in San Diego',
-    '5-star reviews from real customers',
     'Insured & licensed event rentals',
-    'Customer pickup ready'
+    '7+ years serving events',
+    'Flexible customer pickup'
   ];
 
   function buildTrustSignals() {
@@ -414,14 +415,6 @@
     return loc && loc.indexOf(CART_PATH) === 0;
   }
 
-  function itemsInCart() {
-    return cartItemsDetailed();
-  }
-
-  function normalize(s) {
-    return (s || '').toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  }
-
   function itemMatches(item, query) {
     if (!item || !query) return false;
     var name = (item.item_name || item.name || item.title || '').toString().toLowerCase();
@@ -438,90 +431,13 @@
 
   function cartItemsDetailed() {
     var data = Booqable && Booqable.cartData;
-    if (data && Array.isArray(data.items) && data.items.length) {
-      return data.items.map(function (i) {
-        return {
-          raw: i,
-          qty: parseInt(i.quantity || i.qty || i.amount || 1, 10) || 1
-        };
-      });
-    }
-    // Fallback: scrape the rendered cart DOM. Booqable cart pages render
-    // each line as an element containing the product name and a quantity
-    // input. The exact selectors vary by theme; try several common ones.
-    return cartItemsFromDom();
-  }
-
-  function cartItemsFromDom() {
-    var items = [];
-    var lineSelectors = [
-      '[data-cart-item]',
-      '[data-line-item]',
-      '.cart-item',
-      '.cart__item',
-      '.line-item',
-      'tr.cart-line',
-      'li.cart-line'
-    ];
-    var lines = [];
-    for (var s = 0; s < lineSelectors.length && !lines.length; s++) {
-      lines = Array.prototype.slice.call(document.querySelectorAll(lineSelectors[s]));
-    }
-    if (!lines.length) {
-      // Last resort: any link to /products/ inside what looks like a cart container
-      var cart = document.querySelector('[data-cart], .cart, #cart, main');
-      if (cart) {
-        var links = cart.querySelectorAll('a[href*="/products/"]');
-        for (var k = 0; k < links.length; k++) {
-          var href = links[k].getAttribute('href') || '';
-          var slug = (href.split('/products/')[1] || '').split(/[?#/]/)[0];
-          if (!slug) continue;
-          items.push({ raw: { handle: slug, name: links[k].textContent.trim() }, qty: 1 });
-        }
-      }
-      return items;
-    }
-    lines.forEach(function (line) {
-      var qty = 1;
-      var qInput = line.querySelector('input[type="number"], input[name*="quantity" i]');
-      if (qInput && qInput.value) qty = parseInt(qInput.value, 10) || 1;
-      var qText = line.querySelector('[data-quantity], .quantity, .cart-line-qty');
-      if (qText && qText.textContent) {
-        var n = parseInt(qText.textContent.replace(/\D+/g, ''), 10);
-        if (n) qty = n;
-      }
-      var link = line.querySelector('a[href*="/products/"]');
-      var slug = '';
-      if (link) {
-        var href2 = link.getAttribute('href') || '';
-        slug = (href2.split('/products/')[1] || '').split(/[?#/]/)[0];
-      }
-      var nameEl = line.querySelector('[data-product-name], .product-name, .cart-line-info h3, h3, h4, .title');
-      var name = (nameEl && nameEl.textContent.trim()) || (link && link.textContent.trim()) || '';
-      if (!slug && !name) return;
-      items.push({ raw: { handle: slug, name: name }, qty: qty });
+    if (!data || !Array.isArray(data.items)) return [];
+    return data.items.map(function (i) {
+      return {
+        raw: i,
+        qty: parseInt(i.quantity || i.qty || i.amount || 1, 10) || 1
+      };
     });
-    return items;
-  }
-
-  // Debug: log cart structure once per page so you can see actual keys.
-  // Open DevTools console on the cart page to inspect.
-  function debugLogCart() {
-    try {
-      var d = Booqable && Booqable.cartData;
-      if (d && Array.isArray(d.items) && d.items.length) {
-        console.log('[bq-upsells] cartData.items[0] keys: ' +
-          Object.keys(d.items[0]).join(', '));
-        console.log('[bq-upsells] cartData.items JSON:\n' +
-          JSON.stringify(d.items, null, 2));
-      } else {
-        var dom = cartItemsFromDom();
-        console.log('[bq-upsells] cartData unavailable. DOM scraped ' +
-          dom.length + ' items: ' + JSON.stringify(dom, null, 2));
-      }
-    } catch (e) {
-      console.log('[bq-upsells] debug error:', e && e.message);
-    }
   }
 
   function buildCard(u) {
@@ -573,9 +489,11 @@
       '#bq-upsells-wrapper .bq-urgency__icon{font-size:16px!important;line-height:1!important}' +
       '#bq-upsells-wrapper .bq-urgency__time{font-variant-numeric:tabular-nums!important;font-weight:700!important}' +
       '#bq-upsells-wrapper .bq-urgency--expired{background:#fdecea!important;border-color:#f5c2c0!important;color:#8a1f1f!important}' +
-      '#bq-upsells-wrapper .bq-trust{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:8px 18px!important;padding:10px 14px!important;background:transparent!important}' +
-      '#bq-upsells-wrapper .bq-trust__item{display:inline-flex!important;align-items:center!important;font-size:12px!important;color:#343a40!important;font-weight:500!important;line-height:1.3!important}' +
-      '#bq-upsells-wrapper .bq-trust__check{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:16px!important;height:16px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;font-size:10px!important;font-weight:700!important;margin-right:5px!important;flex-shrink:0!important}' +
+      // Trust signals — shared rules cover both the cart wrapper and
+      // the browse-page wrapper so we don't duplicate styles.
+      '#bq-upsells-wrapper .bq-trust,#bq-homepage-wrapper .bq-trust{display:inline-flex!important;flex-wrap:wrap!important;align-items:center!important;justify-content:center!important;gap:8px 18px!important;margin:0!important;padding:0!important;background:transparent!important}' +
+      '#bq-upsells-wrapper .bq-trust__item,#bq-homepage-wrapper .bq-trust__item{display:inline-flex!important;align-items:center!important;font-size:12px!important;color:#343a40!important;font-weight:500!important;line-height:1.3!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-trust__check,#bq-homepage-wrapper .bq-trust__check{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:16px!important;height:16px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;font-size:10px!important;font-weight:700!important;margin-right:5px!important;flex-shrink:0!important}' +
       '#bq-upsells-wrapper .bq-savequote{padding:16px!important;background:#fff!important;border:1px solid #e9ecef!important;border-radius:6px!important;text-align:center!important}' +
       '#bq-upsells-wrapper .bq-savequote__body{margin-bottom:12px!important}' +
       '#bq-upsells-wrapper .bq-savequote h3{font-size:14px!important;font-weight:700!important;margin:0 0 4px!important;padding:0!important;color:inherit!important;line-height:1.3!important}' +
@@ -630,9 +548,6 @@
       '#bq-homepage-wrapper .bq-activity__pulse{width:8px!important;height:8px!important;border-radius:50%!important;background:#2d6a4f!important;box-shadow:0 0 0 0 rgba(45,106,79,.7)!important;animation:bqPulse 2s infinite!important;flex-shrink:0!important}' +
       '#bq-homepage-wrapper .bq-activity__text{font-weight:500!important;color:#343a40!important}' +
       '#bq-homepage-wrapper .bq-activity__text strong{color:#1a4d3e!important;font-weight:700!important}' +
-      '#bq-homepage-wrapper .bq-home-trust{display:inline-flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px 18px!important;margin:0!important;padding:0!important}' +
-      '#bq-homepage-wrapper .bq-home-trust__item{display:inline-flex!important;align-items:center!important;font-size:12px!important;color:#343a40!important;font-weight:500!important;line-height:1.3!important;margin:0!important;padding:0!important}' +
-      '#bq-homepage-wrapper .bq-home-trust__check{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:16px!important;height:16px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;font-size:10px!important;font-weight:700!important;margin-right:5px!important;flex-shrink:0!important}' +
       '@keyframes bqPulse{0%{box-shadow:0 0 0 0 rgba(45,106,79,.7)}70%{box-shadow:0 0 0 10px rgba(45,106,79,0)}100%{box-shadow:0 0 0 0 rgba(45,106,79,0)}}';
     var style = document.createElement('style');
     style.id = 'bq-upsells-styles';
@@ -652,11 +567,9 @@
     var existing = document.getElementById(WRAPPER_ID);
     if (existing) existing.remove();
 
-    var inCart = itemsInCart();
+    var inCart = cartItemsDetailed();
     var wrapper = document.createElement('div');
     wrapper.id = WRAPPER_ID;
-
-    debugLogCart();
 
     wrapper.appendChild(buildUrgencyBanner());
 
@@ -745,12 +658,8 @@
       baseline: 12,
       avgPerDay: 1.6
     },
-    trustSignals: [
-      'Locally owned in San Diego',
-      'Insured & licensed event rentals',
-      '7+ years serving events',
-      'Flexible customer pickup'
-    ]
+    // Trust signals are shared with the cart page — see TRUST_SIGNALS
+    // at the top of the script.
   };
 
   var HOMEPAGE_WRAPPER_ID = 'bq-homepage-wrapper';
@@ -833,18 +742,6 @@
     return section;
   }
 
-  function buildHomepageTrustSignals() {
-    if (!HOMEPAGE.trustSignals.length) return null;
-    var section = document.createElement('section');
-    section.className = 'bq-home-trust';
-    section.innerHTML = HOMEPAGE.trustSignals.map(function (s) {
-      return '<span class="bq-home-trust__item">' +
-        '<span class="bq-home-trust__check" aria-hidden="true">&#10003;</span> ' + s +
-      '</span>';
-    }).join('');
-    return section;
-  }
-
   function findHomepageContainer() {
     return document.querySelector('main') ||
       document.querySelector('[role="main"]') ||
@@ -870,7 +767,7 @@
     wrapper.id = HOMEPAGE_WRAPPER_ID;
     var proof = buildSocialProof();    if (proof) wrapper.appendChild(proof);
     var activity = buildActivity();    if (activity) wrapper.appendChild(activity);
-    var trust = buildHomepageTrustSignals(); if (trust) wrapper.appendChild(trust);
+    var trust = buildTrustSignals(); if (trust) wrapper.appendChild(trust);
     if (!wrapper.children.length) return;
     var container = findHomepageContainer();
     container.insertBefore(wrapper, container.firstChild);
