@@ -35,7 +35,7 @@
           image: 'https://images.unsplash.com/photo-1530541930197-ff16ac917b0e?w=600&h=400&fit=crop&q=80'
         },
         {
-          slug: 'white-padded-resin-folding-chair-rental-event-rentals-san-diego',
+          matchName: 'White Padded',
           url: 'https://tasteful-event-rentals.booqableshop.com/products/white-padded-resin-folding-chair-rental-event-rentals-san-diego',
           name: 'White Padded Chair Upgrade',
           blurb: 'Upgrade from standard folding chairs to white padded resin chairs.',
@@ -57,7 +57,7 @@
       subheading: 'Handy equipment to help you transport your rentals.',
       items: [
         {
-          slug: 'equipment-dolly-rental-event-rentals-san-diego',
+          matchName: 'Dolly',
           url: 'https://tasteful-event-rentals.booqableshop.com/products/equipment-dolly-rental-event-rentals-san-diego',
           name: 'Moving Dolly',
           blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
@@ -65,7 +65,7 @@
           image: 'https://images.booqablecdn.com/w500/uploads/356c11211e03252a4edb0acdcb0ff49d/photo/photo/698f9546-c0f7-4793-8959-5eaeedfd42bb/dolly-rental-event-rentals-san-diego.png'
         },
         {
-          slug: 'ratchet-strap-rental-event-rentals-san-diego',
+          matchName: 'Ratchet Strap',
           url: 'https://tasteful-event-rentals.booqableshop.com/products/ratchet-strap-rental-event-rentals-san-diego',
           name: 'Ratchet Strap',
           blurb: 'Secure your load safely in the truck or trailer.',
@@ -73,7 +73,7 @@
           image: 'https://images.booqablecdn.com/w500/uploads/356c11211e03252a4edb0acdcb0ff49d/photo/photo/27bbbf15-290c-4607-96ef-11e84f02ed20/ratchet-strap-event-rentals-san-diego.png'
         },
         {
-          slug: 'moving-blanket-rental-event-rentals-san-diego',
+          matchName: 'Moving Blanket',
           url: 'https://tasteful-event-rentals.booqableshop.com/products/moving-blanket-rental-event-rentals-san-diego',
           name: 'Moving Blanket',
           blurb: 'Quilted padding to protect rentals during transport.',
@@ -91,12 +91,14 @@
   // When the cart contains `triggerSlug` with some quantity, recommend
   // `recommendSlug` if the recommended quantity isn't already met.
   // Replace the placeholder slugs with your real Booqable product slugs.
+  // Rules are matched against the cart item's display name (item_name),
+  // not URL slugs — Booqable only exposes names on the cart page.
+  // `triggerMatch` and `recommendMatch` are case-insensitive substrings.
   var QUANTITY_RULES = [
     {
-      triggerSlug: '60in-round-wood-table-rental-event-rentals-san-diego',
-      recommendSlug: 'white-folding-chair-rental-event-rentals-san-diego',
+      triggerMatch: 'Round Birchwood Table',
+      recommendMatch: 'Folding Chair',
       recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
-      recommendName: 'white folding chairs',
       // 8 chairs per 60" round table is standard for dinner seating
       perTrigger: 8,
       messageFn: function (triggerQty, shortfall) {
@@ -105,10 +107,9 @@
       }
     },
     {
-      triggerSlug: '6-foot-folding-rectangular-table-rental-event-rentals-san-diego',
-      recommendSlug: 'white-folding-chair-rental-event-rentals-san-diego',
+      triggerMatch: 'Rectangular Table',
+      recommendMatch: 'Folding Chair',
       recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
-      recommendName: 'white folding chairs',
       perTrigger: 6,
       messageFn: function (triggerQty, shortfall) {
         return 'Guests typically seat 6 per 6ft table. Add ' + shortfall +
@@ -123,9 +124,9 @@
 
     var suggestions = [];
     QUANTITY_RULES.forEach(function (rule) {
-      var trigger = findCartItem(items, rule.triggerSlug);
+      var trigger = findCartItem(items, rule.triggerMatch);
       if (!trigger) return;
-      var existing = findCartItem(items, rule.recommendSlug);
+      var existing = findCartItem(items, rule.recommendMatch);
       var existingQty = existing ? existing.qty : 0;
       var targetQty = trigger.qty * rule.perTrigger;
       var shortfall = targetQty - existingQty;
@@ -166,7 +167,9 @@
   // slug + url below. If the slug matches an item already in the cart,
   // the card switches to a confirmation state.
   var WAIVER = {
-    slug: 'rental-protection-plan',
+    // matchName is a case-insensitive substring of the product's name as
+    // it appears in the cart (Booqable exposes `item_name`, not slugs).
+    matchName: 'Rental Protection Plan',
     url: 'https://tasteful-event-rentals.booqableshop.com/products/rental-protection-plan',
     title: 'Add Rental Protection Plan',
     percentLabel: '10% of your rental',
@@ -180,7 +183,7 @@
 
   function waiverInCart() {
     var items = cartItemsDetailed();
-    return !!findCartItem(items, WAIVER.slug);
+    return !!findCartItem(items, WAIVER.matchName);
   }
 
   function buildWaiverCard() {
@@ -280,26 +283,11 @@
     return (s || '').toString().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   }
 
-  function itemMatches(item, slug) {
-    if (!item || !slug) return false;
-    var target = slug.toLowerCase();
-    var candidates = [
-      item.product_slug, item.slug, item.handle,
-      item.product_id, item.id,
-      item.product_name, item.name, item.title,
-      item.product && item.product.slug,
-      item.product && item.product.name
-    ];
-    for (var i = 0; i < candidates.length; i++) {
-      var v = candidates[i];
-      if (!v) continue;
-      var s = v.toString().toLowerCase();
-      if (s === target) return true;
-      // Loose match: normalized name contains the slug or vice versa
-      var ns = normalize(s);
-      if (ns === target || ns.indexOf(target) !== -1 || target.indexOf(ns) !== -1) return true;
-    }
-    return false;
+  function itemMatches(item, query) {
+    if (!item || !query) return false;
+    var name = (item.item_name || item.name || item.title || '').toString().toLowerCase();
+    if (!name) return false;
+    return name.indexOf(query.toString().toLowerCase()) !== -1;
   }
 
   function findCartItem(items, slug) {
@@ -417,7 +405,8 @@
 
   function buildSection(section, items) {
     var available = section.items.filter(function (u) {
-      return !u.slug || !findCartItem(items, u.slug);
+      var query = u.matchName || u.slug;
+      return !query || !findCartItem(items, query);
     });
     if (available.length === 0) return null;
 
