@@ -87,6 +87,59 @@
   var CART_PATH = '/cart';
   var WRAPPER_ID = 'bq-upsells-wrapper';
 
+  // ----- URGENCY COUNTDOWN CONFIG -----
+  var URGENCY = {
+    holdMinutes: 15,
+    storageKey: 'bq-cart-hold-expires'
+  };
+
+  function getHoldExpiry() {
+    try {
+      var stored = localStorage.getItem(URGENCY.storageKey);
+      if (stored) {
+        var ts = parseInt(stored, 10);
+        if (ts > Date.now()) return ts;
+      }
+    } catch (e) {}
+    var expiry = Date.now() + URGENCY.holdMinutes * 60 * 1000;
+    try { localStorage.setItem(URGENCY.storageKey, String(expiry)); } catch (e) {}
+    return expiry;
+  }
+
+  function formatRemaining(ms) {
+    if (ms <= 0) return '00:00';
+    var total = Math.floor(ms / 1000);
+    var mm = Math.floor(total / 60);
+    var ss = total % 60;
+    return (mm < 10 ? '0' : '') + mm + ':' + (ss < 10 ? '0' : '') + ss;
+  }
+
+  function buildUrgencyBanner() {
+    var expiry = getHoldExpiry();
+    var banner = document.createElement('div');
+    banner.className = 'bq-urgency';
+    banner.innerHTML =
+      '<span class="bq-urgency__icon" aria-hidden="true">&#9201;</span>' +
+      '<span class="bq-urgency__text">Your cart is reserved for</span>' +
+      '<span class="bq-urgency__time" data-bq-countdown>--:--</span>';
+
+    var timeEl = banner.querySelector('[data-bq-countdown]');
+    function tick() {
+      var remaining = expiry - Date.now();
+      if (remaining <= 0) {
+        banner.classList.add('bq-urgency--expired');
+        timeEl.textContent = 'expired';
+        banner.querySelector('.bq-urgency__text').textContent = 'Cart reservation';
+        clearInterval(interval);
+        return;
+      }
+      timeEl.textContent = formatRemaining(remaining);
+    }
+    tick();
+    var interval = setInterval(tick, 1000);
+    return banner;
+  }
+
   function isCartPage() {
     var loc = (Booqable && Booqable.location) || window.location.pathname;
     return loc && loc.indexOf(CART_PATH) === 0;
@@ -144,6 +197,10 @@
     var css =
       '#bq-upsells-wrapper{display:flex!important;flex-direction:column!important;gap:12px!important;margin:20px 0!important;font-family:inherit!important;font-size:14px!important;line-height:1.4!important}' +
       '#bq-upsells-wrapper *{box-sizing:border-box!important}' +
+      '#bq-upsells-wrapper .bq-urgency{display:flex!important;align-items:center!important;justify-content:center!important;gap:8px!important;padding:10px 14px!important;background:#fff7e6!important;border:1px solid #ffe0a3!important;border-radius:4px!important;color:#7a4a00!important;font-size:13px!important;font-weight:500!important}' +
+      '#bq-upsells-wrapper .bq-urgency__icon{font-size:16px!important;line-height:1!important}' +
+      '#bq-upsells-wrapper .bq-urgency__time{font-variant-numeric:tabular-nums!important;font-weight:700!important}' +
+      '#bq-upsells-wrapper .bq-urgency--expired{background:#fdecea!important;border-color:#f5c2c0!important;color:#8a1f1f!important}' +
       '#bq-upsells-wrapper .bq-upsells{padding:16px 12px!important;background:#f8f9fa!important;border-radius:4px!important;margin:0!important}' +
       '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
       '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 12px!important;padding:0!important}' +
@@ -182,12 +239,13 @@
     var wrapper = document.createElement('div');
     wrapper.id = WRAPPER_ID;
 
+    wrapper.appendChild(buildUrgencyBanner());
+
     SECTIONS.forEach(function (section) {
       var el = buildSection(section, inCart);
       if (el) wrapper.appendChild(el);
     });
 
-    if (!wrapper.children.length) return;
     injectStyles();
     findCartContainer().appendChild(wrapper);
   }
