@@ -5,8 +5,8 @@
  *   (do NOT wrap in <script> tags — Booqable already does that)
  *
  * What it does:
- *   HOMEPAGE (/)
- *     - Announcement bar (promo, dismissible)
+ *   BROWSE PAGES (homepage, /collections/*, /products/*)
+ *     - Announcement bar (promo, dismissible, site-wide)
  *     - Social proof strip (star rating + review count)
  *     - Live activity counter ("N events booked this month")
  *     - Trust signals row
@@ -756,9 +756,17 @@
   var HOMEPAGE_WRAPPER_ID = 'bq-homepage-wrapper';
   var ANNOUNCEMENT_ID = 'bq-announcement';
 
+  // Returns true for homepage, collection pages, and product pages —
+  // essentially every browse/discovery surface. Cart page is handled
+  // separately via isCartPage() above and is excluded here.
   function isHomepage() {
     var loc = (Booqable && Booqable.location) || window.location.pathname;
-    return loc === '/' || loc === '' || loc === '/home';
+    if (!loc) loc = '/';
+    if (loc === '/cart' || loc.indexOf('/cart') === 0) return false;
+    if (loc === '/' || loc === '/home') return true;
+    if (loc.indexOf('/collections') === 0) return true;
+    if (loc.indexOf('/products') === 0) return true;
+    return false;
   }
 
   function isAnnouncementDismissed() {
