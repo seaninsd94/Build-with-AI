@@ -62,7 +62,7 @@
           name: 'Moving Dolly',
           blurb: 'Heavy-duty dolly for moving tables, chairs & equipment with ease.',
           price: 'from $25',
-          image: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=400&fit=crop&q=80'
+          image: 'https://images.booqablecdn.com/w500/uploads/356c11211e03252a4edb0acdcb0ff49d/photo/photo/698f9546-c0f7-4793-8959-5eaeedfd42bb/dolly-rental-event-rentals-san-diego.png'
         },
         {
           slug: 'ratchet-strap-rental-event-rentals-san-diego',
@@ -70,7 +70,7 @@
           name: 'Ratchet Strap',
           blurb: 'Secure your load safely in the truck or trailer.',
           price: 'from $4',
-          image: 'https://images.unsplash.com/photo-1609205807107-e8ec2120f9de?w=600&h=400&fit=crop&q=80'
+          image: 'https://images.booqablecdn.com/w500/uploads/356c11211e03252a4edb0acdcb0ff49d/photo/photo/27bbbf15-290c-4607-96ef-11e84f02ed20/ratchet-strap-event-rentals-san-diego.png'
         },
         {
           slug: 'moving-blanket-rental-event-rentals-san-diego',
@@ -78,7 +78,7 @@
           name: 'Moving Blanket',
           blurb: 'Quilted padding to protect rentals during transport.',
           price: 'from $5',
-          image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80'
+          image: 'https://images.booqablecdn.com/w500/uploads/356c11211e03252a4edb0acdcb0ff49d/photo/photo/d97ac621-3bb8-4d98-acb7-76d28d094b7d/moving-blanket-event-rentals-san-diego.png'
         }
       ]
     }
