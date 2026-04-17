@@ -266,7 +266,7 @@
   // Sign up free at https://formspree.io to get a URL like
   //   https://formspree.io/f/xxxxxxx
   var SAVE_QUOTE = {
-    formspreeUrl: '', // e.g. 'https://formspree.io/f/xxxxxxx'
+    formspreeUrl: 'https://formspree.io/f/xojyddzz',
     businessEmail: 'support@tastefuleventrentals.com', // mailto fallback
     title: 'Need to think it over?',
     subtitle: 'Email yourself this quote and pick up where you left off.'
