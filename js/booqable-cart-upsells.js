@@ -107,12 +107,24 @@
       }
     },
     {
-      triggerMatch: 'Folding Table',
+      triggerMatch: "6' Plastic",
       recommendMatch: 'Folding Chair',
       recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
+      // 6 chairs per 6ft rectangular table (2 per side + 1 per end)
       perTrigger: 6,
       messageFn: function (triggerQty, shortfall) {
         return 'Guests typically seat 6 per 6ft table. Add ' + shortfall +
+          ' more chair' + (shortfall === 1 ? '' : 's') + '?';
+      }
+    },
+    {
+      triggerMatch: "8' Plastic",
+      recommendMatch: 'Folding Chair',
+      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
+      // 8 chairs per 8ft rectangular table (3 per side + 1 per end)
+      perTrigger: 8,
+      messageFn: function (triggerQty, shortfall) {
+        return 'Guests typically seat 8 per 8ft table. Add ' + shortfall +
           ' more chair' + (shortfall === 1 ? '' : 's') + '?';
       }
     }
