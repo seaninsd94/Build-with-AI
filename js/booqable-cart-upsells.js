@@ -142,23 +142,23 @@
   function injectStyles() {
     if (document.getElementById('bq-upsells-styles')) return;
     var css =
-      '#bq-upsells-wrapper{display:flex;flex-direction:column;gap:16px;margin:24px 0}' +
-      '.bq-upsells{padding:20px 16px;background:#f8f9fa;border-radius:4px;font-family:inherit}' +
-      '.bq-upsells[data-section="pickup-equipment"]{background:#fff;border:1px solid #e9ecef;border-top:3px solid #2541b2}' +
-      '.bq-upsells__header{text-align:center;margin-bottom:16px}' +
-      '.bq-upsells__header h2{font-size:1.1rem;margin:0 0 4px;font-weight:600}' +
-      '.bq-upsells__header p{color:#6c757d;font-size:.85rem;margin:0}' +
-      '.bq-upsells__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}' +
-      '.bq-upsell-card{background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);display:flex;flex-direction:column}' +
-      '.bq-upsell-card__image{aspect-ratio:4/3;overflow:hidden}' +
-      '.bq-upsell-card__image img{width:100%;height:100%;object-fit:cover;display:block}' +
-      '.bq-upsell-card__body{padding:12px;display:flex;flex-direction:column;flex:1}' +
-      '.bq-upsell-card__body h3{font-size:.95rem;margin:0 0 4px;font-weight:600}' +
-      '.bq-upsell-card__body p{color:#6c757d;font-size:.8rem;line-height:1.4;margin:0 0 10px;flex:1}' +
-      '.bq-upsell-card__footer{display:flex;align-items:center;justify-content:space-between;gap:8px}' +
-      '.bq-upsell-card__price{font-weight:600;font-size:.875rem}' +
-      '.bq-upsell-card__btn{background:#1a4d3e;color:#fff;padding:6px 12px;border-radius:4px;text-decoration:none;font-size:.8rem;font-weight:500;white-space:nowrap}' +
-      '.bq-upsell-card__btn:hover{background:#2d6a4f}';
+      '#bq-upsells-wrapper{display:flex!important;flex-direction:column!important;gap:16px!important;margin:24px 0!important}' +
+      '#bq-upsells-wrapper .bq-upsells{padding:20px 16px!important;background:#f8f9fa!important;border-radius:4px!important;font-family:inherit!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
+      '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 16px!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsells__header h2{font-size:1.1rem!important;line-height:1.3!important;margin:0 0 4px!important;padding:0!important;font-weight:600!important}' +
+      '#bq-upsells-wrapper .bq-upsells__header p{color:#6c757d!important;font-size:.85rem!important;line-height:1.4!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsells__grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))!important;gap:12px!important;margin:0!important;padding:0!important;list-style:none!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card{background:#fff!important;border-radius:4px!important;overflow:hidden!important;box-shadow:0 1px 3px rgba(0,0,0,.08)!important;display:flex!important;flex-direction:column!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__image{aspect-ratio:4/3!important;overflow:hidden!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__image img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;max-width:none!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body{padding:12px!important;display:flex!important;flex-direction:column!important;flex:1!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body h3{font-size:.95rem!important;line-height:1.3!important;margin:0 0 4px!important;padding:0!important;font-weight:600!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body p{color:#6c757d!important;font-size:.8rem!important;line-height:1.4!important;margin:0 0 10px!important;padding:0!important;flex:1!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__price{font-weight:600!important;font-size:.875rem!important;line-height:1.2!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__btn{display:inline-block!important;background:#1a4d3e!important;color:#fff!important;padding:6px 12px!important;border-radius:4px!important;text-decoration:none!important;font-size:.8rem!important;font-weight:500!important;line-height:1.2!important;white-space:nowrap!important;border:none!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__btn:hover{background:#2d6a4f!important;color:#fff!important}';
     var style = document.createElement('style');
     style.id = 'bq-upsells-styles';
     style.textContent = css;
