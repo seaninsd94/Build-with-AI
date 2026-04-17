@@ -258,34 +258,19 @@
   // ----- SAVE QUOTE CONFIG -----
   // Captures the customer's email + cart contents so you can follow up
   // with abandoned carts. Two delivery modes:
-  //   1. netlifyUrl set -> POSTs form-encoded data to your Netlify site
-  //      (Netlify Forms records the submission, emails it to you)
-  //   2. netlifyUrl empty -> opens the customer's mail client via
-  //      mailto: addressed to businessEmail (works immediately, no
-  //      setup, but requires the customer have a mail client)
-  //
-  // To enable Netlify Forms:
-  //   a) Deploy this repo to Netlify
-  //   b) Add a hidden form on any deployed HTML page with the same
-  //      `name` attribute and field names so Netlify detects it at
-  //      build time (already added to index.html — form name
-  //      "save-quote", fields: email, cart, cart_url)
-  //   c) Confirm the form appears under Forms in the Netlify dashboard
-  //   d) Set notification emails (Forms -> Settings)
-  //   e) Paste your deployed Netlify URL below (no trailing slash)
+  //   1. formspreeUrl set -> POSTs to Formspree, you receive an email
+  //   2. formspreeUrl empty -> opens the customer's mail client with
+  //      a pre-filled mailto: addressed to businessEmail (works
+  //      immediately, no signup, but only if the customer has an email
+  //      client configured)
+  // Sign up free at https://formspree.io to get a URL like
+  //   https://formspree.io/f/xxxxxxx
   var SAVE_QUOTE = {
-    netlifyUrl: '', // e.g. 'https://your-site.netlify.app'
-    netlifyFormName: 'save-quote',
+    formspreeUrl: '', // e.g. 'https://formspree.io/f/xxxxxxx'
     businessEmail: 'support@tastefuleventrentals.com', // mailto fallback
     title: 'Need to think it over?',
     subtitle: 'Email yourself this quote and pick up where you left off.'
   };
-
-  function encodeFormData(data) {
-    return Object.keys(data).map(function (k) {
-      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k]);
-    }).join('&');
-  }
 
   function cartSummaryText() {
     var items = cartItemsDetailed();
@@ -322,17 +307,17 @@
         return;
       }
       var summary = cartSummaryText();
-      if (SAVE_QUOTE.netlifyUrl) {
+      if (SAVE_QUOTE.formspreeUrl) {
         status.textContent = 'Sending...';
         status.className = 'bq-savequote__status';
-        fetch(SAVE_QUOTE.netlifyUrl, {
+        fetch(SAVE_QUOTE.formspreeUrl, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: encodeFormData({
-            'form-name': SAVE_QUOTE.netlifyFormName,
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             email: email,
             cart: summary,
-            cart_url: window.location.href
+            cart_url: window.location.href,
+            _subject: 'Saved Quote from ' + email
           })
         }).then(function (r) {
           if (r.ok) {

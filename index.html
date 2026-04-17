@@ -216,19 +216,5 @@ Show less
     </div>
   </footer>
   <script src="js/main.js"></script>
-
-  <!--
-    Hidden Netlify form. Required so Netlify's build-time form detector
-    registers the "save-quote" form and accepts cross-origin POSTs from
-    the Booqable cart-upsells script. Do not remove the data-netlify
-    attribute or rename the fields — the script POSTs `form-name`,
-    `email`, `cart`, and `cart_url` and Netlify will reject submissions
-    if the registered form doesn't match.
-  -->
-  <form name="save-quote" data-netlify="true" hidden>
-    <input type="email" name="email">
-    <textarea name="cart"></textarea>
-    <input type="text" name="cart_url">
-  </form>
 </body>
 </html>
