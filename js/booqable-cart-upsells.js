@@ -383,12 +383,18 @@
     try {
       var d = Booqable && Booqable.cartData;
       if (d && Array.isArray(d.items) && d.items.length) {
-        console.log('[bq-upsells] cartData.items[0] keys:', Object.keys(d.items[0]));
-        console.log('[bq-upsells] cartData.items:', d.items);
+        console.log('[bq-upsells] cartData.items[0] keys: ' +
+          Object.keys(d.items[0]).join(', '));
+        console.log('[bq-upsells] cartData.items JSON:\n' +
+          JSON.stringify(d.items, null, 2));
       } else {
-        console.log('[bq-upsells] cartData unavailable, scraped from DOM:', cartItemsFromDom());
+        var dom = cartItemsFromDom();
+        console.log('[bq-upsells] cartData unavailable. DOM scraped ' +
+          dom.length + ' items: ' + JSON.stringify(dom, null, 2));
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log('[bq-upsells] debug error:', e && e.message);
+    }
   }
 
   function buildCard(u) {
