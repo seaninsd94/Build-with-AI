@@ -142,23 +142,24 @@
   function injectStyles() {
     if (document.getElementById('bq-upsells-styles')) return;
     var css =
-      '#bq-upsells-wrapper{display:flex!important;flex-direction:column!important;gap:16px!important;margin:24px 0!important}' +
-      '#bq-upsells-wrapper .bq-upsells{padding:20px 16px!important;background:#f8f9fa!important;border-radius:4px!important;font-family:inherit!important;margin:0!important}' +
+      '#bq-upsells-wrapper{display:flex!important;flex-direction:column!important;gap:12px!important;margin:20px 0!important;font-family:inherit!important;font-size:14px!important;line-height:1.4!important}' +
+      '#bq-upsells-wrapper *{box-sizing:border-box!important}' +
+      '#bq-upsells-wrapper .bq-upsells{padding:16px 12px!important;background:#f8f9fa!important;border-radius:4px!important;margin:0!important}' +
       '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
-      '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 16px!important;padding:0!important}' +
-      '#bq-upsells-wrapper .bq-upsells__header h2{font-size:1.1rem!important;line-height:1.3!important;margin:0 0 4px!important;padding:0!important;font-weight:600!important}' +
-      '#bq-upsells-wrapper .bq-upsells__header p{color:#6c757d!important;font-size:.85rem!important;line-height:1.4!important;margin:0!important;padding:0!important}' +
-      '#bq-upsells-wrapper .bq-upsells__grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))!important;gap:12px!important;margin:0!important;padding:0!important;list-style:none!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card{background:#fff!important;border-radius:4px!important;overflow:hidden!important;box-shadow:0 1px 3px rgba(0,0,0,.08)!important;display:flex!important;flex-direction:column!important;margin:0!important;padding:0!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__image{aspect-ratio:4/3!important;overflow:hidden!important;margin:0!important;padding:0!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__image img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;max-width:none!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__body{padding:12px!important;display:flex!important;flex-direction:column!important;flex:1!important;margin:0!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__body h3{font-size:.95rem!important;line-height:1.3!important;margin:0 0 4px!important;padding:0!important;font-weight:600!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__body p{color:#6c757d!important;font-size:.8rem!important;line-height:1.4!important;margin:0 0 10px!important;padding:0!important;flex:1!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important;margin:0!important;padding:0!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__price{font-weight:600!important;font-size:.875rem!important;line-height:1.2!important;margin:0!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__btn{display:inline-block!important;background:#1a4d3e!important;color:#fff!important;padding:6px 12px!important;border-radius:4px!important;text-decoration:none!important;font-size:.8rem!important;font-weight:500!important;line-height:1.2!important;white-space:nowrap!important;border:none!important}' +
-      '#bq-upsells-wrapper .bq-upsell-card__btn:hover{background:#2d6a4f!important;color:#fff!important}';
+      '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 12px!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsells__header h2{font-size:15px!important;line-height:1.3!important;margin:0 0 2px!important;padding:0!important;font-weight:600!important;color:inherit!important}' +
+      '#bq-upsells-wrapper .bq-upsells__header p{color:#6c757d!important;font-size:12px!important;line-height:1.4!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsells__grid{display:grid!important;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))!important;gap:10px!important;margin:0!important;padding:0!important;list-style:none!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card{background:#fff!important;border-radius:4px!important;overflow:hidden!important;box-shadow:0 1px 3px rgba(0,0,0,.08)!important;display:flex!important;flex-direction:column!important;margin:0!important;padding:0!important;max-width:100%!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__image{aspect-ratio:4/3!important;overflow:hidden!important;margin:0!important;padding:0!important;background:#f8f9fa!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__image img{width:100%!important;height:100%!important;object-fit:cover!important;display:block!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body{padding:10px!important;display:flex!important;flex-direction:column!important;flex:1!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body h3{font-size:13px!important;line-height:1.3!important;margin:0 0 3px!important;padding:0!important;font-weight:600!important;color:inherit!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__body p{color:#6c757d!important;font-size:11px!important;line-height:1.4!important;margin:0 0 8px!important;padding:0!important;flex:1!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__footer{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:6px!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__price{font-weight:600!important;font-size:12px!important;line-height:1.2!important;margin:0!important;color:inherit!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__btn{display:inline-block!important;background:#1a4d3e!important;color:#fff!important;padding:5px 10px!important;border-radius:4px!important;text-decoration:none!important;font-size:11px!important;font-weight:500!important;line-height:1.2!important;white-space:nowrap!important;border:none!important;cursor:pointer!important}' +
+      '#bq-upsells-wrapper .bq-upsell-card__btn:hover{background:#2d6a4f!important;color:#fff!important;text-decoration:none!important}';
     var style = document.createElement('style');
     style.id = 'bq-upsells-styles';
     style.textContent = css;
