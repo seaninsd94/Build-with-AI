@@ -107,7 +107,7 @@
       }
     },
     {
-      triggerMatch: 'Rectangular Table',
+      triggerMatch: 'Folding Table',
       recommendMatch: 'Folding Chair',
       recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
       perTrigger: 6,
@@ -122,18 +122,43 @@
     var items = cartItemsDetailed();
     if (!items.length) return null;
 
-    var suggestions = [];
+    // Group rules by the recommended product URL so overlapping rules
+    // (e.g. round tables + 6ft tables both suggesting chairs) aggregate
+    // into a single correct shortfall instead of double-counting.
+    var buckets = {};
     QUANTITY_RULES.forEach(function (rule) {
       var trigger = findCartItem(items, rule.triggerMatch);
       if (!trigger) return;
-      var existing = findCartItem(items, rule.recommendMatch);
+      var key = rule.recommendUrl;
+      if (!buckets[key]) {
+        buckets[key] = {
+          url: rule.recommendUrl,
+          match: rule.recommendMatch,
+          totalNeeded: 0,
+          triggers: []
+        };
+      }
+      buckets[key].totalNeeded += trigger.qty * rule.perTrigger;
+      buckets[key].triggers.push({
+        qty: trigger.qty,
+        perTrigger: rule.perTrigger,
+        name: trigger.raw.item_name || rule.triggerMatch
+      });
+    });
+
+    var suggestions = [];
+    Object.keys(buckets).forEach(function (key) {
+      var b = buckets[key];
+      var existing = findCartItem(items, b.match);
       var existingQty = existing ? existing.qty : 0;
-      var targetQty = trigger.qty * rule.perTrigger;
-      var shortfall = targetQty - existingQty;
+      var shortfall = b.totalNeeded - existingQty;
       if (shortfall <= 0) return;
+      var breakdown = b.triggers.map(function (t) {
+        return t.qty + ' × ' + t.name + ' (' + t.perTrigger + ' seats each)';
+      }).join(' + ');
       suggestions.push({
-        message: rule.messageFn(trigger.qty, shortfall),
-        url: rule.recommendUrl,
+        message: breakdown + ' = ' + b.totalNeeded + ' chairs recommended. You have ' + existingQty + '.',
+        url: b.url,
         label: 'Add ' + shortfall + ' more'
       });
     });
@@ -147,6 +172,7 @@
         '<span class="bq-nudges__icon" aria-hidden="true">&#128161;</span>' +
         '<h3>Based on your cart</h3>' +
       '</div>' +
+      '<p class="bq-nudges__intro">Make sure your guests have a seat at the table.</p>' +
       '<ul class="bq-nudges__list"></ul>';
 
     var list = section.querySelector('.bq-nudges__list');
@@ -449,15 +475,16 @@
       '#bq-upsells-wrapper .bq-waiver--added{background:#e8f5ee!important;border-color:#b7dcc4!important;border-left-color:#1a4d3e!important;align-items:center!important}' +
       '#bq-upsells-wrapper .bq-waiver__check{width:28px!important;height:28px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:700!important;font-size:14px!important;flex-shrink:0!important}' +
       '#bq-upsells-wrapper .bq-waiver--added p{margin:0!important;font-size:12px!important;color:#2d6a4f!important}' +
-      '#bq-upsells-wrapper .bq-nudges{padding:12px 14px!important;background:#f0f5ff!important;border:1px solid #d6e4ff!important;border-radius:4px!important}' +
-      '#bq-upsells-wrapper .bq-nudges__header{display:flex!important;align-items:center!important;gap:6px!important;margin-bottom:8px!important}' +
-      '#bq-upsells-wrapper .bq-nudges__header h3{font-size:13px!important;font-weight:700!important;margin:0!important;padding:0!important;color:#1a2a5e!important;line-height:1.3!important}' +
-      '#bq-upsells-wrapper .bq-nudges__icon{font-size:14px!important;line-height:1!important}' +
-      '#bq-upsells-wrapper .bq-nudges__list{list-style:none!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:6px!important}' +
-      '#bq-upsells-wrapper .bq-nudge{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:8px 10px!important;background:#fff!important;border-radius:3px!important;margin:0!important}' +
-      '#bq-upsells-wrapper .bq-nudge__msg{font-size:12px!important;color:#343a40!important;line-height:1.4!important;flex:1!important}' +
-      '#bq-upsells-wrapper .bq-nudge__btn{display:inline-block!important;background:#2541b2!important;color:#fff!important;padding:4px 10px!important;border-radius:3px!important;text-decoration:none!important;font-size:11px!important;font-weight:600!important;white-space:nowrap!important}' +
-      '#bq-upsells-wrapper .bq-nudge__btn:hover{background:#1a2a5e!important;color:#fff!important;text-decoration:none!important}' +
+      '#bq-upsells-wrapper .bq-nudges{padding:18px 18px 16px!important;background:linear-gradient(135deg,#2541b2 0%,#1a2a5e 100%)!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(26,42,94,.25)!important;color:#fff!important}' +
+      '#bq-upsells-wrapper .bq-nudges__header{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:4px!important}' +
+      '#bq-upsells-wrapper .bq-nudges__header h3{font-size:16px!important;font-weight:700!important;margin:0!important;padding:0!important;color:#fff!important;line-height:1.2!important;letter-spacing:.2px!important}' +
+      '#bq-upsells-wrapper .bq-nudges__icon{font-size:18px!important;line-height:1!important}' +
+      '#bq-upsells-wrapper .bq-nudges__intro{font-size:12px!important;color:rgba(255,255,255,.8)!important;margin:0 0 10px!important;padding:0!important;line-height:1.4!important}' +
+      '#bq-upsells-wrapper .bq-nudges__list{list-style:none!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:8px!important}' +
+      '#bq-upsells-wrapper .bq-nudge{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:12px!important;padding:10px 12px!important;background:rgba(255,255,255,.12)!important;border:1px solid rgba(255,255,255,.18)!important;border-radius:4px!important;margin:0!important;backdrop-filter:blur(4px)!important}' +
+      '#bq-upsells-wrapper .bq-nudge__msg{font-size:13px!important;color:#fff!important;line-height:1.4!important;flex:1!important;font-weight:500!important}' +
+      '#bq-upsells-wrapper .bq-nudge__btn{display:inline-block!important;background:#fff!important;color:#1a2a5e!important;padding:7px 14px!important;border-radius:4px!important;text-decoration:none!important;font-size:12px!important;font-weight:700!important;white-space:nowrap!important;box-shadow:0 1px 3px rgba(0,0,0,.15)!important}' +
+      '#bq-upsells-wrapper .bq-nudge__btn:hover{background:#f8f9fa!important;color:#1a2a5e!important;text-decoration:none!important;transform:translateY(-1px)!important}' +
       '#bq-upsells-wrapper .bq-upsells{padding:16px 12px!important;background:#f8f9fa!important;border-radius:4px!important;margin:0!important}' +
       '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
       '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 12px!important;padding:0!important}' +
@@ -513,24 +540,39 @@
     findCartContainer().appendChild(wrapper);
   }
 
-  // Re-render when cart data finally arrives (Booqable populates cartData
-  // asynchronously, often after the page has rendered). Polls for up to
-  // 8 seconds, then renders one more time with whatever it has (DOM
-  // fallback ensures we still get items even if cartData stays empty).
+  // Signature of current cart state — changes when items or quantities
+  // change, so we can detect cart mutations and re-render.
+  function cartSignature() {
+    var d = Booqable && Booqable.cartData;
+    if (!d || !Array.isArray(d.items)) return '';
+    return d.items.map(function (i) {
+      return (i.item_id || i.item_name || '') + ':' + (i.quantity || 0);
+    }).join('|');
+  }
+
+  var lastSignature = null;
+  var watchTimer = null;
+
+  // Continuous cart watcher: re-renders whenever cart items or quantities
+  // change (customer adds, removes, or updates qty) so the "Based on
+  // your cart" nudge stays accurate without requiring a page refresh.
+  function startCartWatcher() {
+    if (watchTimer) return;
+    watchTimer = setInterval(function () {
+      if (!isCartPage()) return;
+      var sig = cartSignature();
+      if (sig !== lastSignature) {
+        lastSignature = sig;
+        render();
+      }
+    }, 1000);
+  }
+
   function renderWhenReady() {
     if (!isCartPage()) return;
     render(); // initial render with whatever's available right now
-    var start = Date.now();
-    var hadItems = (Booqable.cartData && Booqable.cartData.items || []).length > 0;
-    var poll = setInterval(function () {
-      var d = Booqable && Booqable.cartData;
-      var nowHas = !!(d && Array.isArray(d.items) && d.items.length);
-      if (nowHas && !hadItems) {
-        hadItems = true;
-        render();
-      }
-      if (Date.now() - start > 8000) clearInterval(poll);
-    }, 250);
+    lastSignature = cartSignature();
+    startCartWatcher();
   }
 
   Booqable.on('page-change', renderWhenReady);
