@@ -273,11 +273,7 @@
   }
 
   function itemsInCart() {
-    var data = Booqable && Booqable.cartData;
-    if (!data || !Array.isArray(data.items)) return [];
-    return data.items.map(function (i) {
-      return (i.product_slug || i.slug || i.product_id || i.id || '').toString();
-    });
+    return cartItemsDetailed();
   }
 
   function normalize(s) {
@@ -306,22 +302,79 @@
     return false;
   }
 
-  function cartItemsDetailed() {
-    var data = Booqable && Booqable.cartData;
-    if (!data || !Array.isArray(data.items)) return [];
-    return data.items.map(function (i) {
-      return {
-        raw: i,
-        qty: parseInt(i.quantity || i.qty || i.amount || 1, 10) || 1
-      };
-    });
-  }
-
   function findCartItem(items, slug) {
     for (var i = 0; i < items.length; i++) {
       if (itemMatches(items[i].raw, slug)) return items[i];
     }
     return null;
+  }
+
+  function cartItemsDetailed() {
+    var data = Booqable && Booqable.cartData;
+    if (data && Array.isArray(data.items) && data.items.length) {
+      return data.items.map(function (i) {
+        return {
+          raw: i,
+          qty: parseInt(i.quantity || i.qty || i.amount || 1, 10) || 1
+        };
+      });
+    }
+    // Fallback: scrape the rendered cart DOM. Booqable cart pages render
+    // each line as an element containing the product name and a quantity
+    // input. The exact selectors vary by theme; try several common ones.
+    return cartItemsFromDom();
+  }
+
+  function cartItemsFromDom() {
+    var items = [];
+    var lineSelectors = [
+      '[data-cart-item]',
+      '[data-line-item]',
+      '.cart-item',
+      '.cart__item',
+      '.line-item',
+      'tr.cart-line',
+      'li.cart-line'
+    ];
+    var lines = [];
+    for (var s = 0; s < lineSelectors.length && !lines.length; s++) {
+      lines = Array.prototype.slice.call(document.querySelectorAll(lineSelectors[s]));
+    }
+    if (!lines.length) {
+      // Last resort: any link to /products/ inside what looks like a cart container
+      var cart = document.querySelector('[data-cart], .cart, #cart, main');
+      if (cart) {
+        var links = cart.querySelectorAll('a[href*="/products/"]');
+        for (var k = 0; k < links.length; k++) {
+          var href = links[k].getAttribute('href') || '';
+          var slug = (href.split('/products/')[1] || '').split(/[?#/]/)[0];
+          if (!slug) continue;
+          items.push({ raw: { handle: slug, name: links[k].textContent.trim() }, qty: 1 });
+        }
+      }
+      return items;
+    }
+    lines.forEach(function (line) {
+      var qty = 1;
+      var qInput = line.querySelector('input[type="number"], input[name*="quantity" i]');
+      if (qInput && qInput.value) qty = parseInt(qInput.value, 10) || 1;
+      var qText = line.querySelector('[data-quantity], .quantity, .cart-line-qty');
+      if (qText && qText.textContent) {
+        var n = parseInt(qText.textContent.replace(/\D+/g, ''), 10);
+        if (n) qty = n;
+      }
+      var link = line.querySelector('a[href*="/products/"]');
+      var slug = '';
+      if (link) {
+        var href2 = link.getAttribute('href') || '';
+        slug = (href2.split('/products/')[1] || '').split(/[?#/]/)[0];
+      }
+      var nameEl = line.querySelector('[data-product-name], .product-name, .cart-line-info h3, h3, h4, .title');
+      var name = (nameEl && nameEl.textContent.trim()) || (link && link.textContent.trim()) || '';
+      if (!slug && !name) return;
+      items.push({ raw: { handle: slug, name: name }, qty: qty });
+    });
+    return items;
   }
 
   // Debug: log cart structure once per page so you can see actual keys.
@@ -330,13 +383,10 @@
     try {
       var d = Booqable && Booqable.cartData;
       if (d && Array.isArray(d.items) && d.items.length) {
-        // eslint-disable-next-line no-console
         console.log('[bq-upsells] cartData.items[0] keys:', Object.keys(d.items[0]));
-        // eslint-disable-next-line no-console
         console.log('[bq-upsells] cartData.items:', d.items);
       } else {
-        // eslint-disable-next-line no-console
-        console.log('[bq-upsells] cartData:', d);
+        console.log('[bq-upsells] cartData unavailable, scraped from DOM:', cartItemsFromDom());
       }
     } catch (e) {}
   }
@@ -359,9 +409,9 @@
     return card;
   }
 
-  function buildSection(section, inCart) {
+  function buildSection(section, items) {
     var available = section.items.filter(function (u) {
-      return !u.slug || inCart.indexOf(u.slug) === -1;
+      return !u.slug || !findCartItem(items, u.slug);
     });
     if (available.length === 0) return null;
 
@@ -468,7 +518,27 @@
     findCartContainer().appendChild(wrapper);
   }
 
-  Booqable.on('page-change', render);
-  if (document.readyState !== 'loading') render();
-  else document.addEventListener('DOMContentLoaded', render);
+  // Re-render when cart data finally arrives (Booqable populates cartData
+  // asynchronously, often after the page has rendered). Polls for up to
+  // 8 seconds, then renders one more time with whatever it has (DOM
+  // fallback ensures we still get items even if cartData stays empty).
+  function renderWhenReady() {
+    if (!isCartPage()) return;
+    render(); // initial render with whatever's available right now
+    var start = Date.now();
+    var hadItems = (Booqable.cartData && Booqable.cartData.items || []).length > 0;
+    var poll = setInterval(function () {
+      var d = Booqable && Booqable.cartData;
+      var nowHas = !!(d && Array.isArray(d.items) && d.items.length);
+      if (nowHas && !hadItems) {
+        hadItems = true;
+        render();
+      }
+      if (Date.now() - start > 8000) clearInterval(poll);
+    }, 250);
+  }
+
+  Booqable.on('page-change', renderWhenReady);
+  if (document.readyState !== 'loading') renderWhenReady();
+  else document.addEventListener('DOMContentLoaded', renderWhenReady);
 })();
