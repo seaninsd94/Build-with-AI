@@ -94,39 +94,62 @@
   // Rules are matched against the cart item's display name (item_name),
   // not URL slugs — Booqable only exposes names on the cart page.
   // `triggerMatch` and `recommendMatch` are case-insensitive substrings.
+  // Shared list of recommended product variants. Quantity rules reference
+  // a key here (e.g. recommend: 'chair') so that "Add more" routes to the
+  // variant the customer already has in their cart, rather than always
+  // linking to one hardcoded product.
+  //
+  // Matching precedence: the first variant found in the cart wins. If
+  // none are in the cart, the LAST variant is used as a cheapest-default
+  // fallback (so new customers get the lower-priced option).
+  var RECOMMENDATIONS = {
+    chair: {
+      label: 'chair',
+      variants: [
+        {
+          match: 'Padded Resin',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/white-padded-resin-folding-chair-rental-event-rentals-san-diego'
+        },
+        {
+          match: 'Plastic Folding Chair',
+          url: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego'
+        }
+      ]
+    }
+  };
+
+  function resolveRecommendation(rec, items) {
+    var preferredUrl = null;
+    var existingQty = 0;
+    rec.variants.forEach(function (v) {
+      var found = findCartItem(items, v.match);
+      if (found) {
+        existingQty += found.qty;
+        if (!preferredUrl) preferredUrl = v.url;
+      }
+    });
+    if (!preferredUrl) preferredUrl = rec.variants[rec.variants.length - 1].url;
+    return { url: preferredUrl, existingQty: existingQty };
+  }
+
   var QUANTITY_RULES = [
     {
       triggerMatch: 'Round Birchwood Table',
-      recommendMatch: 'Folding Chair',
-      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
+      recommend: 'chair',
       // 8 chairs per 60" round table is standard for dinner seating
-      perTrigger: 8,
-      messageFn: function (triggerQty, shortfall) {
-        return 'Most ' + triggerQty + '-table events seat 8 per round table. You look ' +
-          shortfall + ' chair' + (shortfall === 1 ? '' : 's') + ' short.';
-      }
+      perTrigger: 8
     },
     {
       triggerMatch: "6' Plastic",
-      recommendMatch: 'Folding Chair',
-      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
+      recommend: 'chair',
       // 6 chairs per 6ft rectangular table (2 per side + 1 per end)
-      perTrigger: 6,
-      messageFn: function (triggerQty, shortfall) {
-        return 'Guests typically seat 6 per 6ft table. Add ' + shortfall +
-          ' more chair' + (shortfall === 1 ? '' : 's') + '?';
-      }
+      perTrigger: 6
     },
     {
       triggerMatch: "8' Plastic",
-      recommendMatch: 'Folding Chair',
-      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego',
+      recommend: 'chair',
       // 8 chairs per 8ft rectangular table (3 per side + 1 per end)
-      perTrigger: 8,
-      messageFn: function (triggerQty, shortfall) {
-        return 'Guests typically seat 8 per 8ft table. Add ' + shortfall +
-          ' more chair' + (shortfall === 1 ? '' : 's') + '?';
-      }
+      perTrigger: 8
     }
   ];
 
@@ -134,18 +157,23 @@
     var items = cartItemsDetailed();
     if (!items.length) return null;
 
-    // Group rules by the recommended product URL so overlapping rules
-    // (e.g. round tables + 6ft tables both suggesting chairs) aggregate
-    // into a single correct shortfall instead of double-counting.
+    // Group rules by recommendation key so overlapping rules (e.g. round
+    // tables + 6ft tables both suggesting chairs) aggregate into a single
+    // correct shortfall. The recommended URL is resolved against the cart
+    // so "Add more" links to the chair variant the customer already has.
     var buckets = {};
     QUANTITY_RULES.forEach(function (rule) {
       var trigger = findCartItem(items, rule.triggerMatch);
       if (!trigger) return;
-      var key = rule.recommendUrl;
+      var rec = RECOMMENDATIONS[rule.recommend];
+      if (!rec) return;
+      var key = rule.recommend;
       if (!buckets[key]) {
+        var resolved = resolveRecommendation(rec, items);
         buckets[key] = {
-          url: rule.recommendUrl,
-          match: rule.recommendMatch,
+          url: resolved.url,
+          existingQty: resolved.existingQty,
+          label: rec.label,
           totalNeeded: 0,
           triggers: []
         };
@@ -161,15 +189,14 @@
     var suggestions = [];
     Object.keys(buckets).forEach(function (key) {
       var b = buckets[key];
-      var existing = findCartItem(items, b.match);
-      var existingQty = existing ? existing.qty : 0;
-      var shortfall = b.totalNeeded - existingQty;
+      var shortfall = b.totalNeeded - b.existingQty;
       if (shortfall <= 0) return;
       var breakdown = b.triggers.map(function (t) {
         return t.qty + ' × ' + t.name + ' (' + t.perTrigger + ' seats each)';
       }).join(' + ');
+      var noun = b.label + (b.totalNeeded === 1 ? '' : 's');
       suggestions.push({
-        message: breakdown + ' = ' + b.totalNeeded + ' chairs recommended. You have ' + existingQty + '.',
+        message: breakdown + ' = ' + b.totalNeeded + ' ' + noun + ' recommended. You have ' + b.existingQty + '.',
         url: b.url,
         label: 'Add ' + shortfall + ' more'
       });
