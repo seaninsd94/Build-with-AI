@@ -115,6 +115,19 @@
           url: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair-rental-event-rentals-san-diego'
         }
       ]
+    },
+    linen: {
+      label: 'linen',
+      // Collection URL until specific linen sizes are wired up. Once
+      // you have a product per table size (e.g. 120" round, 90x132,
+      // 90x156), add them here as variants and the nudge will route
+      // to the right one automatically.
+      variants: [
+        {
+          match: 'Linen',
+          url: 'https://tasteful-event-rentals.booqableshop.com/collections/linens'
+        }
+      ]
     }
   };
 
@@ -133,24 +146,14 @@
   }
 
   var QUANTITY_RULES = [
-    {
-      triggerMatch: 'Round Birchwood Table',
-      recommend: 'chair',
-      // 8 chairs per 60" round table is standard for dinner seating
-      perTrigger: 8
-    },
-    {
-      triggerMatch: "6' Plastic",
-      recommend: 'chair',
-      // 6 chairs per 6ft rectangular table (2 per side + 1 per end)
-      perTrigger: 6
-    },
-    {
-      triggerMatch: "8' Plastic",
-      recommend: 'chair',
-      // 8 chairs per 8ft rectangular table (3 per side + 1 per end)
-      perTrigger: 8
-    }
+    // Chairs per table
+    { triggerMatch: 'Round Birchwood Table', recommend: 'chair', perTrigger: 8 },
+    { triggerMatch: "6' Plastic", recommend: 'chair', perTrigger: 6 },
+    { triggerMatch: "8' Plastic", recommend: 'chair', perTrigger: 8 },
+    // One linen per table
+    { triggerMatch: 'Round Birchwood Table', recommend: 'linen', perTrigger: 1 },
+    { triggerMatch: "6' Plastic", recommend: 'linen', perTrigger: 1 },
+    { triggerMatch: "8' Plastic", recommend: 'linen', perTrigger: 1 }
   ];
 
   function buildQuantityNudges() {
@@ -191,10 +194,14 @@
       var b = buckets[key];
       var shortfall = b.totalNeeded - b.existingQty;
       if (shortfall <= 0) return;
-      var breakdown = b.triggers.map(function (t) {
-        return t.qty + ' × ' + t.name + ' (' + t.perTrigger + ' seats each)';
-      }).join(' + ');
       var noun = b.label + (b.totalNeeded === 1 ? '' : 's');
+      var breakdown = b.triggers.map(function (t) {
+        var line = t.qty + ' × ' + t.name;
+        if (t.perTrigger > 1) {
+          line += ' (' + t.perTrigger + ' ' + b.label + 's each)';
+        }
+        return line;
+      }).join(' + ');
       suggestions.push({
         message: breakdown + ' = ' + b.totalNeeded + ' ' + noun + ' recommended. You have ' + b.existingQty + '.',
         url: b.url,
@@ -222,6 +229,120 @@
         '<span class="bq-nudge__msg">' + s.message + '</span>' +
         '<a href="' + s.url + '" class="bq-nudge__btn">' + s.label + '</a>';
       list.appendChild(li);
+    });
+    return section;
+  }
+
+  // ----- TRUST SIGNALS CONFIG -----
+  // Short, scannable trust statements shown near the Continue to Checkout
+  // button. Edit/reorder freely. Set to [] to hide.
+  var TRUST_SIGNALS = [
+    'Locally owned in San Diego',
+    '5-star reviews from real customers',
+    'Insured & licensed event rentals',
+    'Customer pickup ready'
+  ];
+
+  function buildTrustSignals() {
+    if (!TRUST_SIGNALS.length) return null;
+    var section = document.createElement('section');
+    section.className = 'bq-trust';
+    section.innerHTML = TRUST_SIGNALS.map(function (s) {
+      return '<span class="bq-trust__item">' +
+        '<span class="bq-trust__check" aria-hidden="true">&#10003;</span> ' + s +
+      '</span>';
+    }).join('');
+    return section;
+  }
+
+  // ----- SAVE QUOTE CONFIG -----
+  // Captures the customer's email + cart contents so you can follow up
+  // with abandoned carts. Two delivery modes:
+  //   1. FORMSPREE_URL set -> POSTs to Formspree, you receive an email
+  //   2. FORMSPREE_URL empty -> opens the customer's mail client with
+  //      a pre-filled mailto: addressed to BUSINESS_EMAIL (works
+  //      immediately, no signup, but only if the customer has an email
+  //      client configured)
+  // Sign up free at https://formspree.io to get a URL like
+  //   https://formspree.io/f/xxxxxxx
+  var SAVE_QUOTE = {
+    formspreeUrl: '', // e.g. 'https://formspree.io/f/xxxxxxx'
+    businessEmail: 'support@tastefuleventrentals.com', // mailto fallback
+    title: 'Need to think it over?',
+    subtitle: 'Email yourself this quote and pick up where you left off.'
+  };
+
+  function cartSummaryText() {
+    var items = cartItemsDetailed();
+    if (!items.length) return '(empty cart)';
+    return items.map(function (i) {
+      var n = i.raw.item_name || 'Item';
+      return '- ' + n + ' × ' + i.qty + ' @ $' + (i.raw.price || 0);
+    }).join('\n');
+  }
+
+  function buildSaveQuoteCard() {
+    var section = document.createElement('section');
+    section.className = 'bq-savequote';
+    section.innerHTML =
+      '<div class="bq-savequote__body">' +
+        '<h3>' + SAVE_QUOTE.title + '</h3>' +
+        '<p>' + SAVE_QUOTE.subtitle + '</p>' +
+      '</div>' +
+      '<form class="bq-savequote__form" novalidate>' +
+        '<input type="email" name="email" placeholder="you@example.com" ' +
+          'class="bq-savequote__input" required>' +
+        '<button type="submit" class="bq-savequote__btn">Email me my quote</button>' +
+      '</form>' +
+      '<p class="bq-savequote__status" data-bq-status></p>';
+
+    var form = section.querySelector('form');
+    var status = section.querySelector('[data-bq-status]');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = form.querySelector('input[name=email]').value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        status.textContent = 'Please enter a valid email address.';
+        status.className = 'bq-savequote__status bq-savequote__status--err';
+        return;
+      }
+      var summary = cartSummaryText();
+      if (SAVE_QUOTE.formspreeUrl) {
+        status.textContent = 'Sending...';
+        status.className = 'bq-savequote__status';
+        fetch(SAVE_QUOTE.formspreeUrl, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: email,
+            cart: summary,
+            cart_url: window.location.href,
+            _subject: 'Saved Quote from ' + email
+          })
+        }).then(function (r) {
+          if (r.ok) {
+            status.textContent = 'Sent! Check your inbox.';
+            status.className = 'bq-savequote__status bq-savequote__status--ok';
+            form.reset();
+          } else {
+            throw new Error('Failed');
+          }
+        }).catch(function () {
+          status.textContent = 'Could not send. Please try again or email us directly.';
+          status.className = 'bq-savequote__status bq-savequote__status--err';
+        });
+      } else {
+        // mailto fallback
+        var subject = 'My Tasteful Event Rentals quote';
+        var body = 'Saved quote from ' + email + ':\n\n' + summary +
+          '\n\nResume cart: ' + window.location.href;
+        var to = SAVE_QUOTE.businessEmail || '';
+        window.location.href = 'mailto:' + encodeURIComponent(to) +
+          '?subject=' + encodeURIComponent(subject) +
+          '&body=' + encodeURIComponent(body);
+        status.textContent = 'Opening your mail app...';
+        status.className = 'bq-savequote__status bq-savequote__status--ok';
+      }
     });
     return section;
   }
@@ -443,6 +564,21 @@
       '#bq-upsells-wrapper .bq-urgency__icon{font-size:16px!important;line-height:1!important}' +
       '#bq-upsells-wrapper .bq-urgency__time{font-variant-numeric:tabular-nums!important;font-weight:700!important}' +
       '#bq-upsells-wrapper .bq-urgency--expired{background:#fdecea!important;border-color:#f5c2c0!important;color:#8a1f1f!important}' +
+      '#bq-upsells-wrapper .bq-trust{display:flex!important;flex-wrap:wrap!important;justify-content:center!important;gap:8px 18px!important;padding:10px 14px!important;background:transparent!important}' +
+      '#bq-upsells-wrapper .bq-trust__item{display:inline-flex!important;align-items:center!important;font-size:12px!important;color:#343a40!important;font-weight:500!important;line-height:1.3!important}' +
+      '#bq-upsells-wrapper .bq-trust__check{display:inline-flex!important;align-items:center!important;justify-content:center!important;width:16px!important;height:16px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;font-size:10px!important;font-weight:700!important;margin-right:5px!important;flex-shrink:0!important}' +
+      '#bq-upsells-wrapper .bq-savequote{padding:16px!important;background:#fff!important;border:1px solid #e9ecef!important;border-radius:6px!important;text-align:center!important}' +
+      '#bq-upsells-wrapper .bq-savequote__body{margin-bottom:12px!important}' +
+      '#bq-upsells-wrapper .bq-savequote h3{font-size:14px!important;font-weight:700!important;margin:0 0 4px!important;padding:0!important;color:inherit!important;line-height:1.3!important}' +
+      '#bq-upsells-wrapper .bq-savequote p{font-size:12px!important;color:#6c757d!important;margin:0!important;padding:0!important;line-height:1.4!important}' +
+      '#bq-upsells-wrapper .bq-savequote__form{display:flex!important;gap:6px!important;justify-content:center!important;flex-wrap:wrap!important;margin:0!important;padding:0!important}' +
+      '#bq-upsells-wrapper .bq-savequote__input{flex:1 1 200px!important;max-width:300px!important;padding:8px 10px!important;border:1px solid #ced4da!important;border-radius:4px!important;font-size:13px!important;font-family:inherit!important;background:#fff!important;color:#343a40!important}' +
+      '#bq-upsells-wrapper .bq-savequote__input:focus{outline:none!important;border-color:#1a4d3e!important;box-shadow:0 0 0 2px rgba(26,77,62,.15)!important}' +
+      '#bq-upsells-wrapper .bq-savequote__btn{background:#1a4d3e!important;color:#fff!important;padding:8px 14px!important;border:none!important;border-radius:4px!important;font-size:13px!important;font-weight:600!important;cursor:pointer!important;white-space:nowrap!important;font-family:inherit!important}' +
+      '#bq-upsells-wrapper .bq-savequote__btn:hover{background:#2d6a4f!important}' +
+      '#bq-upsells-wrapper .bq-savequote__status{font-size:12px!important;margin:8px 0 0!important;padding:0!important;line-height:1.4!important;min-height:1em!important}' +
+      '#bq-upsells-wrapper .bq-savequote__status--ok{color:#1a4d3e!important;font-weight:600!important}' +
+      '#bq-upsells-wrapper .bq-savequote__status--err{color:#8a1f1f!important;font-weight:600!important}' +
       '#bq-upsells-wrapper .bq-nudges{padding:18px 18px 16px!important;background:linear-gradient(135deg,#2541b2 0%,#1a2a5e 100%)!important;border-radius:6px!important;box-shadow:0 4px 12px rgba(26,42,94,.25)!important;color:#fff!important}' +
       '#bq-upsells-wrapper .bq-nudges__header{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:4px!important}' +
       '#bq-upsells-wrapper .bq-nudges__header h3{font-size:16px!important;font-weight:700!important;margin:0!important;padding:0!important;color:#fff!important;line-height:1.2!important;letter-spacing:.2px!important}' +
@@ -495,6 +631,9 @@
 
     wrapper.appendChild(buildUrgencyBanner());
 
+    var trust = buildTrustSignals();
+    if (trust) wrapper.appendChild(trust);
+
     var nudges = buildQuantityNudges();
     if (nudges) wrapper.appendChild(nudges);
 
@@ -502,6 +641,8 @@
       var el = buildSection(section, inCart);
       if (el) wrapper.appendChild(el);
     });
+
+    wrapper.appendChild(buildSaveQuoteCard());
 
     injectStyles();
     findCartContainer().appendChild(wrapper);
