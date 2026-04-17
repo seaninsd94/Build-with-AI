@@ -87,6 +87,90 @@
   var CART_PATH = '/cart';
   var WRAPPER_ID = 'bq-upsells-wrapper';
 
+  // ----- QUANTITY NUDGE CONFIG -----
+  // When the cart contains `triggerSlug` with some quantity, recommend
+  // `recommendSlug` if the recommended quantity isn't already met.
+  // Replace the placeholder slugs with your real Booqable product slugs.
+  var QUANTITY_RULES = [
+    {
+      triggerSlug: '60-inch-round-table',
+      recommendSlug: 'white-folding-chair',
+      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair',
+      recommendName: 'white folding chairs',
+      // 8 chairs per round table is standard for dinner seating
+      perTrigger: 8,
+      messageFn: function (triggerQty, shortfall) {
+        return 'Most ' + triggerQty + '-table events seat 8 per table. You look ' +
+          shortfall + ' chair' + (shortfall === 1 ? '' : 's') + ' short.';
+      }
+    },
+    {
+      triggerSlug: '6ft-rectangular-table',
+      recommendSlug: 'white-folding-chair',
+      recommendUrl: 'https://tasteful-event-rentals.booqableshop.com/products/white-folding-chair',
+      recommendName: 'white folding chairs',
+      perTrigger: 6,
+      messageFn: function (triggerQty, shortfall) {
+        return 'Guests typically seat 6 per 6ft table. Add ' + shortfall +
+          ' more chair' + (shortfall === 1 ? '' : 's') + '?';
+      }
+    }
+  ];
+
+  function cartItemsDetailed() {
+    var data = Booqable && Booqable.cartData;
+    if (!data || !Array.isArray(data.items)) return [];
+    return data.items.map(function (i) {
+      return {
+        slug: (i.product_slug || i.slug || i.product_id || '').toString(),
+        qty: parseInt(i.quantity || i.qty || 1, 10) || 1
+      };
+    });
+  }
+
+  function buildQuantityNudges() {
+    var items = cartItemsDetailed();
+    if (!items.length) return null;
+
+    var suggestions = [];
+    QUANTITY_RULES.forEach(function (rule) {
+      var trigger = items.filter(function (i) { return i.slug === rule.triggerSlug; })[0];
+      if (!trigger) return;
+      var existing = items.filter(function (i) { return i.slug === rule.recommendSlug; })[0];
+      var existingQty = existing ? existing.qty : 0;
+      var targetQty = trigger.qty * rule.perTrigger;
+      var shortfall = targetQty - existingQty;
+      if (shortfall <= 0) return;
+      suggestions.push({
+        message: rule.messageFn(trigger.qty, shortfall),
+        url: rule.recommendUrl,
+        label: 'Add ' + shortfall + ' more'
+      });
+    });
+
+    if (!suggestions.length) return null;
+
+    var section = document.createElement('section');
+    section.className = 'bq-nudges';
+    section.innerHTML =
+      '<div class="bq-nudges__header">' +
+        '<span class="bq-nudges__icon" aria-hidden="true">&#128161;</span>' +
+        '<h3>Based on your cart</h3>' +
+      '</div>' +
+      '<ul class="bq-nudges__list"></ul>';
+
+    var list = section.querySelector('.bq-nudges__list');
+    suggestions.forEach(function (s) {
+      var li = document.createElement('li');
+      li.className = 'bq-nudge';
+      li.innerHTML =
+        '<span class="bq-nudge__msg">' + s.message + '</span>' +
+        '<a href="' + s.url + '" class="bq-nudge__btn">' + s.label + '</a>';
+      list.appendChild(li);
+    });
+    return section;
+  }
+
   // ----- DAMAGE WAIVER CONFIG -----
   // Create a "Damage Protection" product in Booqable priced at ~10% of
   // typical rental subtotals (or a flat fee like $25). Then fill in the
@@ -269,6 +353,15 @@
       '#bq-upsells-wrapper .bq-waiver--added{background:#e8f5ee!important;border-color:#b7dcc4!important;border-left-color:#1a4d3e!important;align-items:center!important}' +
       '#bq-upsells-wrapper .bq-waiver__check{width:28px!important;height:28px!important;border-radius:50%!important;background:#1a4d3e!important;color:#fff!important;display:flex!important;align-items:center!important;justify-content:center!important;font-weight:700!important;font-size:14px!important;flex-shrink:0!important}' +
       '#bq-upsells-wrapper .bq-waiver--added p{margin:0!important;font-size:12px!important;color:#2d6a4f!important}' +
+      '#bq-upsells-wrapper .bq-nudges{padding:12px 14px!important;background:#f0f5ff!important;border:1px solid #d6e4ff!important;border-radius:4px!important}' +
+      '#bq-upsells-wrapper .bq-nudges__header{display:flex!important;align-items:center!important;gap:6px!important;margin-bottom:8px!important}' +
+      '#bq-upsells-wrapper .bq-nudges__header h3{font-size:13px!important;font-weight:700!important;margin:0!important;padding:0!important;color:#1a2a5e!important;line-height:1.3!important}' +
+      '#bq-upsells-wrapper .bq-nudges__icon{font-size:14px!important;line-height:1!important}' +
+      '#bq-upsells-wrapper .bq-nudges__list{list-style:none!important;margin:0!important;padding:0!important;display:flex!important;flex-direction:column!important;gap:6px!important}' +
+      '#bq-upsells-wrapper .bq-nudge{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;padding:8px 10px!important;background:#fff!important;border-radius:3px!important;margin:0!important}' +
+      '#bq-upsells-wrapper .bq-nudge__msg{font-size:12px!important;color:#343a40!important;line-height:1.4!important;flex:1!important}' +
+      '#bq-upsells-wrapper .bq-nudge__btn{display:inline-block!important;background:#2541b2!important;color:#fff!important;padding:4px 10px!important;border-radius:3px!important;text-decoration:none!important;font-size:11px!important;font-weight:600!important;white-space:nowrap!important}' +
+      '#bq-upsells-wrapper .bq-nudge__btn:hover{background:#1a2a5e!important;color:#fff!important;text-decoration:none!important}' +
       '#bq-upsells-wrapper .bq-upsells{padding:16px 12px!important;background:#f8f9fa!important;border-radius:4px!important;margin:0!important}' +
       '#bq-upsells-wrapper .bq-upsells[data-section="pickup-equipment"]{background:#fff!important;border:1px solid #e9ecef!important;border-top:3px solid #2541b2!important}' +
       '#bq-upsells-wrapper .bq-upsells__header{text-align:center!important;margin:0 0 12px!important;padding:0!important}' +
@@ -309,6 +402,9 @@
 
     wrapper.appendChild(buildUrgencyBanner());
     wrapper.appendChild(buildWaiverCard(inCart));
+
+    var nudges = buildQuantityNudges();
+    if (nudges) wrapper.appendChild(nudges);
 
     SECTIONS.forEach(function (section) {
       var el = buildSection(section, inCart);
