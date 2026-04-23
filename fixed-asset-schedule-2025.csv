@@ -1,34 +1,34 @@
-Date Acquired,Date Placed in Service,Description,Vendor,QBO Reference,Cost,Source Account,Depreciation Method,Amount Deducted,Business Use %,Receipt on File,Notes
-03/15/2025,,Equipment - Costco Wholesale (item TBD),Costco,,193.92,Sean's Personal Credit Card,Section 179,193.92,100%,,Description from register vague - identify item
-04/19/2025,,Equipment - Costco eWholesale (item TBD),Costco,,65.09,Sean's Personal Credit Card,Section 179,65.09,100%,,Description from register vague - identify item
-05/01/2025,,Equipment - personal CC (item TBD),,,86.18,Sean's Personal Credit Card,Section 179,86.18,100%,,No description in register - identify item
-05/01/2025,,10x20 Canopy,Love's Home Centers (Lowes),,267.22,Sean's Personal Credit Card,Section 179,267.22,100%,,
-05/10/2025,,Equipment - The Home Depot,The Home Depot,,9.84,Business Checking,Section 179,9.84,100%,,
-05/11/2025,,RECLASSIFIED FROM INVENTORY (multiple items - itemize),Various,ADJ-001,15572.07,Inventory Asset,Section 179,15572.07,100%,,IMPORTANT: This $15572.07 represents multiple items reclassified from inventory. Break out into individual items and dates from original purchase records.
-05/12/2025,,Equipment - HomeGoods,HomeGoods,,116.27,Business Checking,Section 179,116.27,100%,,
-05/12/2025,,Equipment - Balloon Stories,Balloon Stories,,53.88,Business Checking,Section 179,53.88,100%,,
-06/19/2025,,Equipment - Costco,Costco,141,301.66,Business Checking,Section 179,301.66,100%,,
-07/10/2025,,Equipment - Costco,Costco,278,195.27,Business Checking,Section 179,195.27,100%,,
-07/11/2025,,Equipment - La Mesa Branch (item TBD),,,1000.00,Business Checking,Section 179,1000.00,100%,,Identify item - is this Lakeside Equipment / 100 resin chairs?
-07/31/2025,,Equipment - Costco,Costco,521200004240,54.00,Business Checking,Section 179,54.00,100%,,
-08/06/2025,,Equipment - Costco,Costco,521800201581,377.00,Business Checking,Section 179,377.00,100%,,
-08/28/2025,,Tablecloths,,,129.79,Business Checking,Section 179,129.79,100%,,Free shipping order
-10/15/2025,,HOMCOM Retro High Back Armless Royal Accent Chair,,WN36700031,181.50,Business Checking,Section 179,181.50,100%,,
-10/17/2025,,Photography Backdrops & Props (Christmas-themed sets + backdrop stand kit),Kate,20251282375,610.50,Business Checking,Section 179,610.50,100%,,
-10/19/2025,,LED String Lights,The Home Depot,6634 00054 32414,129.17,Business Checking,Section 179,129.17,100%,,
-11/01/2025,,Equipment - personal CC (item TBD),,1215,86.18,Sean's Personal Credit Card,Section 179,86.18,100%,,No description - identify item
-11/06/2025,,Equipment - Sean Reimbursement (item TBD),Sean,111,86.18,Business Checking,Section 179,86.18,100%,,Reimbursement to Sean - identify item
-11/20/2025,,Equipment - vendor TBD (item TBD),,371,129.28,Business Checking,Section 179,129.28,100%,,No description in register
-11/24/2025,,5 HDX 8FT TABLE ALMOND (Qty: 5),The Home Depot,6634 00053 32333,430.89,Business Checking,Section 179,430.89,100%,,
-,,--- Personal Purchases Recorded via ADJ-006 (12/31/2025) - fill in actual purchase dates ---,,,,,,,,
-,,Chairs,,ADJ-006,300.00,Long-term loans from shareholders,Section 179,300.00,100%,,Personal funds - fill in date and vendor
-,,Round Tables,,ADJ-006,900.00,Long-term loans from shareholders,Section 179,900.00,100%,,Personal funds - fill in date and vendor
-,,8' Folding Table,Home Depot,ADJ-006,86.18,Long-term loans from shareholders,Section 179,86.18,100%,,Personal funds - fill in date
-,,6' Folding Tables (Qty: 4),Costco,ADJ-006,260.00,Long-term loans from shareholders,Section 179,260.00,100%,,4 tables @ $65 each - fill in date
-,,10x20 Canopy,Amazon,ADJ-006,453.77,Long-term loans from shareholders,Section 179,453.77,100%,,Personal funds - fill in date
-,,10x20 Canopy,Lowes,ADJ-006,267.22,Long-term loans from shareholders,Section 179,267.22,100%,,Personal funds - fill in date (POTENTIAL DUPLICATE - check against 05/01/2025 entry)
-,,Cocktail Tables & Linens,Amazon,ADJ-006,757.08,Long-term loans from shareholders,Section 179,757.08,100%,,Personal funds - fill in date
-,,Tent Sidewalls,Amazon,ADJ-006,130.06,Long-term loans from shareholders,Section 179,130.06,100%,,Personal funds - fill in date
-,,Resin Chairs (Qty: 100),,ADJ-006,1000.00,Long-term loans from shareholders,Section 179,1000.00,100%,,Personal funds - fill in date and vendor
-,,,,,,,,,,,
-,,TOTAL,,,24230.20,,,24230.20,,,
+"Date Acquired","Date Placed in Service","Description","Vendor","QBO Reference","Cost","Source Account","Depreciation Method","Amount Deducted","Business Use %","Receipt on File","Notes"
+"03/15/2025","","Equipment - Costco Wholesale (item TBD)","Costco","","193.92","Sean's Personal Credit Card","Section 179","193.92","100%","","Description from register vague - identify item"
+"04/19/2025","","Equipment - Costco eWholesale (item TBD)","Costco","","65.09","Sean's Personal Credit Card","Section 179","65.09","100%","","Description from register vague - identify item"
+"05/01/2025","","Equipment - personal CC (item TBD)","","","86.18","Sean's Personal Credit Card","Section 179","86.18","100%","","No description in register - identify item"
+"05/01/2025","","10x20 Canopy","Love's Home Centers (Lowes)","","267.22","Sean's Personal Credit Card","Section 179","267.22","100%","",""
+"05/10/2025","","Equipment - The Home Depot","The Home Depot","","9.84","Business Checking","Section 179","9.84","100%","",""
+"05/11/2025","","RECLASSIFIED FROM INVENTORY (multiple items - itemize)","Various","ADJ-001","15572.07","Inventory Asset","Section 179","15572.07","100%","","IMPORTANT: This $15572.07 represents multiple items reclassified from inventory. Break out into individual items and dates from original purchase records."
+"05/12/2025","","Equipment - HomeGoods","HomeGoods","","116.27","Business Checking","Section 179","116.27","100%","",""
+"05/12/2025","","Equipment - Balloon Stories","Balloon Stories","","53.88","Business Checking","Section 179","53.88","100%","",""
+"06/19/2025","","Equipment - Costco","Costco","141","301.66","Business Checking","Section 179","301.66","100%","",""
+"07/10/2025","","Equipment - Costco","Costco","278","195.27","Business Checking","Section 179","195.27","100%","",""
+"07/11/2025","","Equipment - La Mesa Branch (item TBD)","","","1000.00","Business Checking","Section 179","1000.00","100%","","Identify item - is this Lakeside Equipment / 100 resin chairs?"
+"07/31/2025","","Equipment - Costco","Costco","521200004240","54.00","Business Checking","Section 179","54.00","100%","",""
+"08/06/2025","","Equipment - Costco","Costco","521800201581","377.00","Business Checking","Section 179","377.00","100%","",""
+"08/28/2025","","Tablecloths","","","129.79","Business Checking","Section 179","129.79","100%","","Free shipping order"
+"10/15/2025","","HOMCOM Retro High Back Armless Royal Accent Chair","","WN36700031","181.50","Business Checking","Section 179","181.50","100%","",""
+"10/17/2025","","Photography Backdrops and Props (Christmas-themed sets + backdrop stand kit)","Kate","20251282375","610.50","Business Checking","Section 179","610.50","100%","",""
+"10/19/2025","","LED String Lights","The Home Depot","6634 00054 32414","129.17","Business Checking","Section 179","129.17","100%","",""
+"11/01/2025","","Equipment - personal CC (item TBD)","","1215","86.18","Sean's Personal Credit Card","Section 179","86.18","100%","","No description - identify item"
+"11/06/2025","","Equipment - Sean Reimbursement (item TBD)","Sean","111","86.18","Business Checking","Section 179","86.18","100%","","Reimbursement to Sean - identify item"
+"11/20/2025","","Equipment - vendor TBD (item TBD)","","371","129.28","Business Checking","Section 179","129.28","100%","","No description in register"
+"11/24/2025","","HDX 8FT TABLE ALMOND (Qty: 5)","The Home Depot","6634 00053 32333","430.89","Business Checking","Section 179","430.89","100%","",""
+"","","--- Personal Purchases Recorded via ADJ-006 on 12/31/2025 - fill in actual purchase dates ---","","","","","","","","",""
+"","","Chairs","","ADJ-006","300.00","Long-term loans from shareholders","Section 179","300.00","100%","","Personal funds - fill in date and vendor"
+"","","Round Tables","","ADJ-006","900.00","Long-term loans from shareholders","Section 179","900.00","100%","","Personal funds - fill in date and vendor"
+"","","8' Folding Table","Home Depot","ADJ-006","86.18","Long-term loans from shareholders","Section 179","86.18","100%","","Personal funds - fill in date"
+"","","6' Folding Tables (Qty: 4)","Costco","ADJ-006","260.00","Long-term loans from shareholders","Section 179","260.00","100%","","4 tables at $65 each - fill in date"
+"","","10x20 Canopy","Amazon","ADJ-006","453.77","Long-term loans from shareholders","Section 179","453.77","100%","","Personal funds - fill in date"
+"","","10x20 Canopy","Lowes","ADJ-006","267.22","Long-term loans from shareholders","Section 179","267.22","100%","","POTENTIAL DUPLICATE - check against 05/01/2025 Loves Home Centers entry"
+"","","Cocktail Tables and Linens","Amazon","ADJ-006","757.08","Long-term loans from shareholders","Section 179","757.08","100%","","Personal funds - fill in date"
+"","","Tent Sidewalls","Amazon","ADJ-006","130.06","Long-term loans from shareholders","Section 179","130.06","100%","","Personal funds - fill in date"
+"","","Resin Chairs (Qty: 100)","","ADJ-006","1000.00","Long-term loans from shareholders","Section 179","1000.00","100%","","Personal funds - fill in date and vendor"
+"","","","","","","","","","","",""
+"","","TOTAL","","","24230.20","","","24230.20","","",""
