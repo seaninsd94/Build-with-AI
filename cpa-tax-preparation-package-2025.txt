@@ -1,0 +1,261 @@
+TASTEFUL EVENT RENTALS - CPA TAX PREPARATION PACKAGE
+Tax Year 2025 (C-Corporation)
+Prepared: April 2026
+================================================================================
+
+ENTITY INFORMATION
+--------------------------------------------------------------------------------
+Business Name:      Tasteful Event Rentals
+Entity Type:        C-Corporation
+State of Formation: California
+Date of Formation:  April 2025 (first tax year)
+Industry:           Equipment Rental (Party/Event Rentals)
+EIN:                [Provide to CPA]
+Shareholder:        Sean [Last Name] - 100% sole shareholder
+Fiscal Year End:    December 31
+
+FILING REQUIREMENTS
+--------------------------------------------------------------------------------
+Federal:  Form 1120 (C-Corporation Income Tax Return)
+          Due: April 15, 2026 (extend to Oct 15 via Form 7004)
+State:    CA Form 100 (California Corporation Franchise or Income Tax Return)
+          Due: April 15, 2026 (extend to Oct 15)
+Note:     First-year corporation - exempt from CA $800 minimum franchise tax
+          for tax year 2025. The $800 is owed beginning tax year 2026.
+
+PERSONAL FILING
+--------------------------------------------------------------------------------
+Sean also has W2 income of $87,500 from a separate employer.
+No salary or distributions were taken from the C-Corp in 2025.
+Personal return (Form 1040 + CA 540) is straightforward - W2 only.
+
+================================================================================
+SECTION 1: FINANCIAL SUMMARY
+================================================================================
+
+PROFIT & LOSS (January - December 2025)
+--------------------------------------------------------------------------------
+Gross Revenue (Sales by Customer):              ~$43,600
+Cost of Goods Sold:                              -$1,174
+Gross Profit:                                   ~$42,426
+
+Operating Expenses:
+  Advertising & marketing                        $1,933
+  Contract labor                                 $12,298
+  General business expenses                        $249
+  Insurance                                        $210
+  Meals                                            $586
+  Office expenses                                $3,376
+  Repairs & maintenance                            $196
+  Square fees                                      $623
+  Supplies & materials                           $3,128
+  Commissions & fees                                 $1
+  Total Operating Expenses:                     ~$22,600
+
+Net Operating Income:                           ~$19,826
+
+Other Income (interest):                             $0
+Other Expenses (vehicle):                       -$3,293
+  Vehicle gas & fuel                             $2,884
+  Vehicle insurance                                 $72
+  Vehicle repairs                                  $337
+
+Net Income (before depreciation):               ~$16,158
+
+BALANCE SHEET (as of December 31, 2025)
+--------------------------------------------------------------------------------
+Assets:
+  Business Checking Acct:                        $8,341
+  Accounts Receivable:                            -$844  (timing - see note below)
+  Inventory Asset:                                 $350  (needs CPA review)
+  Tools, machinery, and equipment:              $21,533
+  Accumulated depreciation:                       -$488  (needs CPA review)
+  Total Assets:                                ~$29,380
+
+Liabilities:
+  Business Checking (old CC-typed account):     -$1,368  (needs CPA review)
+  Long-term loans from shareholders:             $5,852
+  Total Liabilities:                            ~$4,485
+
+Equity:
+  Additional paid in capital:                    $8,737
+  Net Income:                                   $16,158
+  Total Equity:                                ~$24,895
+
+================================================================================
+SECTION 2: DOCUMENTS TO PROVIDE
+================================================================================
+
+[x] QuickBooks Online login credentials (CPA needs direct access)
+[x] Fixed Asset Schedule CSV (attached - 71 items, $21,533.17 total)
+[x] Bank statements: April 2025 - December 2025 (business checking)
+    - December 31, 2025 closing balance: $7,440.63
+[x] Sean's W2 from employer ($87,500)
+[x] All equipment purchase receipts (see fixed asset schedule for list)
+[x] Contract labor records (for 1099-NEC preparation)
+[x] Vehicle mileage log (if available) or gas receipts
+
+================================================================================
+SECTION 3: ITEMS REQUIRING CPA ATTENTION
+================================================================================
+
+PRIORITY 1: S-CORP ELECTION DECISION
+--------------------------------------------------------------------------------
+Sean plans to elect S-Corp once revenue supports a reasonable salary. CPA
+should evaluate whether a retroactive S-Corp election for 2025 is beneficial.
+- Deadline: March 15, 2026 (late election with reasonable cause via Form 2553)
+- Key consideration: C-Corp creates double taxation risk on future distributions
+- With ~$16K net income before depreciation, the S-Corp pass-through may save
+  $2,000-$4,000+ vs. C-Corp treatment when distributions are eventually taken
+- Sean is actively working in the business (deliveries, setup, management)
+  in addition to his W2 job
+
+PRIORITY 2: DEPRECIATION METHOD
+--------------------------------------------------------------------------------
+Total qualifying equipment: $21,533.17 (see attached CSV)
+- CPA should determine optimal split between Section 179 and MACRS
+- Net income before depreciation is only ~$16,158
+- Full Section 179 creates a large NOL that may be wasted if S-Corp is elected
+- Consider: Section 179 up to ~$16,158 to zero out income, MACRS the rest
+- If staying C-Corp: NOL carryforward offsets only 80% of future income
+- Equipment types: tables, chairs, tents, photo booth, games, linens, heaters
+- Most items are 5-year MACRS property (rental equipment)
+- Some items may be 7-year (furniture, decor)
+- CPA prepares Form 4562
+
+PRIORITY 3: PHANTOM INVENTORY BALANCE ($15,572.07)
+--------------------------------------------------------------------------------
+QBO originally showed $15,572.07 in Inventory Asset. This was reclassified to
+equipment via journal entry ADJ-001 on 05/11/2025. Upon investigation, the
+balance could not be traced to actual purchase transactions. It may have been
+auto-generated by Square POS sync creating inventory cost entries for rental
+products (QBO treats each rental as an inventory "sale" reducing inventory).
+
+ADJ-001 has been DELETED. The $15,572.07 is no longer in Equipment.
+CPA should:
+- Trace the origin of this balance in the QBO audit log
+- Determine if any portion represents real equipment purchases
+- Properly dispose of the balance (likely COGS adjustment or equity adjustment)
+- Current Inventory Asset shows $350 - also needs review
+
+PRIORITY 4: OLD BUSINESS CHECKING ACCOUNT (Credit Card Type)
+--------------------------------------------------------------------------------
+The original business checking account was set up in QBO as a Credit Card type
+instead of a Bank type. This caused:
+- All bank deposits to be recorded as "Credit Card Credits" (duplicate income)
+- All expenses recorded as "Credit Card Charges"
+- Duplicate income has been deleted (~$44,000 in phantom revenue removed)
+- A new correctly-typed Bank account was created
+- Most balances have been consolidated via journal entries
+- The old account currently shows -$1,367.68 and needs final cleanup
+- CPA should verify all transactions are in the correct account
+
+PRIORITY 5: ACCOUNTS RECEIVABLE (-$843.85)
+--------------------------------------------------------------------------------
+Six customers show negative AR balances as of 12/31/2025. Investigation shows
+these are TIMING issues - payments received in late December 2025 for invoices
+created in January 2026. They self-resolve in January.
+Customers: Becky Chrisope, Layne Consales, Rosario Franco, Jessica O'Keefe,
+Daishia Blake, Cynthia Reyes.
+
+PRIORITY 6: SHAREHOLDER LOAN DOCUMENTATION
+--------------------------------------------------------------------------------
+Sean has contributed personal funds to the business totaling $5,852.31
+recorded as Long-term loans from shareholders. Items include:
+- $1,498.00 (original: $300 equipment, $349 software, $849 contract labor)
+- $4,354.31 (equipment purchases with personal funds - see ADJ-006)
+CPA should:
+- Prepare or review promissory note(s) with AFR interest rate
+- Prepare board resolution documenting the loans
+- Ensure proper documentation for tax-free repayment in future years
+
+PRIORITY 7: ADDITIONAL PAID-IN CAPITAL ($8,737.41)
+--------------------------------------------------------------------------------
+This amount was created during the QBO cleanup to balance the books when
+consolidating three bank accounts into one. It represents the net difference
+between QBO balances and the actual bank balance ($7,440.63) after removing
+duplicate transactions and phantom balances. CPA should verify this is the
+correct equity classification.
+
+PRIORITY 8: 1099-NEC REQUIREMENTS
+--------------------------------------------------------------------------------
+Contract labor totaled $12,297.80 in 2025. Any individual or entity paid $600+
+requires a 1099-NEC, which was due January 31, 2026.
+Known contractors:
+- Isaiah (multiple payments)
+- Julian Budde
+- Jeremiah Thomas
+- Tiffany
+- Others (review QBO contract labor account for full list)
+If 1099s were not filed, late filing penalties may apply. CPA should advise.
+
+PRIORITY 9: BUSINESS CHECKING ACCOUNT BALANCE DISCREPANCY
+--------------------------------------------------------------------------------
+QBO Business Checking Acct shows $8,341.15 as of 12/31/2025
+Actual bank statement closing balance: $7,440.63
+Difference: $900.52
+CPA should reconcile and identify the source of this discrepancy.
+
+PRIORITY 10: ACCUMULATED DEPRECIATION
+--------------------------------------------------------------------------------
+There is a $488.24 journal entry (DEP-002) in Accumulated Depreciation from
+the JBL Speaker reclassification. This should be reviewed and likely reversed
+so that CPA can record depreciation correctly per Form 4562 calculations.
+
+================================================================================
+SECTION 4: EQUIPMENT PURCHASED WITH PERSONAL FUNDS (ADJ-006)
+================================================================================
+
+The following items were purchased with Sean's personal funds and recorded
+via journal entry ADJ-006 on 12/31/2025. They are recorded as:
+  Debit: Tools, machinery, and equipment  $4,154.31
+  Credit: Long-term loans from shareholders  $4,154.31 (partial)
+  Credit: Additional paid in capital (remainder via cleanup entry)
+
+Items:
+  Chairs                                        $300.00
+  Round Tables                                   $900.00
+  8' Folding Table (Home Depot)                   $86.18
+  6' Folding Tables x4 (Costco, $65 each)       $260.00
+  10x20 Canopy (Amazon)                          $453.77
+  10x20 Canopy (Lowes)                           $267.22  ** POTENTIAL DUPLICATE
+  Cocktail Tables and Linens (Amazon)            $757.08
+  Tent Sidewalls (Amazon)                        $130.06
+  Resin Chairs x100                            $1,000.00
+  TOTAL                                        $4,154.31
+
+** The Lowes 10x20 Canopy ($267.22) may be a duplicate of the 05/01/2025
+   entry for Love's Home Centers ($267.22) already in the equipment register.
+   CPA should verify.
+
+================================================================================
+SECTION 5: ATM/CASH WITHDRAWALS USED FOR EQUIPMENT
+================================================================================
+
+The following ATM withdrawals were categorized as equipment purchases per
+Sean's confirmation. Documentation of specific items purchased is limited.
+
+  07/31/2025  ATM Withdrawal                     $260.00
+  08/16/2025  ATM Withdrawal College Grove        $200.00
+  11/14/2025  Cash Withdrawal                     $700.00
+  12/18/2025  ATM Withdrawal                      $600.00
+  TOTAL                                         $1,760.00
+
+CPA should advise on deductibility without itemized receipts.
+
+================================================================================
+SECTION 6: KEY DECISIONS FOR CPA DISCUSSION
+================================================================================
+
+1. S-Corp Election (Form 2553) - File by March 15, 2026?
+2. Depreciation strategy - Section 179 vs. MACRS vs. hybrid?
+3. How to handle the $15,572.07 phantom inventory balance?
+4. Should the $1,760 in cash equipment purchases be capitalized or expensed?
+5. Potential duplicate: Lowes canopy $267.22 (ADJ-006) vs. 05/01/2025 entry
+6. Late 1099-NEC filing strategy and penalties
+7. Reasonable salary threshold for future S-Corp payroll
+8. NOL carryforward strategy if staying C-Corp
+
+================================================================================
+END OF DOCUMENT
+================================================================================
