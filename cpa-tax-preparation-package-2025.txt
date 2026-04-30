@@ -61,39 +61,52 @@ Other Expenses (vehicle):                       -$3,293
   Vehicle repairs                                  $337
 
 Net Income (before depreciation):               ~$16,158
+Note: P&L numbers may shift slightly as CPA completes final cleanup of
+transactions between old and new bank accounts.
 
 BALANCE SHEET (as of December 31, 2025)
 --------------------------------------------------------------------------------
 Assets:
-  Business Checking Acct:                        $8,341
-  Accounts Receivable:                            -$844  (timing - see note below)
-  Inventory Asset:                                 $350  (needs CPA review)
-  Tools, machinery, and equipment:              $21,533
-  Accumulated depreciation:                       -$488  (needs CPA review)
-  Total Assets:                                ~$29,380
+  Business Checking Acct:                        $8,341.15
+  Cash:                                              $0.00
+  Accounts Receivable:                            -$843.85  (timing - see Priority 5)
+  Inventory Asset:                                 $350.00  (needs CPA review)
+  Tools, machinery, and equipment:             $21,533.17
+  Accumulated depreciation:                       -$488.24  (needs CPA review)
+  Total Assets:                                $29,380.47
 
 Liabilities:
-  Business Checking (old CC-typed account):     -$1,368  (needs CPA review)
-  Long-term loans from shareholders:             $5,852
-  Total Liabilities:                            ~$4,485
+  Business Checking (old CC-typed account):     -$1,367.68  (needs CPA cleanup)
+  Sean's Personal Credit Card:                      $0.00
+  Long-term loans from shareholders:             $5,852.31
+  Total Liabilities:                            $4,484.63
 
 Equity:
-  Additional paid in capital:                    $8,737
-  Net Income:                                   $16,158
-  Total Equity:                                ~$24,895
+  Additional paid in capital:                    $8,737.41
+  Opening balance equity:                            $0.00
+  Net Income:                                  $16,158.43
+  Total Equity:                               $24,895.84
+
+Total Liabilities and Equity:                  $29,380.47
+
+ACTUAL BANK BALANCE (December 31, 2025):        $7,440.63
+QBO CHECKING BALANCE:                           $8,341.15
+DISCREPANCY:                                      $900.52  (CPA to reconcile)
 
 ================================================================================
 SECTION 2: DOCUMENTS TO PROVIDE
 ================================================================================
 
 [x] QuickBooks Online login credentials (CPA needs direct access)
-[x] Fixed Asset Schedule CSV (attached - 71 items, $21,533.17 total)
+[x] Fixed Asset Schedule CSV (attached - $21,533.17 total)
 [x] Bank statements: April 2025 - December 2025 (business checking)
     - December 31, 2025 closing balance: $7,440.63
 [x] Sean's W2 from employer ($87,500)
 [x] All equipment purchase receipts (see fixed asset schedule for list)
 [x] Contract labor records (for 1099-NEC preparation)
 [x] Vehicle mileage log (if available) or gas receipts
+[x] Articles of Incorporation
+[x] EIN confirmation letter (CP 575)
 
 ================================================================================
 SECTION 3: ITEMS REQUIRING CPA ATTENTION
@@ -109,19 +122,25 @@ should evaluate whether a retroactive S-Corp election for 2025 is beneficial.
   $2,000-$4,000+ vs. C-Corp treatment when distributions are eventually taken
 - Sean is actively working in the business (deliveries, setup, management)
   in addition to his W2 job
+- No salary was paid in 2025 — business could not support one
 
 PRIORITY 2: DEPRECIATION METHOD
 --------------------------------------------------------------------------------
-Total qualifying equipment: $21,533.17 (see attached CSV)
-- CPA should determine optimal split between Section 179 and MACRS
+Total qualifying equipment: $21,533.17 (see attached CSV for itemized list)
+Owner does NOT want to depreciate all equipment in a single year.
+CPA should determine optimal depreciation strategy:
 - Net income before depreciation is only ~$16,158
-- Full Section 179 creates a large NOL that may be wasted if S-Corp is elected
+- Full Section 179 creates an NOL that may be wasted (especially if S-Corp elected)
+- Options: Section 179 (partial), MACRS 5-year, MACRS 7-year, or hybrid
 - Consider: Section 179 up to ~$16,158 to zero out income, MACRS the rest
 - If staying C-Corp: NOL carryforward offsets only 80% of future income
+- If converting to S-Corp: C-Corp NOL does NOT transfer
 - Equipment types: tables, chairs, tents, photo booth, games, linens, heaters
-- Most items are 5-year MACRS property (rental equipment)
+- Most items are likely 5-year MACRS property (rental equipment)
 - Some items may be 7-year (furniture, decor)
 - CPA prepares Form 4562
+- There is currently a $488.24 depreciation entry (DEP-002) in QBO that should
+  be reviewed/reversed so CPA can record depreciation per Form 4562
 
 PRIORITY 3: PHANTOM INVENTORY BALANCE ($15,572.07)
 --------------------------------------------------------------------------------
@@ -136,34 +155,52 @@ CPA should:
 - Trace the origin of this balance in the QBO audit log
 - Determine if any portion represents real equipment purchases
 - Properly dispose of the balance (likely COGS adjustment or equity adjustment)
-- Current Inventory Asset shows $350 - also needs review
+- Current Inventory Asset shows $350 — also needs review
 
-PRIORITY 4: OLD BUSINESS CHECKING ACCOUNT (Credit Card Type)
+PRIORITY 4: BANK ACCOUNT STRUCTURE (Critical Bookkeeping Issue)
 --------------------------------------------------------------------------------
 The original business checking account was set up in QBO as a Credit Card type
-instead of a Bank type. This caused:
-- All bank deposits to be recorded as "Credit Card Credits" (duplicate income)
-- All expenses recorded as "Credit Card Charges"
-- Duplicate income has been deleted (~$44,000 in phantom revenue removed)
-- A new correctly-typed Bank account was created
-- Most balances have been consolidated via journal entries
-- The old account currently shows -$1,367.68 and needs final cleanup
-- CPA should verify all transactions are in the correct account
+instead of a Bank type. This caused significant issues:
+
+a) DUPLICATE INCOME: All bank deposits were recorded as "Credit Card Credits"
+   creating ~$44,000 in phantom revenue. These duplicates have been DELETED.
+
+b) THREE ACCOUNTS FOR ONE BANK: Transactions are currently split across:
+   - "Business Checking" (Credit Card type) — contains ~395 expense transactions
+     (gas, software, contract labor, meals, supplies, etc.)
+   - "Cash" (Bank type) — contained customer payments/deposits, now zeroed out
+   - "Business Checking Acct" (Bank type, correct) — new account
+   The "Cash" account has been consolidated. However, ~395 expense transactions
+   remain in the old "Business Checking" (Credit Card type) account. These are
+   legitimate expenses correctly categorized but associated with the wrong
+   bank account. Moving them individually requires unmatching bank feed
+   connections on each transaction.
+
+c) OLD ACCOUNT BALANCE: "Business Checking" (Credit Card) shows -$1,367.68
+   on the balance sheet. This needs to be zeroed out.
+
+CPA options:
+   - Move transactions individually (time-intensive)
+   - Leave expenses in old account for 2025, start clean in 2026
+   - The P&L is correct regardless — expense categories are accurate
 
 PRIORITY 5: ACCOUNTS RECEIVABLE (-$843.85)
 --------------------------------------------------------------------------------
 Six customers show negative AR balances as of 12/31/2025. Investigation shows
-these are TIMING issues - payments received in late December 2025 for invoices
+these are TIMING issues — payments received in late December 2025 for invoices
 created in January 2026. They self-resolve in January.
-Customers: Becky Chrisope, Layne Consales, Rosario Franco, Jessica O'Keefe,
-Daishia Blake, Cynthia Reyes.
+Customers: Becky Chrisope (-$41.25), Layne Consales (-$58.95),
+Rosario Franco (-$253.50), Jessica O'Keefe (-$311.00),
+Daishia Blake (-$23.15), Cynthia Reyes (-$156.00).
+Note: Three of these (O'Keefe, Blake, Reyes) had duplicate deposits that were
+deleted. Verify the payments are properly applied to invoices.
 
 PRIORITY 6: SHAREHOLDER LOAN DOCUMENTATION
 --------------------------------------------------------------------------------
 Sean has contributed personal funds to the business totaling $5,852.31
 recorded as Long-term loans from shareholders. Items include:
 - $1,498.00 (original: $300 equipment, $349 software, $849 contract labor)
-- $4,354.31 (equipment purchases with personal funds - see ADJ-006)
+- $4,354.31 (equipment purchases with personal funds — see ADJ-006)
 CPA should:
 - Prepare or review promissory note(s) with AFR interest rate
 - Prepare board resolution documenting the loans
@@ -189,18 +226,22 @@ Known contractors:
 - Others (review QBO contract labor account for full list)
 If 1099s were not filed, late filing penalties may apply. CPA should advise.
 
-PRIORITY 9: BUSINESS CHECKING ACCOUNT BALANCE DISCREPANCY
+PRIORITY 9: BUSINESS CHECKING BALANCE DISCREPANCY
 --------------------------------------------------------------------------------
 QBO Business Checking Acct shows $8,341.15 as of 12/31/2025
 Actual bank statement closing balance: $7,440.63
 Difference: $900.52
 CPA should reconcile and identify the source of this discrepancy.
+This may be related to the bank account consolidation journal entries or
+transactions that landed in the wrong account.
 
-PRIORITY 10: ACCUMULATED DEPRECIATION
+PRIORITY 10: ACCUMULATED DEPRECIATION ($488.24)
 --------------------------------------------------------------------------------
 There is a $488.24 journal entry (DEP-002) in Accumulated Depreciation from
-the JBL Speaker reclassification. This should be reviewed and likely reversed
-so that CPA can record depreciation correctly per Form 4562 calculations.
+09/25/2025 related to a JBL Speaker reclassification from office expenses.
+This should be reviewed and likely reversed so that CPA can record all
+depreciation correctly per Form 4562 calculations. No other depreciation
+entries have been recorded. Owner prefers CPA determines depreciation method.
 
 ================================================================================
 SECTION 4: EQUIPMENT PURCHASED WITH PERSONAL FUNDS (ADJ-006)
@@ -209,8 +250,8 @@ SECTION 4: EQUIPMENT PURCHASED WITH PERSONAL FUNDS (ADJ-006)
 The following items were purchased with Sean's personal funds and recorded
 via journal entry ADJ-006 on 12/31/2025. They are recorded as:
   Debit: Tools, machinery, and equipment  $4,154.31
-  Credit: Long-term loans from shareholders  $4,154.31 (partial)
-  Credit: Additional paid in capital (remainder via cleanup entry)
+  Credit: Long-term loans from shareholders (partial — $4,354.31 total loan
+          includes $200 contract labor from same journal entry)
 
 Items:
   Chairs                                        $300.00
@@ -226,7 +267,7 @@ Items:
 
 ** The Lowes 10x20 Canopy ($267.22) may be a duplicate of the 05/01/2025
    entry for Love's Home Centers ($267.22) already in the equipment register.
-   CPA should verify.
+   CPA should verify — if duplicate, equipment total reduces to $21,265.95.
 
 ================================================================================
 SECTION 5: ATM/CASH WITHDRAWALS USED FOR EQUIPMENT
@@ -244,17 +285,82 @@ Sean's confirmation. Documentation of specific items purchased is limited.
 CPA should advise on deductibility without itemized receipts.
 
 ================================================================================
-SECTION 6: KEY DECISIONS FOR CPA DISCUSSION
+SECTION 6: JOURNAL ENTRIES CREATED DURING CLEANUP
 ================================================================================
 
-1. S-Corp Election (Form 2553) - File by March 15, 2026?
-2. Depreciation strategy - Section 179 vs. MACRS vs. hybrid?
+The following journal entries were created during the QBO cleanup session:
+
+ADJ-001  05/11/2025  DELETED — Was $15,572.07 reclassification from Inventory
+                     to Equipment. Determined to be phantom balance.
+
+ADJ-004  12/31/2025  Zero out old Business Checking credit card account.
+
+ADJ-006  12/31/2025  Year-end adjusting entry — consolidate accounts, record
+                     personal equipment purchases ($4,154.31), contract labor
+                     ($200), clear suspense balances. Includes debits to
+                     Business Checking Acct ($49,167.17), Inventory ($200),
+                     Tools/machinery ($4,154.31), Contract labor ($200),
+                     Sean's Personal CC ($951.12), Opening Balance Equity
+                     ($1,346.90). Credits to Cash ($41,429.78), Payments to
+                     deposit ($510.83), Shareholder loans ($5,852.31),
+                     Additional paid-in capital ($8,737.41).
+
+ADJ-007  09/25/2025  Reclassify JBL Speaker ($488.24) from Office Expenses to
+                     Tools, machinery, and equipment.
+
+DEP-002  09/25/2025  Depreciation entry for JBL Speaker ($488.24). CPA should
+                     review — may need to be reversed and recalculated as part
+                     of overall depreciation strategy.
+
+CPA should review all journal entries for accuracy.
+
+================================================================================
+SECTION 7: KEY DECISIONS FOR CPA DISCUSSION
+================================================================================
+
+1. S-Corp Election (Form 2553) — File by March 15, 2026?
+2. Depreciation strategy — Section 179 vs. MACRS vs. hybrid?
 3. How to handle the $15,572.07 phantom inventory balance?
 4. Should the $1,760 in cash equipment purchases be capitalized or expensed?
 5. Potential duplicate: Lowes canopy $267.22 (ADJ-006) vs. 05/01/2025 entry
 6. Late 1099-NEC filing strategy and penalties
 7. Reasonable salary threshold for future S-Corp payroll
 8. NOL carryforward strategy if staying C-Corp
+9. How to handle ~395 expense transactions in wrong bank account
+10. Verify Additional paid-in capital ($8,737.41) is correct classification
+
+================================================================================
+SECTION 8: SUMMARY OF QBO CLEANUP COMPLETED
+================================================================================
+
+The following cleanup was performed on QBO during this session:
+
+COMPLETED:
+- Removed ~$44,000 in duplicate income (Credit Card Credits from old account)
+- Created new correctly-typed Bank account (Business Checking Acct)
+- Consolidated Cash account balance into Business Checking Acct
+- Zeroed out Opening Balance Equity ($1,346.90)
+- Zeroed out Sean's Personal Credit Card ($951.12)
+- Reclassified equipment from Inventory Asset to Fixed Assets (multiple items)
+- Reclassified equipment from Office Expenses, COGS, and Supplies to Fixed Assets
+- Reclassified propane gas from Vehicle Fuel to Supplies
+- Reclassified vehicle signage from Office Expenses to Advertising
+- Reclassified balloons from Expenses to COGS
+- Reclassified stolen traffic cone from Software to Supplies
+- Recorded personal equipment purchases via ADJ-006
+- Deleted phantom $15,572.07 inventory reclassification (ADJ-001)
+- Deleted duplicate JBL Speaker entry ($377.00)
+- Recorded 3 equipment refunds as bank deposits (not expenses)
+- Built complete fixed asset schedule (CSV attached)
+
+NOT COMPLETED (for CPA):
+- ~395 expense transactions still in old "Business Checking" (Credit Card type)
+- Old Business Checking balance (-$1,367.68) not fully zeroed
+- Bank reconciliation (April-December 2025) not performed
+- Depreciation not finalized
+- Inventory Asset ($350) not investigated
+- $900.52 checking account discrepancy not resolved
+- 1099-NEC filing status unknown
 
 ================================================================================
 END OF DOCUMENT

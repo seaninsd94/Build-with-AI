@@ -1,4 +1,5 @@
 "Date Acquired","Date Placed in Service","Description","Vendor","QBO Reference","Cost","Source Account","Depreciation Method","Amount Deducted","Business Use %","Receipt on File","Notes"
+"","","NOTE: Depreciation method for all items to be determined by CPA (Section 179 vs MACRS vs hybrid)","","","","","","","","",""
 "03/15/2025","","Equipment - Costco Wholesale (item TBD)","Costco","","193.92","Sean's Personal Credit Card","Section 179","193.92","100%","","Identify item"
 "04/19/2025","","Equipment - Costco eWholesale (item TBD)","Costco","","65.09","Sean's Personal Credit Card","Section 179","65.09","100%","","Identify item"
 "05/01/2025","","Equipment - personal CC (item TBD)","","","86.18","Sean's Personal Credit Card","Section 179","86.18","100%","","Identify item"
