@@ -41,7 +41,7 @@ Gross Profit:                                   ~$42,426
 
 Operating Expenses:
   Advertising & marketing                        $1,933
-  Contract labor                                 $9,993
+  Contract labor                                 $9,348
   General business expenses                        $249
   Insurance                                        $210
   Meals                                            $586
@@ -59,7 +59,7 @@ Other Expenses (vehicle):                       -$3,293
   Vehicle gas & fuel                             $2,884
   Vehicle insurance                                 $72
   Vehicle repairs                                  $337
-Penalties & settlements (scam loss):             -$2,000
+Penalties & settlements (scam losses):           -$2,645
 
 Net Income (before depreciation):               ~$16,838
 Note: P&L numbers may shift slightly as CPA completes final cleanup of
@@ -229,7 +229,6 @@ Contractors requiring 1099-NEC ($600+ threshold):
   Isaiah                                       $1,882.81  — Need W-9
   Tiffany                                      $1,310.00  — Need W-9
   Jeremiah Thomas                                $689.55  — Need W-9
-  360 Photo Booth                                $645.00  — Need W-9
 
 Contractors NOT requiring 1099 (under $600 or corporation):
   GigSalad (Santa bookings, likely a corp)     $3,143.00  — Verify entity type
@@ -238,18 +237,25 @@ Contractors NOT requiring 1099 (under $600 or corporation):
   ATM Withdrawal (unknown labor)                 $100.00
   Julian Budde                                    $44.00
 
+NOT contractors (reclassified):
+  360 Photo Booth                                $645.00  — Scam (Penalties & settlements)
+  Check 102                                    $2,000.00  — Scam (Penalties & settlements)
+
 Notes:
 - Late filing penalty: ~$130 per form = ~$520 total
 - CPA should request first-time penalty abatement (first year of business)
 - GigSalad paid Santa Claus Arttie — GigSalad handles Arttie's 1099
 - California FTB also requires 1099 reporting
 
-PRIORITY 8A: $2,000 SCAM LOSS
+PRIORITY 8A: SCAM LOSSES ($2,645 total)
 --------------------------------------------------------------------------------
-On 05/19/2025, Sean was scammed out of $2,000 (Check 102). This has been
-reclassified from Contract labor to Penalties & settlements. The loss is
-deductible as an ordinary business loss. Sean should retain any documentation
-(texts, emails, bank records, police report if filed).
+Two vendors took payment but never performed services and refused refunds:
+  05/19/2025  Check 102 (unknown vendor)           $2,000.00
+  04/20/2025  360 Photo Booth ($200 deposit + $445) $645.00
+Both reclassified from Contract labor to Penalties & settlements.
+Total scam losses: $2,645.00. Deductible as ordinary business losses.
+Sean should retain any documentation (texts, emails, bank records, police
+reports if filed).
 
 PRIORITY 8B: CHECK #111 REIMBURSEMENT ($186.19)
 --------------------------------------------------------------------------------
