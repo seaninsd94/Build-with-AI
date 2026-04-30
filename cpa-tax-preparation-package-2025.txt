@@ -71,14 +71,14 @@ Assets:
   Cash:                                              $0.00
   Accounts Receivable:                            -$843.85  (timing - see Priority 5)
   Inventory Asset:                                 $350.00  (needs CPA review)
-  Tools, machinery, and equipment:             $21,533.17
+  Tools, machinery, and equipment:             $21,833.17
   Accumulated depreciation:                       -$488.24  (needs CPA review)
   Total Assets:                                $29,380.47
 
 Liabilities:
   Business Checking (old CC-typed account):     -$1,367.68  (needs CPA cleanup)
   Sean's Personal Credit Card:                      $0.00
-  Long-term loans from shareholders:             $5,852.31
+  Long-term loans from shareholders:             $7,390.31
   Total Liabilities:                            $4,484.63
 
 Equity:
@@ -126,7 +126,7 @@ should evaluate whether a retroactive S-Corp election for 2025 is beneficial.
 
 PRIORITY 2: DEPRECIATION METHOD
 --------------------------------------------------------------------------------
-Total qualifying equipment: $21,533.17 (see attached CSV for itemized list)
+Total qualifying equipment: $21,833.17 (see attached CSV for itemized list)
 Owner does NOT want to depreciate all equipment in a single year.
 CPA should determine optimal depreciation strategy:
 - Net income before depreciation is only ~$16,158
@@ -197,10 +197,11 @@ deleted. Verify the payments are properly applied to invoices.
 
 PRIORITY 6: SHAREHOLDER LOAN DOCUMENTATION
 --------------------------------------------------------------------------------
-Sean has contributed personal funds to the business totaling $5,852.31
+Sean has contributed personal funds to the business totaling $7,390.31
 recorded as Long-term loans from shareholders. Items include:
 - $1,498.00 (original: $300 equipment, $349 software, $849 contract labor)
 - $4,354.31 (equipment purchases with personal funds — see ADJ-006)
+- $1,538.00 (ADJ-008: $300 equipment, $349 software, $889 contract labor)
 CPA should:
 - Prepare or review promissory note(s) with AFR interest rate
 - Prepare board resolution documenting the loans
@@ -307,6 +308,11 @@ ADJ-006  12/31/2025  Year-end adjusting entry — consolidate accounts, record
 
 ADJ-007  09/25/2025  Reclassify JBL Speaker ($488.24) from Office Expenses to
                      Tools, machinery, and equipment.
+
+ADJ-008  12/31/2025  Record business expenses paid with personal funds:
+                     $300 equipment, $349 software, $889 contract labor.
+                     Total $1,538.00 credited to Long-term loans from
+                     shareholders.
 
 DEP-002  09/25/2025  Depreciation entry for JBL Speaker ($488.24). CPA should
                      review — may need to be reversed and recalculated as part
