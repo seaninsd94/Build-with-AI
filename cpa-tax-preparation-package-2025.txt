@@ -41,7 +41,7 @@ Gross Profit:                                   ~$42,426
 
 Operating Expenses:
   Advertising & marketing                        $1,933
-  Contract labor                                 $12,298
+  Contract labor                                 $9,993
   General business expenses                        $249
   Insurance                                        $210
   Meals                                            $586
@@ -50,17 +50,18 @@ Operating Expenses:
   Square fees                                      $623
   Supplies & materials                           $3,128
   Commissions & fees                                 $1
-  Total Operating Expenses:                     ~$22,600
+  Total Operating Expenses:                     ~$20,295
 
-Net Operating Income:                           ~$19,826
+Net Operating Income:                           ~$22,131
 
 Other Income (interest):                             $0
 Other Expenses (vehicle):                       -$3,293
   Vehicle gas & fuel                             $2,884
   Vehicle insurance                                 $72
   Vehicle repairs                                  $337
+Penalties & settlements (scam loss):             -$2,000
 
-Net Income (before depreciation):               ~$16,158
+Net Income (before depreciation):               ~$16,838
 Note: P&L numbers may shift slightly as CPA completes final cleanup of
 transactions between old and new bank accounts.
 
@@ -71,14 +72,14 @@ Assets:
   Cash:                                              $0.00
   Accounts Receivable:                            -$843.85  (timing - see Priority 5)
   Inventory Asset:                                 $350.00  (needs CPA review)
-  Tools, machinery, and equipment:             $21,833.17
+  Tools, machinery, and equipment:             $21,833.17  (includes $300 from ADJ-008)
   Accumulated depreciation:                       -$488.24  (needs CPA review)
   Total Assets:                                $29,380.47
 
 Liabilities:
   Business Checking (old CC-typed account):     -$1,367.68  (needs CPA cleanup)
   Sean's Personal Credit Card:                      $0.00
-  Long-term loans from shareholders:             $7,390.31
+  Long-term loans from shareholders:             $6,687.50
   Total Liabilities:                            $4,484.63
 
 Equity:
@@ -197,11 +198,15 @@ deleted. Verify the payments are properly applied to invoices.
 
 PRIORITY 6: SHAREHOLDER LOAN DOCUMENTATION
 --------------------------------------------------------------------------------
-Sean has contributed personal funds to the business totaling $7,390.31
+Sean has contributed personal funds to the business totaling $6,687.50
 recorded as Long-term loans from shareholders. Items include:
 - $1,498.00 (original: $300 equipment, $349 software, $849 contract labor)
 - $4,354.31 (equipment purchases with personal funds — see ADJ-006)
-- $1,538.00 (ADJ-008: $300 equipment, $349 software, $889 contract labor)
+- $649.00 (ADJ-008: $300 equipment, $349 software)
+- $186.19 (Check #111 reimbursement to Sean, reclassified from contract labor)
+Note: original ADJ-008 included $889 contract labor which was a duplicate
+of a Santa Claus Arttie payment already recorded via business checking.
+The $889 was removed from ADJ-008.
 CPA should:
 - Prepare or review promissory note(s) with AFR interest rate
 - Prepare board resolution documenting the loans
@@ -215,17 +220,43 @@ between QBO balances and the actual bank balance ($7,440.63) after removing
 duplicate transactions and phantom balances. CPA should verify this is the
 correct equity classification.
 
-PRIORITY 8: 1099-NEC REQUIREMENTS
+PRIORITY 8: 1099-NEC REQUIREMENTS (LATE — URGENT)
 --------------------------------------------------------------------------------
-Contract labor totaled $12,297.80 in 2025. Any individual or entity paid $600+
-requires a 1099-NEC, which was due January 31, 2026.
-Known contractors:
-- Isaiah (multiple payments)
-- Julian Budde
-- Jeremiah Thomas
-- Tiffany
-- Others (review QBO contract labor account for full list)
-If 1099s were not filed, late filing penalties may apply. CPA should advise.
+Contract labor totaled $9,992.86 in 2025. 1099-NECs were due January 31, 2026
+and have NOT been filed. W-9s have NOT been collected.
+
+Contractors requiring 1099-NEC ($600+ threshold):
+  Isaiah                                       $1,882.81  — Need W-9
+  Tiffany                                      $1,310.00  — Need W-9
+  Jeremiah Thomas                                $689.55  — Need W-9
+  360 Photo Booth                                $645.00  — Need W-9
+
+Contractors NOT requiring 1099 (under $600 or corporation):
+  GigSalad (Santa bookings, likely a corp)     $3,143.00  — Verify entity type
+  Funtime Services Chicago IL                    $375.00
+  California Coast R                             $100.00
+  ATM Withdrawal (unknown labor)                 $100.00
+  Julian Budde                                    $44.00
+
+Notes:
+- Late filing penalty: ~$130 per form = ~$520 total
+- CPA should request first-time penalty abatement (first year of business)
+- GigSalad paid Santa Claus Arttie — GigSalad handles Arttie's 1099
+- California FTB also requires 1099 reporting
+
+PRIORITY 8A: $2,000 SCAM LOSS
+--------------------------------------------------------------------------------
+On 05/19/2025, Sean was scammed out of $2,000 (Check 102). This has been
+reclassified from Contract labor to Penalties & settlements. The loss is
+deductible as an ordinary business loss. Sean should retain any documentation
+(texts, emails, bank records, police report if filed).
+
+PRIORITY 8B: CHECK #111 REIMBURSEMENT ($186.19)
+--------------------------------------------------------------------------------
+Check #111 on 11/14/2025 for $186.19 was a reimbursement to Sean for business
+expenses paid with personal funds. It was reclassified from Contract labor to
+Long-term loans from shareholders (reducing the amount owed to Sean).
+CPA should verify this is correctly recorded.
 
 PRIORITY 9: BUSINESS CHECKING BALANCE DISCREPANCY
 --------------------------------------------------------------------------------
@@ -310,9 +341,10 @@ ADJ-007  09/25/2025  Reclassify JBL Speaker ($488.24) from Office Expenses to
                      Tools, machinery, and equipment.
 
 ADJ-008  12/31/2025  Record business expenses paid with personal funds:
-                     $300 equipment, $349 software, $889 contract labor.
-                     Total $1,538.00 credited to Long-term loans from
-                     shareholders.
+                     $300 equipment, $349 software. Total $649.00 credited
+                     to Long-term loans from shareholders. (Original entry
+                     included $889 contract labor which was a duplicate —
+                     removed.)
 
 DEP-002  09/25/2025  Depreciation entry for JBL Speaker ($488.24). CPA should
                      review — may need to be reversed and recalculated as part
@@ -329,11 +361,13 @@ SECTION 7: KEY DECISIONS FOR CPA DISCUSSION
 3. How to handle the $15,572.07 phantom inventory balance?
 4. Should the $1,760 in cash equipment purchases be capitalized or expensed?
 5. Potential duplicate: Lowes canopy $267.22 (ADJ-006) vs. 05/01/2025 entry
-6. Late 1099-NEC filing strategy and penalties
+6. Late 1099-NEC filing — request first-time penalty abatement
 7. Reasonable salary threshold for future S-Corp payroll
 8. NOL carryforward strategy if staying C-Corp
 9. How to handle ~395 expense transactions in wrong bank account
 10. Verify Additional paid-in capital ($8,737.41) is correct classification
+11. $2,000 scam loss — proper classification and documentation needed
+12. GigSalad entity type — verify if 1099 required
 
 ================================================================================
 SECTION 8: SUMMARY OF QBO CLEANUP COMPLETED
