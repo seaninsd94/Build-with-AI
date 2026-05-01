@@ -222,13 +222,18 @@ correct equity classification.
 
 PRIORITY 8: 1099-NEC REQUIREMENTS (LATE — URGENT)
 --------------------------------------------------------------------------------
-Contract labor totaled $9,992.86 in 2025. 1099-NECs were due January 31, 2026
+Contract labor totaled $9,348 in 2025. 1099-NECs were due January 31, 2026
 and have NOT been filed. W-9s have NOT been collected.
+
+NOTE: QBO's 1099 tool shows Tiffany and Jeremiah Thomas as "unreportable"
+because their payments were recorded as checks from the "Cash" account (not
+the connected bank account). This is a QBO limitation — these payments ARE
+still 1099-reportable. CPA should file 1099s manually using the totals below.
 
 Contractors requiring 1099-NEC ($600+ threshold):
   Isaiah                                       $1,882.81  — Need W-9
-  Tiffany                                      $1,310.00  — Need W-9
-  Jeremiah Thomas                                $689.55  — Need W-9
+  Tiffany                                      $1,310.00  — Need W-9 (QBO shows unreportable — override)
+  Jeremiah Thomas                                $689.55  — Need W-9 (QBO shows unreportable — override)
 
 Contractors NOT requiring 1099 (under $600 or corporation):
   GigSalad (Santa bookings, likely a corp)     $3,143.00  — Verify entity type
